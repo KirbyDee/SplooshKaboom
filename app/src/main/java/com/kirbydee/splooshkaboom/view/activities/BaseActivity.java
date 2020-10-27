@@ -1,4 +1,4 @@
-package com.kirbydee.splooshkaboom.activity;
+package com.kirbydee.splooshkaboom.view.activities;
 
 import android.app.Activity;
 import android.app.ActivityOptions;

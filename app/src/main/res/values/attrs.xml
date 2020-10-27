@@ -1,0 +1,6 @@
+<resources>
+    <declare-styleable name="GridCellView">
+        <attr name="rowIndex" format="integer" />
+        <attr name="columnIndex" format="integer" />
+    </declare-styleable>
+</resources>

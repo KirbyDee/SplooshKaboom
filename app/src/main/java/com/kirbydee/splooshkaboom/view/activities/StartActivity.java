@@ -1,4 +1,4 @@
-package com.kirbydee.splooshkaboom.activity;
+package com.kirbydee.splooshkaboom.view.activities;
 
 import android.os.Bundle;
 import android.util.Log;

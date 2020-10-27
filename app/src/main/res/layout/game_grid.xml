@@ -1,98 +1,452 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TableRow
-        android:id="@+id/gridRow1"
-        android:background="@color/black"
-        android:layout_weight="1">
-        <View
-            android:id="@+id/gridCell_1_1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-        <View
-            android:id="@+id/gridCell_1_2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-        <View
-            android:id="@+id/gridCell_1_3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-        <View
-            android:id="@+id/gridCell_1_4"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-        <View
-            android:id="@+id/gridCell_1_5"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-        <View
-            android:id="@+id/gridCell_1_6"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-        <View
-            android:id="@+id/gridCell_1_7"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-        <View
-            android:id="@+id/gridCell_1_8"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-    </TableRow>
+    <TableLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TableRow
-        android:id="@+id/gridRow2"
-        android:background="@color/white"
-        android:layout_weight="1">
-        <View
-            android:id="@+id/gridCell_2_1"
-            android:layout_width="0dp"
+        <TableRow
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
-        <View
-            android:id="@+id/gridCell_2_2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-        <View
-            android:id="@+id/gridCell_2_3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-        <View
-            android:id="@+id/gridCell_2_4"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-        <View
-            android:id="@+id/gridCell_2_5"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-        <View
-            android:id="@+id/gridCell_2_6"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-        <View
-            android:id="@+id/gridCell_2_7"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-        <View
-            android:id="@+id/gridCell_2_8"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-    </TableRow>
+            android:layout_weight="1">
 
-</TableLayout>
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="0"
+                app:columnIndex="0"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="0"
+                app:columnIndex="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="0"
+                app:columnIndex="2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="0"
+                app:columnIndex="3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="0"
+                app:columnIndex="4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="0"
+                app:columnIndex="5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="0"
+                app:columnIndex="6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="0"
+                app:columnIndex="7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="1"
+                app:columnIndex="0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="1"
+                app:columnIndex="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="1"
+                app:columnIndex="2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="1"
+                app:columnIndex="3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="1"
+                app:columnIndex="4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="1"
+                app:columnIndex="5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="1"
+                app:columnIndex="6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="1"
+                app:columnIndex="7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="2"
+                app:columnIndex="0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="2"
+                app:columnIndex="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="2"
+                app:columnIndex="2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="2"
+                app:columnIndex="3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="2"
+                app:columnIndex="4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="2"
+                app:columnIndex="5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="2"
+                app:columnIndex="6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="2"
+                app:columnIndex="7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="3"
+                app:columnIndex="0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="3"
+                app:columnIndex="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="3"
+                app:columnIndex="2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="3"
+                app:columnIndex="3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="3"
+                app:columnIndex="4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="3"
+                app:columnIndex="5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="3"
+                app:columnIndex="6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="3"
+                app:columnIndex="7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="4"
+                app:columnIndex="0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="4"
+                app:columnIndex="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="4"
+                app:columnIndex="2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="4"
+                app:columnIndex="3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="4"
+                app:columnIndex="4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="4"
+                app:columnIndex="5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="4"
+                app:columnIndex="6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="4"
+                app:columnIndex="7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="5"
+                app:columnIndex="0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="5"
+                app:columnIndex="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="5"
+                app:columnIndex="2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="5"
+                app:columnIndex="3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="5"
+                app:columnIndex="4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="5"
+                app:columnIndex="5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="5"
+                app:columnIndex="6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="5"
+                app:columnIndex="7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="6"
+                app:columnIndex="0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="6"
+                app:columnIndex="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="6"
+                app:columnIndex="2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="6"
+                app:columnIndex="3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="6"
+                app:columnIndex="4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="6"
+                app:columnIndex="5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="6"
+                app:columnIndex="6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="6"
+                app:columnIndex="7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="7"
+                app:columnIndex="0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="7"
+                app:columnIndex="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="7"
+                app:columnIndex="2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="7"
+                app:columnIndex="3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="7"
+                app:columnIndex="4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="7"
+                app:columnIndex="5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="7"
+                app:columnIndex="6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <com.kirbydee.splooshkaboom.view.ui.GridCellView
+                app:rowIndex="7"
+                app:columnIndex="7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </TableRow>
+
+    </TableLayout>
+
+</layout>
