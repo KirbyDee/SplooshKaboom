@@ -9,6 +9,9 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.kirbydee.splooshkaboom.R;
+import com.kirbydee.splooshkaboom.model.GameState;
+import com.kirbydee.splooshkaboom.utils.Sound;
+import com.kirbydee.splooshkaboom.utils.Sounds;
 
 import java.util.Random;
 
@@ -52,8 +55,6 @@ public class GridCellView extends View {
             typedArray.recycle();
         }
 
-        setBackgroundColor(colors[rnd.nextInt(6)]);
-
         setOnTouchListener(this::onTouch);
     }
 
@@ -62,6 +63,7 @@ public class GridCellView extends View {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 Log.i(TAG, "(" + rowIndex + ", " + columnIndex + ")");
+                onShoot();
                 break;
             case MotionEvent.ACTION_UP:
                 v.performClick();
@@ -70,6 +72,27 @@ public class GridCellView extends View {
                 break;
         }
         return true;
+    }
+
+    private void onShoot() {
+        switch (GameState.shoot(rowIndex, columnIndex)) {
+            case SPLOOSH:
+                // SPLOOSH graphic
+                setBackgroundResource(R.drawable.sploosh);
+
+                // SPLOOSH sound
+                Sound.playSound(Sounds.SPLOOSH);
+                break;
+            case KABOOM:
+                // KABOOM graphic
+                setBackgroundResource(R.drawable.kaboom);
+
+                // KABOOM sound
+                Sound.playSound(Sounds.KABOOM);
+                break;
+            default:
+                // do nothing
+        }
     }
 
     public int getRowIndex() {
