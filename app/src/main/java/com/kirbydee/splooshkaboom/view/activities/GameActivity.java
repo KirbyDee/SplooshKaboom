@@ -15,10 +15,14 @@ import com.kirbydee.splooshkaboom.utils.Sound;
 import com.kirbydee.splooshkaboom.utils.Sounds;
 import com.kirbydee.splooshkaboom.view.ui.BombCellView;
 import com.kirbydee.splooshkaboom.view.ui.GridCellView;
+import com.kirbydee.splooshkaboom.view.ui.SquidCellView;
 
 // TOOD: shake screen: reset ?
 
-public class GameActivity extends BaseBackgroundSoundActivity implements GridCellView.GridCellViewListener, BombCellView.BombCellViewListener {
+public class GameActivity extends BaseBackgroundSoundActivity implements
+        GridCellView.GridCellViewListener,
+        BombCellView.BombCellViewListener,
+        SquidCellView.SquidCellViewListener {
 
     private static final String TAG = GameActivity.class.getName();
 
@@ -66,8 +70,8 @@ public class GameActivity extends BaseBackgroundSoundActivity implements GridCel
     public void onShoot(GridCellView view) {
         Log.i(TAG, "onShoot (" + view + ")");
         shoot(view);
-        decreaseBombs();
-        checkForSquids();
+        GameState.detonateBomb();
+        GameState.checkSquids();
         checkForWinLoss();
     }
 
@@ -114,14 +118,6 @@ public class GameActivity extends BaseBackgroundSoundActivity implements GridCel
         }
     }
 
-    private void decreaseBombs() {
-        GameState.detonateBomb();
-    }
-
-    private void checkForSquids() {
-        // TODO
-    }
-
     private void checkForWinLoss() {
         Log.i(TAG, "checkForWinLoss");
         if (GameState.isWin()) {
@@ -132,5 +128,10 @@ public class GameActivity extends BaseBackgroundSoundActivity implements GridCel
     @Override
     public void initDone(BombCellView view) {
         GameState.addBomb(view);
+    }
+
+    @Override
+    public void initDone(SquidCellView view) {
+        GameState.addSquid(view);
     }
 }
