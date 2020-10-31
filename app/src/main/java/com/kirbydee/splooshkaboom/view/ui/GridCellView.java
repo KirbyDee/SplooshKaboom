@@ -2,18 +2,12 @@ package com.kirbydee.splooshkaboom.view.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.kirbydee.splooshkaboom.R;
-import com.kirbydee.splooshkaboom.model.GameState;
-import com.kirbydee.splooshkaboom.utils.Sound;
-import com.kirbydee.splooshkaboom.utils.Sounds;
-
-import java.util.Random;
 
 import androidx.annotation.Nullable;
 
@@ -21,8 +15,14 @@ public class GridCellView extends View {
 
     private static final String TAG = GridCellView.class.getName();
 
+    private GridCellViewListener listener;
     private int rowIndex;
     private int columnIndex;
+
+    public interface GridCellViewListener {
+
+        void onShoot(GridCellView view);
+    }
 
     public GridCellView(Context context) {
         super(context);
@@ -30,23 +30,20 @@ public class GridCellView extends View {
 
     public GridCellView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        populateIndexes(context, attrs);
+        init(context, attrs);
     }
 
     public GridCellView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        populateIndexes(context, attrs);
+        init(context, attrs);
     }
 
     public GridCellView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        populateIndexes(context, attrs);
+        init(context, attrs);
     }
 
-    int[] colors = {Color.GREEN, Color.BLUE, Color.RED, Color.WHITE, Color.YELLOW, Color.BLACK};
-    Random rnd = new Random();
-
-    private void populateIndexes(Context context, @Nullable AttributeSet attrs) {
+    private void init(Context context, @Nullable AttributeSet attrs) {
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.GridCellView, 0, 0);
         try {
             this.rowIndex = typedArray.getInt(R.styleable.GridCellView_rowIndex, -1);
@@ -56,14 +53,19 @@ public class GridCellView extends View {
         }
 
         setOnTouchListener(this::onTouch);
+        if (context instanceof GridCellViewListener) {
+            this.listener = (GridCellViewListener) context;
+        }
     }
 
     private boolean onTouch(View v, MotionEvent event) {
         Log.i(TAG, "onTouch: " + event);
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                Log.i(TAG, "(" + rowIndex + ", " + columnIndex + ")");
-                onShoot();
+                Log.i(TAG, "ACTION_DOWN: (" + rowIndex + ", " + columnIndex + ")");
+                if (listener != null) {
+                    listener.onShoot(this);
+                }
                 break;
             case MotionEvent.ACTION_UP:
                 v.performClick();
@@ -74,25 +76,12 @@ public class GridCellView extends View {
         return true;
     }
 
-    private void onShoot() {
-        switch (GameState.shoot(rowIndex, columnIndex)) {
-            case SPLOOSH:
-                // SPLOOSH graphic
-                setBackgroundResource(R.drawable.sploosh);
-
-                // SPLOOSH sound
-                Sound.playSound(Sounds.SPLOOSH);
-                break;
-            case KABOOM:
-                // KABOOM graphic
-                setBackgroundResource(R.drawable.kaboom);
-
-                // KABOOM sound
-                Sound.playSound(Sounds.KABOOM);
-                break;
-            default:
-                // do nothing
-        }
+    @Override
+    public String toString() {
+        return "GridCellView{" +
+                "rowIndex=" + rowIndex +
+                ", columnIndex=" + columnIndex +
+                '}';
     }
 
     public int getRowIndex() {

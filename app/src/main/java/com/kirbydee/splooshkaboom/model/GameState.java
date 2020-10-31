@@ -2,10 +2,12 @@ package com.kirbydee.splooshkaboom.model;
 
 import android.util.Log;
 
+import com.kirbydee.splooshkaboom.R;
 import com.kirbydee.splooshkaboom.model.gridcell.GridCell;
 import com.kirbydee.splooshkaboom.model.gridcell.GridCellState;
 import com.kirbydee.splooshkaboom.model.gridcell.Squid;
 import com.kirbydee.splooshkaboom.model.gridcell.Water;
+import com.kirbydee.splooshkaboom.view.ui.BombCellView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +19,16 @@ public class GameState {
 
     private static List<GridCell> gridCells;
 
+    private static List<BombCellView> bombCellViews;
+
+    private static final int MAX_TURNS = 24;
+
+    private static int turnsLeft;
+
     public static void reset() {
         Log.i(TAG, "reset grid cells");
         gridCells = new ArrayList<>(8*8);
+        turnsLeft = MAX_TURNS;
 
         List<Squid> squid2 = initSquid(2);
         gridCells.addAll(squid2);
@@ -88,11 +97,42 @@ public class GameState {
 
     public static GridCellState shoot(int row, int column) {
         Log.i(TAG, "shoot grid cell (" + row + ", " + column + ")");
+        turnsLeft--;
+        Log.i(TAG, "Turns left: " + turnsLeft);
         return gridCells.stream()
                 .filter(c -> c.isCorrectGrid(row, column))
                 .findAny()
                 .filter(GridCell::canBeHit)
                 .map(GridCell::hit)
                 .orElse(GridCellState.UNKNOWN);
+    }
+
+    public static boolean isWin() {
+        Log.i(TAG, "isWin");
+        return turnsLeft >= 0 && gridCells.stream()
+                .noneMatch(c -> c.getCurrentState() == GridCellState.SQUID);
+    }
+
+    public static boolean isLoss() {
+        Log.i(TAG, "isLoss");
+        return turnsLeft <= 0 && gridCells.stream()
+                .anyMatch(c -> c.getCurrentState() == GridCellState.SQUID);
+    }
+
+    public static void addBomb(BombCellView view) {
+        Log.i(TAG, "addBomb: " + view);
+        if (bombCellViews == null) {
+            bombCellViews = new ArrayList<>();
+        }
+        bombCellViews.add(view);
+        view.setBackgroundResource(R.drawable.bomb_active);
+    }
+
+    public static void detonateBomb() {
+        Log.i(TAG, "detonateBomb");
+        bombCellViews.stream()
+                .filter(b -> b.getBombIndex() == (MAX_TURNS - turnsLeft + 1))
+                .findAny()
+                .ifPresent(b -> b.setBackgroundResource(R.drawable.bomb_nonactive));
     }
 }
