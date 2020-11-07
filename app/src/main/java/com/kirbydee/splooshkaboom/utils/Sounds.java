@@ -8,6 +8,7 @@ public enum Sounds {
     SPLOOSH(R.raw.sploosh),
     KABOOM(R.raw.kaboom),
     HURRAY(R.raw.hurray),
+    GAME_OVER(R.raw.game_over),
     TREASURE(R.raw.treasure);
 
     private int res;

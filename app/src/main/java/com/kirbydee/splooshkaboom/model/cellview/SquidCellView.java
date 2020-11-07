@@ -1,23 +1,20 @@
-package com.kirbydee.splooshkaboom.view.ui;
+package com.kirbydee.splooshkaboom.model.cellview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.view.View;
 
 import com.kirbydee.splooshkaboom.R;
 
 import androidx.annotation.Nullable;
 
-public class SquidCellView extends View {
-
-    private static final String TAG = SquidCellView.class.getName();
+public class SquidCellView extends CellView {
 
     private int squidSize;
 
     public interface SquidCellViewListener {
 
-        void initDone(SquidCellView view);
+        void onCreate(SquidCellView view);
     }
 
     public SquidCellView(Context context) {
@@ -26,20 +23,18 @@ public class SquidCellView extends View {
 
     public SquidCellView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init(context, attrs);
     }
 
     public SquidCellView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs);
     }
 
     public SquidCellView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init(context, attrs);
     }
 
-    private void init(Context context, @Nullable AttributeSet attrs) {
+    @Override
+    protected void init(Context context, @Nullable AttributeSet attrs) {
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SquidCellView, 0, 0);
         try {
             this.squidSize = typedArray.getInt(R.styleable.SquidCellView_squidSize, -1);
@@ -47,10 +42,21 @@ public class SquidCellView extends View {
             typedArray.recycle();
         }
 
+
         if (context instanceof SquidCellViewListener) {
             SquidCellViewListener listener = (SquidCellViewListener) context;
-            listener.initDone(this);
+            listener.onCreate(this);
         }
+    }
+
+    @Override
+    protected int getEnableDrawable() {
+        return R.drawable.squid_active;
+    }
+
+    @Override
+    protected int getDisableDrawable() {
+        return R.drawable.squid_nonactive;
     }
 
     @Override

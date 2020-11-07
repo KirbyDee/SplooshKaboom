@@ -32,7 +32,7 @@ public abstract class BaseActivity extends Activity {
         setUpListeners();
     }
 
-    protected <A extends Activity> void changeActivity(Class<A> activity) {
+    protected <A extends Activity> void changeActivity(final Class<A> activity) {
         Log.i(TAG, "changeActivity");
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         Intent intent = new Intent(this, activity);

@@ -1,5 +1,7 @@
 package com.kirbydee.splooshkaboom.model.gridcell;
 
+import com.kirbydee.splooshkaboom.model.cellview.GridCellView;
+
 public abstract class GridCell {
 
     private final int row;
@@ -14,12 +16,20 @@ public abstract class GridCell {
         this.endState = endState;
     }
 
+    public boolean isCorrectGrid(GridCellView view) {
+        return isCorrectGrid(view.getRowIndex(), view.getColumnIndex());
+    }
+
     public boolean isCorrectGrid(int row, int column) {
         return row == this.row && column == this.column;
     }
 
     public boolean canBeHit() {
         return this.currentState != this.endState;
+    }
+
+    public boolean cannotBeHit() {
+        return !canBeHit();
     }
 
     public GridCellState hit() {

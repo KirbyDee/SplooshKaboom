@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.VIBRATE"/>
 
+    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
+
     <application
         android:name="com.kirbydee.splooshkaboom.SplooshKaboomApplication"
         android:allowBackup="true"
@@ -22,6 +24,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.activities.GameActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".view.activities.GameOverActivity"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
             android:screenOrientation="landscape">
         </activity>

@@ -2,6 +2,7 @@ package com.kirbydee.splooshkaboom.utils;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.os.Handler;
 import android.util.Log;
 
 import com.kirbydee.splooshkaboom.view.activities.GameActivity;
@@ -15,7 +16,7 @@ public class Sound {
 
     private static final Map<Sounds, MediaPlayer> mediaPlayerMap = new HashMap<>();
 
-    public static void stopSound(Context context, Sounds sound) {
+    public static void stopSound(final Context context, final Sounds sound) {
         Log.i(TAG, "stopSound");
         MediaPlayer mediaPlayer = mediaPlayerMap.get(sound);
         if (mediaPlayer != null) {
@@ -26,9 +27,14 @@ public class Sound {
         mediaPlayerMap.put(sound, mediaPlayer);
     }
 
-    public static void playSound(Context context, Sounds sound) {
+    public static void playSound(final Context context, final Sounds sound) {
         Log.i(TAG, "play Sound: " + sound);
         stopSound(context, sound);
         mediaPlayerMap.get(sound).start();
+    }
+
+    public static void playSound(final Context context, final Sounds sound, int delay) {
+        Log.i(TAG, "play Sound: " + sound + ", after " + delay + "s");
+        new Handler().postDelayed(() -> playSound(context, sound), delay * 1000);
     }
 }

@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash"
-    tools:context=".view.activities.StartActivity">
+    android:background="@drawable/game_over"
+    tools:context=".view.activities.GameOverActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/screenView"/>
+        android:id="@+id/gameOverView"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

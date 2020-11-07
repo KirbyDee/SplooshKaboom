@@ -1,15 +1,15 @@
-package com.kirbydee.splooshkaboom.model;
+package com.kirbydee.splooshkaboom.controller;
 
 import android.util.Log;
 
-import com.kirbydee.splooshkaboom.R;
 import com.kirbydee.splooshkaboom.model.gridcell.GridCell;
 import com.kirbydee.splooshkaboom.model.gridcell.GridCellState;
 import com.kirbydee.splooshkaboom.model.gridcell.Squid;
 import com.kirbydee.splooshkaboom.model.gridcell.SquidType;
 import com.kirbydee.splooshkaboom.model.gridcell.Water;
-import com.kirbydee.splooshkaboom.view.ui.BombCellView;
-import com.kirbydee.splooshkaboom.view.ui.SquidCellView;
+import com.kirbydee.splooshkaboom.model.cellview.BombCellView;
+import com.kirbydee.splooshkaboom.model.cellview.GridCellView;
+import com.kirbydee.splooshkaboom.model.cellview.SquidCellView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,21 +19,21 @@ import static com.kirbydee.splooshkaboom.model.gridcell.SquidType.SQUID_2;
 import static com.kirbydee.splooshkaboom.model.gridcell.SquidType.SQUID_3;
 import static com.kirbydee.splooshkaboom.model.gridcell.SquidType.SQUID_4;
 
-public class GameState {
+public class GameController {
 
-    private static final String TAG = GameState.class.getName();
-
-    private static List<GridCell> gridCells;
-
-    private static List<BombCellView> bombCellViews;
-
-    private static List<SquidCellView> squidCellViews;
+    private static final String TAG = GameController.class.getName();
 
     private static final int MAX_TURNS = 24;
 
-    private static int turnsLeft;
+    private List<GridCell> gridCells;
 
-    public static void reset() {
+    private List<BombCellView> bombCellViews;
+
+    private List<SquidCellView> squidCellViews;
+
+    private int turnsLeft;
+
+    public void reset() {
         Log.i(TAG, "reset grid cells");
         gridCells = new ArrayList<>(8*8);
         turnsLeft = MAX_TURNS;
@@ -54,7 +54,7 @@ public class GameState {
         }
     }
 
-    private static List<Squid> initSquid(SquidType squidType) {
+    private List<Squid> initSquid(SquidType squidType) {
         Log.i(TAG, "initSquid: " + squidType);
         Random rnd = new Random();
         int row = rnd.nextInt(8);
@@ -64,7 +64,7 @@ public class GameState {
         return initSquid(new ArrayList<>(squidType.length), squidType, squidType.length, row, column, direction);
     }
 
-    private static List<Squid> initSquid(List<Squid> squid, SquidType squidType, int restLength, int row, int column, int direction) {
+    private List<Squid> initSquid(List<Squid> squid, SquidType squidType, int restLength, int row, int column, int direction) {
         Log.i(TAG, "initSquid (" + squidType + ", " + row + ", " + column + ", " + direction + ")");
         if (restLength == 0) {
             Log.i(TAG, "squid successfully created");
@@ -97,25 +97,34 @@ public class GameState {
         return initSquid(squid, squidType, restLength - 1, rowNew, columnNew, direction);
     }
 
-    private static boolean isUsed(int row, int column) {
+    private boolean isUsed(int row, int column) {
         Log.i(TAG, "check if grid cell exists (" + row + ", " + column + ")");
         return gridCells.stream()
                 .anyMatch(c -> c.isCorrectGrid(row, column));
     }
 
-    public static GridCellState shoot(int row, int column) {
-        Log.i(TAG, "shoot grid cell (" + row + ", " + column + ")");
+    public boolean hasBeenShotAlready(GridCellView view) {
+        Log.i(TAG, "hasBeenShotAlready (" + view + ")");
+        return gridCells.stream()
+                .filter(c -> c.isCorrectGrid(view))
+                .findAny()
+                .filter(GridCell::cannotBeHit)
+                .isPresent();
+    }
+
+    public GridCellState shoot(GridCellView view) {
+        Log.i(TAG, "shoot (" + view + ")");
         turnsLeft--;
         Log.i(TAG, "Turns left: " + turnsLeft);
         return gridCells.stream()
-                .filter(c -> c.isCorrectGrid(row, column))
+                .filter(c -> c.isCorrectGrid(view))
                 .findAny()
                 .filter(GridCell::canBeHit)
                 .map(GridCell::hit)
                 .orElse(GridCellState.UNKNOWN);
     }
 
-    public static void checkSquids() {
+    public void checkSquids() {
         Log.i(TAG, "checkSquids");
         for (SquidType squidType : SquidType.values()) {
             if (checkIfSquidIsKaboom(squidType)) {
@@ -124,7 +133,7 @@ public class GameState {
         }
     }
 
-    private static boolean checkIfSquidIsKaboom(SquidType squidType) {
+    private boolean checkIfSquidIsKaboom(SquidType squidType) {
         Log.i(TAG, "checkIfSquidTypeIsGone (" + squidType + ")");
         return gridCells.stream()
                 .filter(c -> c instanceof Squid)
@@ -133,49 +142,54 @@ public class GameState {
                 .allMatch(s -> s.getCurrentState() == GridCellState.KABOOM);
     }
 
-    public static boolean isWin() {
+    public boolean isWin() {
         Log.i(TAG, "isWin");
         return turnsLeft >= 0 && gridCells.stream()
                 .noneMatch(c -> c.getCurrentState() == GridCellState.SQUID);
     }
 
-    public static boolean isLoss() {
+    public boolean isLoss() {
         Log.i(TAG, "isLoss");
         return turnsLeft <= 0 && gridCells.stream()
                 .anyMatch(c -> c.getCurrentState() == GridCellState.SQUID);
     }
 
-    public static void addBomb(BombCellView view) {
+    public boolean gameFinished() {
+        Log.i(TAG, "gameFinished");
+        return turnsLeft <= 0;
+    }
+
+    public void addBomb(BombCellView view) {
         Log.i(TAG, "addBomb: " + view);
         if (bombCellViews == null) {
             bombCellViews = new ArrayList<>();
         }
         bombCellViews.add(view);
-        view.setBackgroundResource(R.drawable.bomb_active);
+        view.enable();
     }
 
-    public static void detonateBomb() {
+    public void detonateBomb() {
         Log.i(TAG, "detonateBomb");
         bombCellViews.stream()
                 .filter(b -> b.getBombIndex() == (MAX_TURNS - turnsLeft - 1))
                 .findAny()
-                .ifPresent(b -> b.setBackgroundResource(R.drawable.bomb_nonactive));
+                .ifPresent(BombCellView::disable);
     }
 
-    public static void addSquid(SquidCellView view) {
+    public void addSquid(SquidCellView view) {
         Log.i(TAG, "addSquid: " + view);
         if (squidCellViews == null) {
             squidCellViews = new ArrayList<>();
         }
         squidCellViews.add(view);
-        view.setBackgroundResource(R.drawable.squid_active);
+        view.enable();
     }
 
-    private static void detonateSquid(SquidType squidType) {
+    private void detonateSquid(SquidType squidType) {
         Log.i(TAG, "detonateSquid");
         squidCellViews.stream()
                 .filter(b -> b.getSquidSize() == squidType.length)
                 .findAny()
-                .ifPresent(b -> b.setBackgroundResource(R.drawable.squid_nonactive));
+                .ifPresent(SquidCellView::disable);
     }
 }

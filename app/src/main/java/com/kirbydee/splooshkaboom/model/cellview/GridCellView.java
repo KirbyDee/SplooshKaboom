@@ -1,4 +1,4 @@
-package com.kirbydee.splooshkaboom.view.ui;
+package com.kirbydee.splooshkaboom.model.cellview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -11,17 +11,20 @@ import com.kirbydee.splooshkaboom.R;
 
 import androidx.annotation.Nullable;
 
-public class GridCellView extends View {
+public class GridCellView extends CellView {
 
     private static final String TAG = GridCellView.class.getName();
 
     private GridCellViewListener listener;
+
     private int rowIndex;
     private int columnIndex;
 
     public interface GridCellViewListener {
 
-        void onShoot(GridCellView view);
+        void onCreate(GridCellView view);
+
+        void onClick(GridCellView view);
     }
 
     public GridCellView(Context context) {
@@ -30,20 +33,18 @@ public class GridCellView extends View {
 
     public GridCellView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init(context, attrs);
     }
 
     public GridCellView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs);
     }
 
     public GridCellView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init(context, attrs);
     }
 
-    private void init(Context context, @Nullable AttributeSet attrs) {
+    @Override
+    protected void init(Context context, @Nullable AttributeSet attrs) {
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.GridCellView, 0, 0);
         try {
             this.rowIndex = typedArray.getInt(R.styleable.GridCellView_rowIndex, -1);
@@ -55,7 +56,18 @@ public class GridCellView extends View {
         setOnTouchListener(this::onTouch);
         if (context instanceof GridCellViewListener) {
             this.listener = (GridCellViewListener) context;
+            this.listener.onCreate(this);
         }
+    }
+
+    @Override
+    protected int getEnableDrawable() {
+        return R.drawable.sploosh;
+    }
+
+    @Override
+    protected int getDisableDrawable() {
+        return R.drawable.kaboom;
     }
 
     private boolean onTouch(View v, MotionEvent event) {
@@ -63,8 +75,8 @@ public class GridCellView extends View {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 Log.i(TAG, "ACTION_DOWN: (" + rowIndex + ", " + columnIndex + ")");
-                if (listener != null) {
-                    listener.onShoot(this);
+                if (this.listener != null) {
+                    this.listener.onClick(this);
                 }
                 break;
             case MotionEvent.ACTION_UP:

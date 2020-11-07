@@ -1,23 +1,20 @@
-package com.kirbydee.splooshkaboom.view.ui;
+package com.kirbydee.splooshkaboom.model.cellview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.view.View;
 
 import com.kirbydee.splooshkaboom.R;
 
 import androidx.annotation.Nullable;
 
-public class BombCellView extends View {
-
-    private static final String TAG = BombCellView.class.getName();
+public class BombCellView extends CellView {
 
     private int bombIndex;
 
     public interface BombCellViewListener {
 
-        void initDone(BombCellView view);
+        void onCreate(BombCellView view);
     }
 
     public BombCellView(Context context) {
@@ -26,20 +23,18 @@ public class BombCellView extends View {
 
     public BombCellView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init(context, attrs);
     }
 
     public BombCellView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs);
     }
 
     public BombCellView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init(context, attrs);
     }
 
-    private void init(Context context, @Nullable AttributeSet attrs) {
+    @Override
+    protected void init(Context context, @Nullable AttributeSet attrs) {
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.BombCellView, 0, 0);
         try {
             this.bombIndex = typedArray.getInt(R.styleable.BombCellView_bombIndex, -1);
@@ -49,8 +44,17 @@ public class BombCellView extends View {
 
         if (context instanceof BombCellViewListener) {
             BombCellViewListener listener = (BombCellViewListener) context;
-            listener.initDone(this);
+            listener.onCreate(this);
         }
+    }
+
+    @Override
+    protected int getEnableDrawable() {
+        return R.drawable.bomb_active;
+    }
+    @Override
+    protected int getDisableDrawable() {
+        return R.drawable.bomb_nonactive;
     }
 
     @Override

@@ -10,7 +10,7 @@ public abstract class BaseBackgroundSoundActivity extends BaseActivity {
 
     private MediaPlayer player;
 
-    private Handler playerHandler = new Handler();
+    private final Handler playerHandler = new Handler();
 
     @Override
     protected void onResume() {
