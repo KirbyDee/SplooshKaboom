@@ -13,10 +13,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
 import com.kirbydee.splooshkaboom.R;
+import com.kirbydee.splooshkaboom.controller.Counter;
 import com.kirbydee.splooshkaboom.controller.GameController;
 import com.kirbydee.splooshkaboom.controller.ShakeDetector;
 import com.kirbydee.splooshkaboom.model.cellview.BombCellView;
@@ -36,6 +38,10 @@ public class GameActivity extends BaseBackgroundSoundActivity implements
 
     private GameController gameController = new GameController();
 
+    private Counter counter; // TODO: put into GameController - have listeners
+
+    private Counter record; // TODO: put into GameController - have listeners
+
     private View gameGrid;
 
     // The following are used for the shake detection
@@ -53,6 +59,7 @@ public class GameActivity extends BaseBackgroundSoundActivity implements
 
         initGameController();
         initShakeDetector();
+        initCounters(); // TODO: put into GameController
     }
 
     private void resetGame() {
@@ -72,7 +79,19 @@ public class GameActivity extends BaseBackgroundSoundActivity implements
         this.shakeDetector.setOnShakeListener(this::handleShakeEvent);
     }
 
-    private void handleShakeEvent(int count) {
+    private void initCounters() {  // TODO: put into GameController
+        // counter of bombs
+        ImageView counterLowView = findViewById(R.id.counter_low);
+        ImageView counterHighView = findViewById(R.id.counter_high);
+        this.counter = new Counter(counterLowView, counterHighView);
+
+        // record
+        ImageView recordLowView = findViewById(R.id.record_low);
+        ImageView recordHighView = findViewById(R.id.record_high);
+        this.record = new Counter(recordLowView, recordHighView, 15); // TODO shared pref
+    }
+
+    private void handleShakeEvent(int count) { // TODO: put somewhere else?
         Log.i(TAG, "handleShakeEvent: " + count);
 
         // inflate the layout of the popup window
@@ -144,12 +163,15 @@ public class GameActivity extends BaseBackgroundSoundActivity implements
     @Override
     public void onClick(GridCellView view) {
         Log.i(TAG, "onShoot (" + view + ")");
+
+        // TODO: rest -> put into GameController - only have 1 method here for game controller
         if (this.gameController.gameFinished() || this.gameController.hasBeenShotAlready(view)) {
             Log.i(TAG, "Cannot be clicked");
             return;
         }
 
         shoot(view);
+        this.counter.increase(this);
         this.gameController.detonateBomb();
         this.gameController.checkSquids();
         checkForWinLoss();

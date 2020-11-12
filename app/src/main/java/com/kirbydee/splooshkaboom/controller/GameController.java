@@ -18,12 +18,11 @@ import java.util.Random;
 import static com.kirbydee.splooshkaboom.model.gridcell.SquidType.SQUID_2;
 import static com.kirbydee.splooshkaboom.model.gridcell.SquidType.SQUID_3;
 import static com.kirbydee.splooshkaboom.model.gridcell.SquidType.SQUID_4;
+import static com.kirbydee.splooshkaboom.utils.Consts.MAX_TURNS;
 
 public class GameController {
 
     private static final String TAG = GameController.class.getName();
-
-    private static final int MAX_TURNS = 24;
 
     private List<GridCell> gridCells;
 
