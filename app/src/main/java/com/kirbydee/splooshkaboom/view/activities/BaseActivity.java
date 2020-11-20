@@ -16,11 +16,15 @@ public abstract class BaseActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "onCreate");
         super.onCreate(savedInstanceState);
+
         // Remove title bar
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         // Remove notification bar
-       this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        // init
+        init();
     }
 
     @Override
@@ -28,6 +32,7 @@ public abstract class BaseActivity extends Activity {
         Log.i(TAG, "onResume");
         super.onResume();
 
+        // setup
         setUpViews();
         setUpListeners();
     }
@@ -47,7 +52,15 @@ public abstract class BaseActivity extends Activity {
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
-    protected abstract void setUpViews();
+    protected void init() {
+        // Override
+    }
 
-    protected abstract void setUpListeners();
+    protected void setUpViews() {
+        // Override
+    }
+
+    protected void setUpListeners() {
+        // Override
+    }
 }

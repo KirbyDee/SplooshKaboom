@@ -1,4 +1,4 @@
-package com.kirbydee.splooshkaboom.model.gridcell;
+package com.kirbydee.splooshkaboom.model.grid.game;
 
 public enum SquidType {
 

@@ -1,4 +1,4 @@
-package com.kirbydee.splooshkaboom.model.cellview;
+package com.kirbydee.splooshkaboom.view.layoutviews.grid.state;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,28 +8,28 @@ import com.kirbydee.splooshkaboom.R;
 
 import androidx.annotation.Nullable;
 
-public class BombCellView extends CellView {
+public class BombStateGridView extends StateGridView {
 
     private int bombIndex;
 
-    public interface BombCellViewListener {
+    public interface Listener {
 
-        void onCreate(BombCellView view);
+        void onCreate(BombStateGridView view);
     }
 
-    public BombCellView(Context context) {
+    public BombStateGridView(Context context) {
         super(context);
     }
 
-    public BombCellView(Context context, @Nullable AttributeSet attrs) {
+    public BombStateGridView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public BombCellView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public BombStateGridView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public BombCellView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public BombStateGridView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
@@ -42,8 +42,8 @@ public class BombCellView extends CellView {
             typedArray.recycle();
         }
 
-        if (context instanceof BombCellViewListener) {
-            BombCellViewListener listener = (BombCellViewListener) context;
+        if (context instanceof Listener) {
+            Listener listener = (Listener) context;
             listener.onCreate(this);
         }
     }

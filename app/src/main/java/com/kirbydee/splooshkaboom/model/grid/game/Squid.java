@@ -1,11 +1,11 @@
-package com.kirbydee.splooshkaboom.model.gridcell;
+package com.kirbydee.splooshkaboom.model.grid.game;
 
-public class Squid extends GridCell {
+public class Squid extends GameGrid {
 
     private SquidType tpe;
 
     public Squid(int row, int column, SquidType tpe) {
-        super(row, column, GridCellState.SQUID, GridCellState.KABOOM);
+        super(row, column, GameGridState.SQUID, GameGridState.KABOOM);
         this.tpe = tpe;
     }
 

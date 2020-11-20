@@ -1,4 +1,4 @@
-package com.kirbydee.splooshkaboom.model.cellview;
+package com.kirbydee.splooshkaboom.view.layoutviews.grid.game;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,38 +8,40 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.kirbydee.splooshkaboom.R;
+import com.kirbydee.splooshkaboom.view.layoutviews.grid.GridView;
 
 import androidx.annotation.Nullable;
 
-public class GridCellView extends CellView {
+public class GameGridView extends GridView {
 
-    private static final String TAG = GridCellView.class.getName();
+    private static final String TAG = GameGridView.class.getName();
 
-    private GridCellViewListener listener;
+    private Listener listener;
 
     private int rowIndex;
+
     private int columnIndex;
 
-    public interface GridCellViewListener {
+    public interface Listener {
 
-        void onCreate(GridCellView view);
+        void onCreate(GameGridView view);
 
-        void onClick(GridCellView view);
+        void onClick(GameGridView view);
     }
 
-    public GridCellView(Context context) {
+    public GameGridView(Context context) {
         super(context);
     }
 
-    public GridCellView(Context context, @Nullable AttributeSet attrs) {
+    public GameGridView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public GridCellView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public GameGridView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public GridCellView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public GameGridView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
@@ -54,20 +56,10 @@ public class GridCellView extends CellView {
         }
 
         setOnTouchListener(this::onTouch);
-        if (context instanceof GridCellViewListener) {
-            this.listener = (GridCellViewListener) context;
+        if (context instanceof Listener) {
+            this.listener = (Listener) context;
             this.listener.onCreate(this);
         }
-    }
-
-    @Override
-    protected int getEnableDrawable() {
-        return R.drawable.sploosh;
-    }
-
-    @Override
-    protected int getDisableDrawable() {
-        return R.drawable.kaboom;
     }
 
     private boolean onTouch(View v, MotionEvent event) {
@@ -86,6 +78,19 @@ public class GridCellView extends CellView {
                 break;
         }
         return true;
+    }
+
+    public void sploosh() {
+        setBackgroundResource(R.drawable.sploosh);
+    }
+
+    public void kaboom() {
+        setBackgroundResource(R.drawable.kaboom);
+    }
+
+    @Override
+    public void reset() {
+        setBackgroundResource(0);
     }
 
     @Override

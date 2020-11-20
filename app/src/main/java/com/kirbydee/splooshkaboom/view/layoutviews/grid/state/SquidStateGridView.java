@@ -1,4 +1,4 @@
-package com.kirbydee.splooshkaboom.model.cellview;
+package com.kirbydee.splooshkaboom.view.layoutviews.grid.state;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,28 +8,28 @@ import com.kirbydee.splooshkaboom.R;
 
 import androidx.annotation.Nullable;
 
-public class SquidCellView extends CellView {
+public class SquidStateGridView extends StateGridView {
 
     private int squidSize;
 
-    public interface SquidCellViewListener {
+    public interface Listener {
 
-        void onCreate(SquidCellView view);
+        void onCreate(SquidStateGridView view);
     }
 
-    public SquidCellView(Context context) {
+    public SquidStateGridView(Context context) {
         super(context);
     }
 
-    public SquidCellView(Context context, @Nullable AttributeSet attrs) {
+    public SquidStateGridView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public SquidCellView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public SquidStateGridView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public SquidCellView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public SquidStateGridView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
@@ -42,9 +42,8 @@ public class SquidCellView extends CellView {
             typedArray.recycle();
         }
 
-
-        if (context instanceof SquidCellViewListener) {
-            SquidCellViewListener listener = (SquidCellViewListener) context;
+        if (context instanceof Listener) {
+            Listener listener = (Listener) context;
             listener.onCreate(this);
         }
     }

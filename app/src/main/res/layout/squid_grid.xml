@@ -9,21 +9,21 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.kirbydee.splooshkaboom.model.cellview.SquidCellView
+        <com.kirbydee.splooshkaboom.view.layoutviews.grid.state.SquidStateGridView
             app:squidSize="2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@drawable/squid_active"
             android:layout_marginBottom="10dp"
             android:layout_weight="1" />
-        <com.kirbydee.splooshkaboom.model.cellview.SquidCellView
+        <com.kirbydee.splooshkaboom.view.layoutviews.grid.state.SquidStateGridView
             app:squidSize="3"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@drawable/squid_active"
             android:layout_marginBottom="10dp"
             android:layout_weight="1" />
-        <com.kirbydee.splooshkaboom.model.cellview.SquidCellView
+        <com.kirbydee.splooshkaboom.view.layoutviews.grid.state.SquidStateGridView
             app:squidSize="4"
             android:layout_width="match_parent"
             android:layout_height="0dp"
