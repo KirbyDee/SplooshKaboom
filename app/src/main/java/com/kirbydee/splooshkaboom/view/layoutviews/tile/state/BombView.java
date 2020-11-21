@@ -1,4 +1,4 @@
-package com.kirbydee.splooshkaboom.view.layoutviews.grid.state;
+package com.kirbydee.splooshkaboom.view.layoutviews.tile.state;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,28 +8,28 @@ import com.kirbydee.splooshkaboom.R;
 
 import androidx.annotation.Nullable;
 
-public class BombStateGridView extends StateGridView {
+public class BombView extends StateTileView {
 
     private int bombIndex;
 
     public interface Listener {
 
-        void onCreate(BombStateGridView view);
+        void onCreate(BombView view);
     }
 
-    public BombStateGridView(Context context) {
+    public BombView(Context context) {
         super(context);
     }
 
-    public BombStateGridView(Context context, @Nullable AttributeSet attrs) {
+    public BombView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public BombStateGridView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public BombView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public BombStateGridView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public BombView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 

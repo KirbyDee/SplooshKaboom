@@ -1,4 +1,4 @@
-package com.kirbydee.splooshkaboom.view.layoutviews.grid.game;
+package com.kirbydee.splooshkaboom.view.layoutviews.tile.game;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,13 +8,13 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.kirbydee.splooshkaboom.R;
-import com.kirbydee.splooshkaboom.view.layoutviews.grid.GridView;
+import com.kirbydee.splooshkaboom.view.layoutviews.tile.TileView;
 
 import androidx.annotation.Nullable;
 
-public class GameGridView extends GridView {
+public class GameTileView extends TileView {
 
-    private static final String TAG = GameGridView.class.getName();
+    private static final String TAG = GameTileView.class.getName();
 
     private Listener listener;
 
@@ -24,24 +24,24 @@ public class GameGridView extends GridView {
 
     public interface Listener {
 
-        void onCreate(GameGridView view);
+        void onCreate(GameTileView view);
 
-        void onClick(GameGridView view);
+        void onClick(GameTileView view);
     }
 
-    public GameGridView(Context context) {
+    public GameTileView(Context context) {
         super(context);
     }
 
-    public GameGridView(Context context, @Nullable AttributeSet attrs) {
+    public GameTileView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public GameGridView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public GameTileView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public GameGridView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public GameTileView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 

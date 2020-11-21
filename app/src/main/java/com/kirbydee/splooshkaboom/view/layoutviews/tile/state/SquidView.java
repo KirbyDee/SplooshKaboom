@@ -1,4 +1,4 @@
-package com.kirbydee.splooshkaboom.view.layoutviews.grid.state;
+package com.kirbydee.splooshkaboom.view.layoutviews.tile.state;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,28 +8,28 @@ import com.kirbydee.splooshkaboom.R;
 
 import androidx.annotation.Nullable;
 
-public class SquidStateGridView extends StateGridView {
+public class SquidView extends StateTileView {
 
     private int squidSize;
 
     public interface Listener {
 
-        void onCreate(SquidStateGridView view);
+        void onCreate(SquidView view);
     }
 
-    public SquidStateGridView(Context context) {
+    public SquidView(Context context) {
         super(context);
     }
 
-    public SquidStateGridView(Context context, @Nullable AttributeSet attrs) {
+    public SquidView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public SquidStateGridView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public SquidView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public SquidStateGridView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public SquidView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 

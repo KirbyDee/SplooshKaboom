@@ -1,16 +1,16 @@
-package com.kirbydee.splooshkaboom.model.grid.state;
+package com.kirbydee.splooshkaboom.model.tile.state;
 
-import com.kirbydee.splooshkaboom.view.layoutviews.grid.state.BombStateGridView;
+import com.kirbydee.splooshkaboom.view.layoutviews.tile.state.BombView;
 
-public class BombStateGrid {
+public class Bomb {
 
     private int bombIndex;
 
-    public BombStateGrid(int bombIndex) {
+    public Bomb(int bombIndex) {
         this.bombIndex = bombIndex;
     }
 
-    public boolean isCorrectBomb(BombStateGridView view) {
+    public boolean isCorrectBomb(BombView view) {
         return isCorrectBomb(view.getBombIndex());
     }
 

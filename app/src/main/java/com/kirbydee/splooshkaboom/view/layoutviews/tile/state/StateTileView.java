@@ -1,27 +1,27 @@
-package com.kirbydee.splooshkaboom.view.layoutviews.grid.state;
+package com.kirbydee.splooshkaboom.view.layoutviews.tile.state;
 
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.kirbydee.splooshkaboom.view.layoutviews.grid.GridView;
+import com.kirbydee.splooshkaboom.view.layoutviews.tile.TileView;
 
 import androidx.annotation.Nullable;
 
-public abstract class StateGridView extends GridView {
+public abstract class StateTileView extends TileView {
 
-    public StateGridView(Context context) {
+    public StateTileView(Context context) {
         super(context);
     }
 
-    public StateGridView(Context context, @Nullable AttributeSet attrs) {
+    public StateTileView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public StateGridView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public StateTileView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public StateGridView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public StateTileView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 

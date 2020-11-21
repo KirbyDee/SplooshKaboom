@@ -11,9 +11,9 @@ import com.kirbydee.splooshkaboom.R;
 import com.kirbydee.splooshkaboom.controller.GameController;
 import com.kirbydee.splooshkaboom.controller.ShakeDetector;
 import com.kirbydee.splooshkaboom.model.counter.Counter;
-import com.kirbydee.splooshkaboom.model.grid.game.GameGrid;
-import com.kirbydee.splooshkaboom.model.grid.state.BombStateGrid;
-import com.kirbydee.splooshkaboom.model.grid.state.SquidStateGrid;
+import com.kirbydee.splooshkaboom.model.tile.game.GameTile;
+import com.kirbydee.splooshkaboom.model.tile.state.Bomb;
+import com.kirbydee.splooshkaboom.model.tile.state.Squid;
 import com.kirbydee.splooshkaboom.utils.Sound;
 import com.kirbydee.splooshkaboom.utils.Sounds;
 import com.kirbydee.splooshkaboom.utils.Vibrator;
@@ -21,10 +21,10 @@ import com.kirbydee.splooshkaboom.view.dialog.RestartDialog;
 import com.kirbydee.splooshkaboom.view.layoutviews.ResetView;
 import com.kirbydee.splooshkaboom.view.layoutviews.counter.CounterView;
 import com.kirbydee.splooshkaboom.view.layoutviews.counter.RecordView;
-import com.kirbydee.splooshkaboom.view.layoutviews.grid.GridView;
-import com.kirbydee.splooshkaboom.view.layoutviews.grid.game.GameGridView;
-import com.kirbydee.splooshkaboom.view.layoutviews.grid.state.BombStateGridView;
-import com.kirbydee.splooshkaboom.view.layoutviews.grid.state.SquidStateGridView;
+import com.kirbydee.splooshkaboom.view.layoutviews.tile.TileView;
+import com.kirbydee.splooshkaboom.view.layoutviews.tile.game.GameTileView;
+import com.kirbydee.splooshkaboom.view.layoutviews.tile.state.BombView;
+import com.kirbydee.splooshkaboom.view.layoutviews.tile.state.SquidView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ import java.util.List;
 import static com.kirbydee.splooshkaboom.utils.Consts.GAME_ACTIVITY_BACKGROUND_SOUND_DELAY;
 
 public class GameActivity extends BaseBackgroundSoundActivity implements
-        GameGridView.Listener, BombStateGridView.Listener, SquidStateGridView.Listener,
+        GameTileView.Listener, BombView.Listener, SquidView.Listener,
         CounterView.Listener, RecordView.Listener, GameController.Listener,
         ShakeDetector.Listener, RestartDialog.Listener, ResetView.Listener {
 
@@ -44,9 +44,9 @@ public class GameActivity extends BaseBackgroundSoundActivity implements
     // Views
     private CounterView counterView;
     private RecordView recordView;
-    private List<GameGridView> gameTileViews;
-    private List<SquidStateGridView> squidViews;
-    private List<BombStateGridView> bombViews;
+    private List<GameTileView> gameTileViews;
+    private List<SquidView> squidViews;
+    private List<BombView> bombViews;
 
     // The following are used for the shake detection
     private SensorManager sensorManager;
@@ -85,9 +85,9 @@ public class GameActivity extends BaseBackgroundSoundActivity implements
 
     private void resetGridViews() {
         Log.i(TAG, "resetGridViews");
-        this.gameTileViews.forEach(GridView::reset);
-        this.squidViews.forEach(GridView::reset);
-        this.bombViews.forEach(GridView::reset);
+        this.gameTileViews.forEach(TileView::reset);
+        this.squidViews.forEach(TileView::reset);
+        this.bombViews.forEach(TileView::reset);
     }
 
     @Override
@@ -152,27 +152,27 @@ public class GameActivity extends BaseBackgroundSoundActivity implements
     }
 
     @Override
-    public void onClick(GameGridView view) {
+    public void onClick(GameTileView view) {
         Log.i(TAG, "onClick (" + view + ")");
         this.gameController.onShoot(view.getRowIndex(), view.getColumnIndex());
     }
 
     @Override
-    public void onCreate(GameGridView view) {
+    public void onCreate(GameTileView view) {
         Log.i(TAG, "onCreate (" + view + ")");
         view.reset();
         this.gameTileViews.add(view);
     }
 
     @Override
-    public void onCreate(BombStateGridView view) {
+    public void onCreate(BombView view) {
         Log.i(TAG, "onCreate (" + view + ")");
         view.reset();
         this.bombViews.add(view);
     }
 
     @Override
-    public void onCreate(SquidStateGridView view) {
+    public void onCreate(SquidView view) {
         Log.i(TAG, "onCreate (" + view + ")");
         view.reset();
         this.squidViews.add(view);
@@ -203,38 +203,38 @@ public class GameActivity extends BaseBackgroundSoundActivity implements
     }
 
     @Override
-    public void onSploosh(GameGrid gameGrid) {
-        Log.i(TAG, "onSploosh (" + gameGrid + ")");
+    public void onSploosh(GameTile gameTile) {
+        Log.i(TAG, "onSploosh (" + gameTile + ")");
         Sound.playSound(this, Sounds.SPLOOSH);
         this.gameTileViews.stream()
-                .filter(gameGrid::isCorrectGrid)
-                .forEach(GameGridView::sploosh);
+                .filter(gameTile::isCorrectTile)
+                .forEach(GameTileView::sploosh);
     }
 
     @Override
-    public void onKaboom(GameGrid gameGrid) {
-        Log.i(TAG, "onKaboom (" + gameGrid + ")");
+    public void onKaboom(GameTile gameTile) {
+        Log.i(TAG, "onKaboom (" + gameTile + ")");
         Sound.playSound(this, Sounds.KABOOM);
         vibrate();
         this.gameTileViews.stream()
-                .filter(gameGrid::isCorrectGrid)
-                .forEach(GameGridView::kaboom);
+                .filter(gameTile::isCorrectTile)
+                .forEach(GameTileView::kaboom);
     }
 
     @Override
-    public void onDetonateSquid(SquidStateGrid squidStateGrid) {
-        Log.i(TAG, "onDetonateSquid (" + squidStateGrid + ")");
+    public void onDetonateSquid(Squid squid) {
+        Log.i(TAG, "onDetonateSquid (" + squid + ")");
         this.squidViews.stream()
-                .filter(squidStateGrid::isCorrectSquid)
-                .forEach(SquidStateGridView::disable);
+                .filter(squid::isCorrectSquid)
+                .forEach(SquidView::disable);
     }
 
     @Override
-    public void onDetonateBomb(BombStateGrid bombStateGrid) {
-        Log.i(TAG, "onDetonateBomb (" + bombStateGrid + ")");
+    public void onDetonateBomb(Bomb bomb) {
+        Log.i(TAG, "onDetonateBomb (" + bomb + ")");
         this.bombViews.stream()
-                .filter(bombStateGrid::isCorrectBomb)
-                .forEach(BombStateGridView::disable);
+                .filter(bomb::isCorrectBomb)
+                .forEach(BombView::disable);
     }
 
     private void vibrate() {

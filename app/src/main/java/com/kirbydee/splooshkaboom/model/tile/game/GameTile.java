@@ -1,29 +1,29 @@
-package com.kirbydee.splooshkaboom.model.grid.game;
+package com.kirbydee.splooshkaboom.model.tile.game;
 
-import com.kirbydee.splooshkaboom.view.layoutviews.grid.game.GameGridView;
+import com.kirbydee.splooshkaboom.view.layoutviews.tile.game.GameTileView;
 
-public abstract class GameGrid {
+public abstract class GameTile {
 
     private final int rowIndex;
 
     private final int columnIndex;
 
-    private GameGridState currentState;
+    private GameTileState currentState;
 
-    private final GameGridState endState;
+    private final GameTileState endState;
 
-    public GameGrid(int rowIndex, int columnIndex, GameGridState initState, GameGridState endState) {
+    public GameTile(int rowIndex, int columnIndex, GameTileState initState, GameTileState endState) {
         this.rowIndex = rowIndex;
         this.columnIndex = columnIndex;
         this.currentState = initState;
         this.endState = endState;
     }
 
-    public boolean isCorrectGrid(GameGridView view) {
-        return isCorrectGrid(view.getRowIndex(), view.getColumnIndex());
+    public boolean isCorrectTile(GameTileView view) {
+        return isCorrectTile(view.getRowIndex(), view.getColumnIndex());
     }
 
-    public boolean isCorrectGrid(int rowIndex, int columnIndex) {
+    public boolean isCorrectTile(int rowIndex, int columnIndex) {
         return rowIndex == this.rowIndex && columnIndex == this.columnIndex;
     }
 
@@ -35,7 +35,7 @@ public abstract class GameGrid {
         return !canBeShot();
     }
 
-    public GameGridState shoot() {
+    public GameTileState shoot() {
         this.currentState = this.endState;
         return this.currentState;
     }
@@ -50,11 +50,11 @@ public abstract class GameGrid {
                 '}';
     }
 
-    public GameGridState getCurrentState() {
+    public GameTileState getCurrentState() {
         return currentState;
     }
 
-    public void setCurrentState(GameGridState currentState) {
+    public void setCurrentState(GameTileState currentState) {
         this.currentState = currentState;
     }
 }

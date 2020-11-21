@@ -1,16 +1,16 @@
-package com.kirbydee.splooshkaboom.model.grid.state;
+package com.kirbydee.splooshkaboom.model.tile.state;
 
-import com.kirbydee.splooshkaboom.view.layoutviews.grid.state.SquidStateGridView;
+import com.kirbydee.splooshkaboom.view.layoutviews.tile.state.SquidView;
 
-public class SquidStateGrid {
+public class Squid {
 
     private int squidSize;
 
-    public SquidStateGrid(int squidSize) {
+    public Squid(int squidSize) {
         this.squidSize = squidSize;
     }
 
-    public boolean isCorrectSquid(SquidStateGridView view) {
+    public boolean isCorrectSquid(SquidView view) {
         return isCorrectSquid(view.getSquidSize());
     }
 

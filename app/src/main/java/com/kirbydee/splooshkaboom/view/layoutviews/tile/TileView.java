@@ -1,4 +1,4 @@
-package com.kirbydee.splooshkaboom.view.layoutviews.grid;
+package com.kirbydee.splooshkaboom.view.layoutviews.tile;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -6,23 +6,23 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
-public abstract class GridView extends View {
+public abstract class TileView extends View {
 
-    public GridView(Context context) {
+    public TileView(Context context) {
         super(context);
     }
 
-    public GridView(Context context, @Nullable AttributeSet attrs) {
+    public TileView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
 
-    public GridView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public TileView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
 
-    public GridView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public TileView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs);
     }
