@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 import static com.kirbydee.splooshkaboom.utils.Consts.SQUID_COUNT;
+import static com.kirbydee.splooshkaboom.utils.Consts.SQUID_SIZE_MAX;
 
 public class Squids {
 
@@ -22,15 +23,17 @@ public class Squids {
     private void init() {
         Log.i(TAG, "init");
         this.squids = new ArrayList<>(SQUID_COUNT);
-        IntStream.rangeClosed(0, SQUID_COUNT)
+        IntStream.rangeClosed(SQUID_SIZE_MAX - SQUID_COUNT, SQUID_SIZE_MAX)
                 .mapToObj(Squid::new)
                 .forEach(this.squids::add);
     }
 
-    public Optional<Squid> findSquid(int squidSize) {
+    public Optional<Squid> findNotDetonatedSquidAndDetonate(int squidSize) {
         Log.i(TAG, "findSquid (" + squidSize + ")");
         return this.squids.stream()
-                .filter(b -> b.getSquidSize() == squidSize)
+                .filter(s -> s.getSquidSize() == squidSize)
+                .filter(Squid::isNotDetonated)
+                .map(Squid::detonate)
                 .findAny();
     }
 

@@ -22,7 +22,7 @@ public class Bombs {
     private void init() {
         Log.i(TAG, "init");
         this.bombs = new ArrayList<>(BOMB_COUNT);
-        IntStream.rangeClosed(0, BOMB_COUNT)
+        IntStream.range(0, BOMB_COUNT)
                 .mapToObj(Bomb::new)
                 .forEach(this.bombs::add);
     }

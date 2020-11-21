@@ -43,7 +43,7 @@ public abstract class CounterAbstractView extends LinearLayout {
     }
 
     private TextView getTextView(Context context) {
-        TextView textView = new TextView(context);
+        TextView textView = new TextView(context); // TODO: textView different font?
         textView.setLayoutParams(
                 new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
         );

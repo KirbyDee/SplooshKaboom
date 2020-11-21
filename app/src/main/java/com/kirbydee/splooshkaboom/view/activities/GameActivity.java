@@ -31,6 +31,8 @@ import java.util.List;
 
 import static com.kirbydee.splooshkaboom.utils.Consts.GAME_ACTIVITY_BACKGROUND_SOUND_DELAY;
 
+
+// TODO: App icon
 public class GameActivity extends BaseBackgroundSoundActivity implements
         GameTileView.Listener, BombView.Listener, SquidView.Listener,
         CounterView.Listener, RecordView.Listener, GameController.Listener,
@@ -93,11 +95,6 @@ public class GameActivity extends BaseBackgroundSoundActivity implements
     @Override
     public void onShake(int count) {
         Log.i(TAG, "onShake (" + count + ")");
-        showRestartDialog();
-    }
-
-    private void showRestartDialog() {
-        Log.i(TAG, "showRestartDialog");
         this.restartDialog.show();
     }
 

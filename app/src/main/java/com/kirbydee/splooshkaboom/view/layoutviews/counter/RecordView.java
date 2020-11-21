@@ -31,7 +31,7 @@ public class RecordView extends CounterAbstractView {
     }
 
     @Override
-    protected int getResourceColorId() {
+    protected int getResourceColorId() { // TODO does this work?
         return R.color.black;
     }
 

@@ -4,8 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
-import com.kirbydee.splooshkaboom.R;
-
 public class RestartDialog {
 
     private Listener listener;
@@ -41,7 +39,7 @@ public class RestartDialog {
                         this.listener.onNegative(dialog);
                     }
                 })
-                .setIcon(R.drawable.alert_icon)
+                .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
 }

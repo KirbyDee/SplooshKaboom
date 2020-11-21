@@ -36,12 +36,12 @@ public class GameBoard {
         this.gameTiles.addAll(initSquidType(SQUID_3));
         this.gameTiles.addAll(initSquidType(SQUID_4));
 
-        IntStream.rangeClosed(0, GAME_COLUMN_COUNT)
+        IntStream.range(0, GAME_COLUMN_COUNT)
                 .forEach(this::initGridCellWater);
     }
 
     private void initGridCellWater(int row) {
-        IntStream.rangeClosed(0, GAME_COLUMN_COUNT)
+        IntStream.range(0, GAME_COLUMN_COUNT)
                 .filter(column -> !isUsed(row, column))
                 .forEach(column -> this.gameTiles.add(new GameTileWater(row, column)));
     }

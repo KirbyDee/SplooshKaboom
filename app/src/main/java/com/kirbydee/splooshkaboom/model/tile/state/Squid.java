@@ -6,6 +6,8 @@ public class Squid {
 
     private int squidSize;
 
+    private boolean isDetonated = false;
+
     public Squid(int squidSize) {
         this.squidSize = squidSize;
     }
@@ -20,9 +22,19 @@ public class Squid {
 
     @Override
     public String toString() {
-        return "SquidStateGrid{" +
+        return "Squid{" +
                 "squidSize=" + squidSize +
+                ", isDetonated=" + isDetonated +
                 '}';
+    }
+
+    public Squid detonate() {
+        this.isDetonated = true;
+        return this;
+    }
+
+    public boolean isNotDetonated() {
+        return !isDetonated;
     }
 
     public int getSquidSize() {

@@ -16,6 +16,8 @@ public class Consts {
 
     public static final int SQUID_COUNT = 3;
 
+    public static final int SQUID_SIZE_MAX = 4;
+
     /*
      * The gForce that is necessary to register as shake.
      * Must be greater than 1G (one earth gravity unit).

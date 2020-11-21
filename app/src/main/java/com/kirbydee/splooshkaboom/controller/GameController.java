@@ -166,9 +166,9 @@ public class GameController {
     }
 
     private void detonateSquid(GameTileSquidType squidType) {
-        Log.i(TAG, "detonateSquid");
+        Log.i(TAG, "detonateSquid (" + squidType + ")");
         this.squids
-                .findSquid(squidType.length)
+                .findNotDetonatedSquidAndDetonate(squidType.length)
                 .ifPresent(this.listener::onDetonateSquid);
     }
 }
