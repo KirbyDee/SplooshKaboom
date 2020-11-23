@@ -10,6 +10,10 @@ public class Counter {
 
     private int count;
 
+    public static Counter of(int count) {
+        return new Counter(count);
+    }
+
     public Counter(int startCount) {
         this.count = startCount;
     }

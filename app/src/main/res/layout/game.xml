@@ -38,12 +38,21 @@
                 android:layout_height="match_parent"
                 android:layout_weight="60"/>
 
-            <com.kirbydee.splooshkaboom.view.layoutviews.counter.CounterView
+            <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="40"
-                android:weightSum="100"
-                android:orientation="horizontal" />
+                android:weightSum="100">
+
+                <com.kirbydee.splooshkaboom.view.layoutviews.counter.CounterView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -84,7 +93,7 @@
             android:layout_height="0dp"
             android:layout_weight="6">
 
-            <ImageView
+            <com.kirbydee.splooshkaboom.view.layoutviews.ResetView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentStart="true"
@@ -117,12 +126,21 @@
             android:layout_height="0dp"
             android:layout_weight="19"/>
 
-        <com.kirbydee.splooshkaboom.view.layoutviews.counter.RecordView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="6"
-            android:weightSum="100"
-            android:orientation="horizontal" />
+            android:weightSum="100">
+
+            <com.kirbydee.splooshkaboom.view.layoutviews.counter.RecordView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 

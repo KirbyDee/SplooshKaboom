@@ -20,6 +20,11 @@ public abstract class BaseBackgroundSoundActivity extends BaseActivity {
         startMusic();
     }
 
+    protected void restartMusic() {
+        Log.i(TAG, "restart");
+        startMusic();
+    }
+
     private void startMusic() {
         Log.i(TAG, "startMusic");
         stopMusic();
@@ -28,7 +33,7 @@ public abstract class BaseBackgroundSoundActivity extends BaseActivity {
 
         playerHandler.postDelayed(() -> {
             this.player = MediaPlayer.create(this, soundId);
-            this.player.setLooping(true);
+            this.player.setLooping(loopMusic());
             this.player.start();
         }, delay);
     }
@@ -60,5 +65,9 @@ public abstract class BaseBackgroundSoundActivity extends BaseActivity {
 
     protected long getBackgroundSoundDelay() {
         return 0;
+    }
+
+    protected boolean loopMusic() {
+        return true;
     }
 }

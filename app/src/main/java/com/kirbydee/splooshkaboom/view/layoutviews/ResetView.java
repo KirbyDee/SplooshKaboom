@@ -6,8 +6,9 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 
-public class ResetView extends View {
+public class ResetView extends AppCompatImageView {
 
     private Listener listener;
 
@@ -32,16 +33,11 @@ public class ResetView extends View {
         init(context, attrs);
     }
 
-    public ResetView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(context, attrs);
-    }
-
     protected void init(Context context, @Nullable AttributeSet attrs) {
         setOnTouchListener(this::onTouch);
         if (context instanceof Listener) {
-            Listener listener = (Listener) context;
-            listener.onClick(this);
+            this.listener = (Listener) context;
+            this.listener.onCreate(this);
         }
     }
 

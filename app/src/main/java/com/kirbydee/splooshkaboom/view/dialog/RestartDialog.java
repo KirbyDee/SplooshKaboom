@@ -6,9 +6,9 @@ import android.content.DialogInterface;
 
 public class RestartDialog {
 
-    private Listener listener;
-
     private final Context context;
+
+    private Listener listener;
 
     public RestartDialog(Context context) {
         this.context = context;
@@ -39,7 +39,6 @@ public class RestartDialog {
                         this.listener.onNegative(dialog);
                     }
                 })
-                .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
 }

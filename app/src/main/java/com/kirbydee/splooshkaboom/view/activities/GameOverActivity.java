@@ -7,6 +7,8 @@ import android.view.View;
 
 import com.kirbydee.splooshkaboom.R;
 
+import static com.kirbydee.splooshkaboom.utils.Consts.GAME_OVER_ACTIVITY_BACKGROUND_SOUND_DELAY;
+
 public class GameOverActivity extends BaseBackgroundSoundActivity {
 
     private static final String TAG = GameOverActivity.class.getName();
@@ -53,7 +55,15 @@ public class GameOverActivity extends BaseBackgroundSoundActivity {
         return R.raw.game_over;
     }
 
+    @Override
     protected long getBackgroundSoundDelay() {
-        return 500;
+        Log.i(TAG, "getBackgroundSoundDelay");
+        return GAME_OVER_ACTIVITY_BACKGROUND_SOUND_DELAY;
+    }
+
+    @Override
+    protected boolean loopMusic() {
+        Log.i(TAG, "loopMusic");
+        return false;
     }
 }

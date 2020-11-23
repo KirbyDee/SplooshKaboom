@@ -12,6 +12,7 @@ import com.kirbydee.splooshkaboom.model.tile.state.Bomb;
 import com.kirbydee.splooshkaboom.model.tile.state.Bombs;
 import com.kirbydee.splooshkaboom.model.tile.state.Squid;
 import com.kirbydee.splooshkaboom.model.tile.state.Squids;
+import com.kirbydee.splooshkaboom.utils.Storage;
 
 import java.util.Arrays;
 
@@ -21,23 +22,24 @@ public class GameController {
 
     private static final String TAG = GameController.class.getName();
 
+    // Storage
+    private final Storage storage;
+
+    // Models
     private GameBoard gameBoard;
-
     private Squids squids;
-
     private Bombs bombs;
-
     private Counter counter;
-
     private Counter record;
 
+    // Listener
     private Listener listener;
 
     public interface Listener {
 
         void onCounterChange(Counter count);
 
-        void onRecordChange(Counter count);
+        void onRecordChange(Counter record);
 
         void onSploosh(GameTile gameTile);
 
@@ -47,12 +49,13 @@ public class GameController {
 
         void onDetonateBomb(Bomb bomb);
 
-        void onWin();
+        void onWin(Counter counter);
 
         void onLoss();
     }
 
     public GameController(Context context) {
+        this.storage = new Storage(context);
         if (context instanceof GameController.Listener) {
             this.listener = (GameController.Listener) context;
         }
@@ -90,7 +93,7 @@ public class GameController {
 
     private void initRecord() {
         Log.i(TAG, "initRecord");
-        this.record = new Counter(15);  // TODO from shared preferences
+        this.record = this.storage.getRecord();
         this.listener.onRecordChange(this.record);
     }
 
@@ -140,7 +143,7 @@ public class GameController {
     private void checkForWinLoss() {
         Log.i(TAG, "checkForWinLoss");
         if (this.gameBoard.isWin()) {
-            this.listener.onWin();
+            this.listener.onWin(this.counter);
         }
         else if (this.gameBoard.isLoss()) {
             this.listener.onLoss();

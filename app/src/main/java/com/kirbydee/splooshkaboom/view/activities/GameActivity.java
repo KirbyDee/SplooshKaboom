@@ -16,6 +16,7 @@ import com.kirbydee.splooshkaboom.model.tile.state.Bomb;
 import com.kirbydee.splooshkaboom.model.tile.state.Squid;
 import com.kirbydee.splooshkaboom.utils.Sound;
 import com.kirbydee.splooshkaboom.utils.Sounds;
+import com.kirbydee.splooshkaboom.utils.Storage;
 import com.kirbydee.splooshkaboom.utils.Vibrator;
 import com.kirbydee.splooshkaboom.view.dialog.RestartDialog;
 import com.kirbydee.splooshkaboom.view.layoutviews.ResetView;
@@ -31,14 +32,15 @@ import java.util.List;
 
 import static com.kirbydee.splooshkaboom.utils.Consts.GAME_ACTIVITY_BACKGROUND_SOUND_DELAY;
 
-
-// TODO: App icon
 public class GameActivity extends BaseBackgroundSoundActivity implements
         GameTileView.Listener, BombView.Listener, SquidView.Listener,
         CounterView.Listener, RecordView.Listener, GameController.Listener,
         ShakeDetector.Listener, RestartDialog.Listener, ResetView.Listener {
 
     private static final String TAG = GameActivity.class.getName();
+
+    // Storage
+    private Storage storage;
 
     // Controller
     private GameController gameController;
@@ -54,11 +56,9 @@ public class GameActivity extends BaseBackgroundSoundActivity implements
     private SensorManager sensorManager;
     private Sensor accelerometer;
     private ShakeDetector shakeDetector;
-
-    // Vibrator
     private Vibrator vibrator;
 
-    // Dialog
+    // Reset Dialog
     private RestartDialog restartDialog;
 
     @Override
@@ -68,10 +68,18 @@ public class GameActivity extends BaseBackgroundSoundActivity implements
         setContentView(R.layout.game);
 
         // reset game
-        resetGame();
+        resetGame(false);
     }
 
     private void resetGame() {
+        resetGame(true);
+    }
+
+    private void resetGame(boolean withBackgroundMusic) {
+        if (withBackgroundMusic) {
+            restartMusic();
+        }
+
         // reset controllers and views
         resetGameController();
         resetGridViews();
@@ -114,6 +122,7 @@ public class GameActivity extends BaseBackgroundSoundActivity implements
     @Override
     protected void init() {
         Log.i(TAG, "init");
+        this.storage = new Storage(this);
         this.gameController = new GameController(this);
         this.restartDialog = new RestartDialog(this);
         this.sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -194,9 +203,9 @@ public class GameActivity extends BaseBackgroundSoundActivity implements
     }
 
     @Override
-    public void onRecordChange(Counter counter) {
-        Log.i(TAG, "onRecordChange (" + counter + ")");
-        this.recordView.update(counter);
+    public void onRecordChange(Counter record) {
+        Log.i(TAG, "onRecordChange (" + record + ")");
+        this.recordView.update(record);
     }
 
     @Override
@@ -240,9 +249,11 @@ public class GameActivity extends BaseBackgroundSoundActivity implements
     }
 
     @Override
-    public void onWin() {
-        Log.i(TAG, "onWin");
+    public void onWin(Counter counter) {
+        Log.i(TAG, "onWin (" + counter + ")");
+        this.storage.storeRecord(counter);
         Sound.playSound(this, Sounds.HURRAY, 1);
+        resetGame();
     }
 
     @Override
@@ -272,6 +283,6 @@ public class GameActivity extends BaseBackgroundSoundActivity implements
     @Override
     public void onClick(ResetView view) {
         Log.i(TAG, "onClick (" + view + ")");
-        resetGame();
+        this.restartDialog.show();
     }
 }
