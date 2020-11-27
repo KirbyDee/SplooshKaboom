@@ -4,13 +4,21 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation;
+
+import static com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation.NORMAL_FADE;
+import static com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation.NO_SPECIAL;
+
 public abstract class BaseActivity extends Activity {
 
     private static final String TAG = BaseActivity.class.getName();
+
+    private final Handler playerHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +33,28 @@ public abstract class BaseActivity extends Activity {
 
         // init
         init();
+
+        // override transitions
+        overrideActivityTransition();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+
+        // override transitions
+        overrideActivityTransition();
+    }
+
+    private void overrideActivityTransition() {
+        ActivityTransitionAnimation anim = getActivityTransitionAnimation();
+        if (anim != NO_SPECIAL) {
+            overridePendingTransition(anim.enterAnim, anim.exitAnim);
+        }
+    }
+
+    protected ActivityTransitionAnimation getActivityTransitionAnimation() {
+        return NORMAL_FADE;
     }
 
     @Override
@@ -37,12 +67,19 @@ public abstract class BaseActivity extends Activity {
         setUpListeners();
     }
 
+    protected void runAfterDelay(Runnable r, long delay) {
+        this.playerHandler.postDelayed(r, delay);
+    }
+
     protected <A extends Activity> void changeActivity(final Class<A> activity) {
         Log.i(TAG, "changeActivity");
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         Intent intent = new Intent(this, activity);
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         finish();
+    }
+
+    protected <A extends Activity> void changeActivityAfterDelay(final Class<A> activity, long delay) {
+        runAfterDelay(() -> changeActivity(activity), delay);
     }
 
     @Override

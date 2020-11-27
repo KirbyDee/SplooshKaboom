@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.kirbydee.splooshkaboom.utils.Consts.GAME_ACTIVITY_BACKGROUND_SOUND_DELAY;
+import static com.kirbydee.splooshkaboom.utils.Sounds.GAME_BACKGROUND;
+import static com.kirbydee.splooshkaboom.utils.Sounds.GAME_START;
 
 public class GameActivity extends BaseBackgroundSoundActivity implements
         GameTileView.Listener, BombView.Listener, SquidView.Listener,
@@ -85,7 +87,7 @@ public class GameActivity extends BaseBackgroundSoundActivity implements
         resetGridViews();
 
         // play start sound
-        Sound.playSound(this, Sounds.INTRO);
+        Sound.playSound(this, GAME_START);
     }
 
     private void resetGameController() {
@@ -146,9 +148,9 @@ public class GameActivity extends BaseBackgroundSoundActivity implements
     }
 
     @Override
-    protected int getBackgroundSoundId() {
-        Log.i(TAG, "getBackgroundSoundId");
-        return R.raw.game;
+    protected Sounds getBackgroundSound() {
+        Log.i(TAG, "getBackgroundSound");
+        return GAME_BACKGROUND;
     }
 
     @Override

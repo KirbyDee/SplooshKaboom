@@ -30,7 +30,6 @@ public class GameController {
     private Squids squids;
     private Bombs bombs;
     private Counter counter;
-    private Counter record;
 
     // Listener
     private Listener listener;
@@ -93,8 +92,8 @@ public class GameController {
 
     private void initRecord() {
         Log.i(TAG, "initRecord");
-        this.record = this.storage.getRecord();
-        this.listener.onRecordChange(this.record);
+        Counter record = this.storage.getRecord();
+        this.listener.onRecordChange(record);
     }
 
     public void onShoot(int rowIndex, int columnIndex) {

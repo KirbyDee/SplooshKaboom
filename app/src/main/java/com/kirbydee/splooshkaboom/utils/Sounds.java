@@ -4,11 +4,17 @@ import com.kirbydee.splooshkaboom.R;
 
 public enum Sounds {
 
-    INTRO(R.raw.game_intro),
+    // background music
+    INTRO_BACKGROUND(R.raw.intro_background),
+    GAME_BACKGROUND(R.raw.game_background),
+    GAME_OVER(R.raw.game_over),
+
+    // sfx
+    GAME_START(R.raw.game_start),
+    GAME_OVER_BUTTON_CLICK(R.raw.game_over_button_click),
     SPLOOSH(R.raw.sploosh),
     KABOOM(R.raw.kaboom),
     HURRAY(R.raw.hurray),
-    GAME_OVER(R.raw.game_over),
     TREASURE(R.raw.treasure);
 
     private int res;

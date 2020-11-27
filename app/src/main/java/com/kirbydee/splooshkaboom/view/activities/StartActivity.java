@@ -6,6 +6,9 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.kirbydee.splooshkaboom.R;
+import com.kirbydee.splooshkaboom.utils.Sounds;
+
+import static com.kirbydee.splooshkaboom.utils.Sounds.INTRO_BACKGROUND;
 
 public class StartActivity extends BaseBackgroundSoundActivity {
 
@@ -48,8 +51,8 @@ public class StartActivity extends BaseBackgroundSoundActivity {
     }
 
     @Override
-    protected int getBackgroundSoundId() {
-        Log.i(TAG, "getBackgroundSoundId");
-        return R.raw.start;
+    protected Sounds getBackgroundSound() {
+        Log.i(TAG, "getBackgroundSound");
+        return INTRO_BACKGROUND;
     }
 }

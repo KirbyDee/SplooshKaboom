@@ -1,16 +1,15 @@
 package com.kirbydee.splooshkaboom.view.activities;
 
 import android.media.MediaPlayer;
-import android.os.Handler;
 import android.util.Log;
+
+import com.kirbydee.splooshkaboom.utils.Sounds;
 
 public abstract class BaseBackgroundSoundActivity extends BaseActivity {
 
     private static final String TAG = BaseBackgroundSoundActivity.class.getName();
 
     private MediaPlayer player;
-
-    private final Handler playerHandler = new Handler();
 
     @Override
     protected void onResume() {
@@ -28,11 +27,11 @@ public abstract class BaseBackgroundSoundActivity extends BaseActivity {
     private void startMusic() {
         Log.i(TAG, "startMusic");
         stopMusic();
-        int soundId = getBackgroundSoundId();
+        Sounds sound = getBackgroundSound();
         long delay = getBackgroundSoundDelay();
 
-        playerHandler.postDelayed(() -> {
-            this.player = MediaPlayer.create(this, soundId);
+        runAfterDelay(() -> {
+            this.player = MediaPlayer.create(this, sound.getRes());
             this.player.setLooping(loopMusic());
             this.player.start();
         }, delay);
@@ -61,7 +60,7 @@ public abstract class BaseBackgroundSoundActivity extends BaseActivity {
         super.onPause();
     }
 
-    protected abstract int getBackgroundSoundId();
+    protected abstract Sounds getBackgroundSound();
 
     protected long getBackgroundSoundDelay() {
         return 0;

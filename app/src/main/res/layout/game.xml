@@ -50,7 +50,8 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:textColor="@color/white"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:fontFamily="@font/comic_sans_ms"/>
 
             </RelativeLayout>
 
@@ -138,7 +139,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:fontFamily="@font/comic_sans_ms" />
 
         </RelativeLayout>
 
