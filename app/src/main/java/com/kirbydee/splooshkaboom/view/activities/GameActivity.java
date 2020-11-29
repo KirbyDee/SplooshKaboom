@@ -14,10 +14,9 @@ import com.kirbydee.splooshkaboom.model.counter.Counter;
 import com.kirbydee.splooshkaboom.model.tile.game.GameTile;
 import com.kirbydee.splooshkaboom.model.tile.state.Bomb;
 import com.kirbydee.splooshkaboom.model.tile.state.Squid;
-import com.kirbydee.splooshkaboom.utils.Sound;
-import com.kirbydee.splooshkaboom.utils.Sounds;
 import com.kirbydee.splooshkaboom.utils.Storage;
 import com.kirbydee.splooshkaboom.utils.Vibrator;
+import com.kirbydee.splooshkaboom.utils.sound.Sounds;
 import com.kirbydee.splooshkaboom.view.dialog.RestartDialog;
 import com.kirbydee.splooshkaboom.view.layoutviews.ResetView;
 import com.kirbydee.splooshkaboom.view.layoutviews.counter.CounterView;
@@ -31,8 +30,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.kirbydee.splooshkaboom.utils.Consts.GAME_ACTIVITY_BACKGROUND_SOUND_DELAY;
-import static com.kirbydee.splooshkaboom.utils.Sounds.GAME_BACKGROUND;
-import static com.kirbydee.splooshkaboom.utils.Sounds.GAME_START;
+import static com.kirbydee.splooshkaboom.utils.sound.Sounds.GAME_BACKGROUND;
+import static com.kirbydee.splooshkaboom.utils.sound.Sounds.GAME_START;
+import static com.kirbydee.splooshkaboom.utils.sound.Sounds.HURRAY;
+import static com.kirbydee.splooshkaboom.utils.sound.Sounds.KABOOM;
+import static com.kirbydee.splooshkaboom.utils.sound.Sounds.SPLOOSH;
 
 public class GameActivity extends BaseBackgroundSoundActivity implements
         GameTileView.Listener, BombView.Listener, SquidView.Listener,
@@ -70,24 +72,16 @@ public class GameActivity extends BaseBackgroundSoundActivity implements
         setContentView(R.layout.game);
 
         // reset game
-        resetGame(false);
+        resetGame();
     }
 
     private void resetGame() {
-        resetGame(true);
-    }
-
-    private void resetGame(boolean withBackgroundMusic) {
-        if (withBackgroundMusic) {
-            restartMusic();
-        }
-
         // reset controllers and views
         resetGameController();
         resetGridViews();
 
         // play start sound
-        Sound.playSound(this, GAME_START);
+        this.sound.play(GAME_START);
     }
 
     private void resetGameController() {
@@ -111,6 +105,7 @@ public class GameActivity extends BaseBackgroundSoundActivity implements
     @Override
     public void onResume() {
         Log.i(TAG, "onResume");
+        this.sound.play(GAME_START);
         super.onResume();
     }
 
@@ -124,6 +119,7 @@ public class GameActivity extends BaseBackgroundSoundActivity implements
     @Override
     protected void init() {
         Log.i(TAG, "init");
+        super.init();
         this.storage = new Storage(this);
         this.gameController = new GameController(this);
         this.restartDialog = new RestartDialog(this);
@@ -213,7 +209,7 @@ public class GameActivity extends BaseBackgroundSoundActivity implements
     @Override
     public void onSploosh(GameTile gameTile) {
         Log.i(TAG, "onSploosh (" + gameTile + ")");
-        Sound.playSound(this, Sounds.SPLOOSH);
+        this.sound.play(SPLOOSH);
         this.gameTileViews.stream()
                 .filter(gameTile::isCorrectTile)
                 .forEach(GameTileView::sploosh);
@@ -222,7 +218,7 @@ public class GameActivity extends BaseBackgroundSoundActivity implements
     @Override
     public void onKaboom(GameTile gameTile) {
         Log.i(TAG, "onKaboom (" + gameTile + ")");
-        Sound.playSound(this, Sounds.KABOOM);
+        this.sound.play(KABOOM);
         vibrate();
         this.gameTileViews.stream()
                 .filter(gameTile::isCorrectTile)
@@ -254,7 +250,7 @@ public class GameActivity extends BaseBackgroundSoundActivity implements
     public void onWin(Counter counter) {
         Log.i(TAG, "onWin (" + counter + ")");
         this.storage.storeRecord(counter);
-        Sound.playSound(this, Sounds.HURRAY, 1);
+        this.sound.play(HURRAY, 200);
         resetGame();
     }
 

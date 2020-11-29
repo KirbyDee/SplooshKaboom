@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.kirbydee.splooshkaboom.controller.HandlerController;
 import com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation;
+import com.kirbydee.splooshkaboom.utils.sound.Sound;
 
 import static com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation.NORMAL_FADE;
 import static com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation.NO_SPECIAL;
@@ -18,7 +20,9 @@ public abstract class BaseActivity extends Activity {
 
     private static final String TAG = BaseActivity.class.getName();
 
-    private final Handler playerHandler = new Handler();
+    private HandlerController handlerController;
+
+    protected Sound sound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +30,10 @@ public abstract class BaseActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         // Remove title bar
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         // Remove notification bar
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         // init
         init();
@@ -67,8 +71,29 @@ public abstract class BaseActivity extends Activity {
         setUpListeners();
     }
 
+    @Override
+    protected void onDestroy() {
+        Log.i(TAG, "onDestroy");
+        this.handlerController.clear();
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onStop() {
+        Log.i(TAG, "onStop");
+        this.handlerController.clear();
+        super.onStop();
+    }
+
+    @Override
+    protected void onPause() {
+        Log.i(TAG, "onPause");
+        this.handlerController.clear();
+        super.onPause();
+    }
+
     protected void runAfterDelay(Runnable r, long delay) {
-        this.playerHandler.postDelayed(r, delay);
+        this.handlerController.postDelayed(r, delay);
     }
 
     protected <A extends Activity> void changeActivity(final Class<A> activity) {
@@ -90,7 +115,9 @@ public abstract class BaseActivity extends Activity {
     }
 
     protected void init() {
-        // Override
+        Handler handler = new Handler();
+        this.handlerController = new HandlerController(handler);
+        this.sound = new Sound(this, this.handlerController);
     }
 
     protected void setUpViews() {

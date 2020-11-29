@@ -1,12 +1,12 @@
-package com.kirbydee.splooshkaboom.utils;
+package com.kirbydee.splooshkaboom.utils.sound;
 
 import com.kirbydee.splooshkaboom.R;
 
 public enum Sounds {
 
     // background music
-    INTRO_BACKGROUND(R.raw.intro_background),
-    GAME_BACKGROUND(R.raw.game_background),
+    INTRO_BACKGROUND(R.raw.intro_background, true),
+    GAME_BACKGROUND(R.raw.game_background, true),
     GAME_OVER(R.raw.game_over),
 
     // sfx
@@ -17,17 +17,24 @@ public enum Sounds {
     HURRAY(R.raw.hurray),
     TREASURE(R.raw.treasure);
 
-    private int res;
+    private final int res;
+
+    private final boolean loop;
 
     Sounds(int res) {
+        this(res, false);
+    }
+
+    Sounds(int res, boolean loop) {
         this.res = res;
+        this.loop = loop;
     }
 
     public int getRes() {
         return res;
     }
 
-    public void setRes(int res) {
-        this.res = res;
+    public boolean isLoop() {
+        return loop;
     }
 }

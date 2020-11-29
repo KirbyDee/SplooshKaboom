@@ -1,15 +1,15 @@
 package com.kirbydee.splooshkaboom.view.activities;
 
-import android.media.MediaPlayer;
 import android.util.Log;
 
-import com.kirbydee.splooshkaboom.utils.Sounds;
+import com.kirbydee.splooshkaboom.utils.sound.Sounds;
+import com.kirbydee.splooshkaboom.utils.sound.Volume;
+
+import static com.kirbydee.splooshkaboom.utils.sound.MonoVolume.NORMAL;
 
 public abstract class BaseBackgroundSoundActivity extends BaseActivity {
 
     private static final String TAG = BaseBackgroundSoundActivity.class.getName();
-
-    private MediaPlayer player;
 
     @Override
     protected void onResume() {
@@ -28,22 +28,20 @@ public abstract class BaseBackgroundSoundActivity extends BaseActivity {
         Log.i(TAG, "startMusic");
         stopMusic();
         Sounds sound = getBackgroundSound();
+        Volume volume = getBackgroundVolume();
         long delay = getBackgroundSoundDelay();
 
-        runAfterDelay(() -> {
-            this.player = MediaPlayer.create(this, sound.getRes());
-            this.player.setLooping(loopMusic());
-            this.player.start();
-        }, delay);
+        if (delay <= 0) {
+            this.sound.play(sound, volume);
+        }
+        else {
+            this.sound.play(sound, volume, delay);
+        }
     }
 
     private void stopMusic() {
         Log.i(TAG, "stopMusic");
-        if (player != null) {
-            player.stop();
-            player.release();
-            player = null;
-        }
+        this.sound.stop(getBackgroundSound());
     }
 
     @Override
@@ -51,6 +49,13 @@ public abstract class BaseBackgroundSoundActivity extends BaseActivity {
         Log.i(TAG, "onDestroy");
         stopMusic();
         super.onDestroy();
+    }
+
+    @Override
+    protected void onStop() {
+        Log.i(TAG, "onStop");
+        stopMusic();
+        super.onStop();
     }
 
     @Override
@@ -62,11 +67,11 @@ public abstract class BaseBackgroundSoundActivity extends BaseActivity {
 
     protected abstract Sounds getBackgroundSound();
 
-    protected long getBackgroundSoundDelay() {
-        return 0;
+    protected Volume getBackgroundVolume() {
+        return NORMAL;
     }
 
-    protected boolean loopMusic() {
-        return true;
+    protected long getBackgroundSoundDelay() {
+        return 0;
     }
 }

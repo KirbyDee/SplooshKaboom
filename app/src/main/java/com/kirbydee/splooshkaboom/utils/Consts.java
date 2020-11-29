@@ -5,6 +5,9 @@ public class Consts {
     // Activities
     public static final long GAME_ACTIVITY_BACKGROUND_SOUND_DELAY = 1300;
     public static final long GAME_OVER_ACTIVITY_BACKGROUND_SOUND_DELAY = 500;
+    public static final long GAME_OVER_ACTIVITY_FADE_IN_BUTTONS_DELAY = 4000;
+    public static final long GAME_OVER_ACTIVITY_FADE_IN_BUTTONS_DURATION = 2500;
+    public static final long GAME_OVER_ACTIVITY_CHANGE_ACTIVITY_DELAY = 1000;
 
     // Game Controller
     public static final int MAX_TURNS = 24;

@@ -6,9 +6,9 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.kirbydee.splooshkaboom.R;
-import com.kirbydee.splooshkaboom.utils.Sounds;
+import com.kirbydee.splooshkaboom.utils.sound.Sounds;
 
-import static com.kirbydee.splooshkaboom.utils.Sounds.INTRO_BACKGROUND;
+import static com.kirbydee.splooshkaboom.utils.sound.Sounds.INTRO_BACKGROUND;
 
 public class StartActivity extends BaseBackgroundSoundActivity {
 

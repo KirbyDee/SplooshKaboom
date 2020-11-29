@@ -9,11 +9,15 @@ import android.widget.Button;
 
 import com.kirbydee.splooshkaboom.R;
 import com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation;
-import com.kirbydee.splooshkaboom.utils.Sound;
-import com.kirbydee.splooshkaboom.utils.Sounds;
+import com.kirbydee.splooshkaboom.utils.sound.Sounds;
 
 import static com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation.GAME_OVER;
 import static com.kirbydee.splooshkaboom.utils.Consts.GAME_OVER_ACTIVITY_BACKGROUND_SOUND_DELAY;
+import static com.kirbydee.splooshkaboom.utils.Consts.GAME_OVER_ACTIVITY_CHANGE_ACTIVITY_DELAY;
+import static com.kirbydee.splooshkaboom.utils.Consts.GAME_OVER_ACTIVITY_FADE_IN_BUTTONS_DELAY;
+import static com.kirbydee.splooshkaboom.utils.Consts.GAME_OVER_ACTIVITY_FADE_IN_BUTTONS_DURATION;
+import static com.kirbydee.splooshkaboom.utils.sound.MonoVolume.MAX;
+import static com.kirbydee.splooshkaboom.utils.sound.Sounds.GAME_OVER_BUTTON_CLICK;
 
 public class GameOverActivity extends BaseBackgroundSoundActivity {
 
@@ -34,7 +38,7 @@ public class GameOverActivity extends BaseBackgroundSoundActivity {
     protected void onResume() {
         Log.i(TAG, "onResume");
         super.onResume();
-        runAfterDelay(this::fadeInButtons, 4000);
+        runAfterDelay(this::fadeInButtons, GAME_OVER_ACTIVITY_FADE_IN_BUTTONS_DELAY);
     }
 
     private void fadeInButtons() {
@@ -47,7 +51,7 @@ public class GameOverActivity extends BaseBackgroundSoundActivity {
         Log.i(TAG, "fadeInButton (" + button + ")");
         button.animate()
                 .alpha(1.0f)
-                .setDuration(2500)
+                .setDuration(GAME_OVER_ACTIVITY_FADE_IN_BUTTONS_DURATION)
                 .setListener(getAnimatorListener(button))
                 .start();
     }
@@ -111,8 +115,8 @@ public class GameOverActivity extends BaseBackgroundSoundActivity {
     private <A extends Activity> void onButtonClick(View view, final Class<A> activity) {
         Log.i(TAG, "onButtonClick (" + view + ", " + activity + ")");
         view.setClickable(false);
-        Sound.playSound(this, Sounds.GAME_OVER_BUTTON_CLICK);
-        changeActivityAfterDelay(activity, 1000);
+        this.sound.play(GAME_OVER_BUTTON_CLICK, MAX);
+        changeActivityAfterDelay(activity, GAME_OVER_ACTIVITY_CHANGE_ACTIVITY_DELAY);
     }
 
     @Override
@@ -125,11 +129,5 @@ public class GameOverActivity extends BaseBackgroundSoundActivity {
     protected long getBackgroundSoundDelay() {
         Log.i(TAG, "getBackgroundSoundDelay");
         return GAME_OVER_ACTIVITY_BACKGROUND_SOUND_DELAY;
-    }
-
-    @Override
-    protected boolean loopMusic() {
-        Log.i(TAG, "loopMusic");
-        return false;
     }
 }

@@ -11,6 +11,8 @@ import java.util.stream.IntStream;
 import static com.kirbydee.splooshkaboom.model.tile.game.GameTileSquidType.SQUID_2;
 import static com.kirbydee.splooshkaboom.model.tile.game.GameTileSquidType.SQUID_3;
 import static com.kirbydee.splooshkaboom.model.tile.game.GameTileSquidType.SQUID_4;
+import static com.kirbydee.splooshkaboom.model.tile.game.GameTileState.KABOOM;
+import static com.kirbydee.splooshkaboom.model.tile.game.GameTileState.SQUID;
 import static com.kirbydee.splooshkaboom.utils.Consts.GAME_COLUMN_COUNT;
 import static com.kirbydee.splooshkaboom.utils.Consts.GAME_ROW_COUNT;
 import static com.kirbydee.splooshkaboom.utils.Consts.MAX_TURNS;
@@ -115,19 +117,19 @@ public class GameBoard {
                 .filter(c -> c instanceof GameTileSquid)
                 .map(c -> (GameTileSquid) c)
                 .filter(s -> s.getTpe() == squidType)
-                .allMatch(s -> s.getCurrentState() == GameTileState.KABOOM);
+                .allMatch(s -> s.getCurrentState() == KABOOM);
     }
 
     public boolean isWin() {
         Log.i(TAG, "isWin");
         return this.turnsLeft >= 0 && this.gameTiles.stream()
-                .noneMatch(c -> c.getCurrentState() == GameTileState.SQUID);
+                .noneMatch(c -> c.getCurrentState() == SQUID);
     }
 
     public boolean isLoss() {
         Log.i(TAG, "isLoss");
         return this.turnsLeft <= 0 && this.gameTiles.stream()
-                .anyMatch(c -> c.getCurrentState() == GameTileState.SQUID);
+                .anyMatch(c -> c.getCurrentState() == SQUID);
     }
 
     public boolean gameFinished() {
