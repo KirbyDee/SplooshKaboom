@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:background="@drawable/background"
+    android:background="@drawable/game_background"
     android:weightSum="100"
     tools:context=".view.activities.GameActivity">
 

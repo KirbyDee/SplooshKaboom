@@ -12,7 +12,6 @@ import com.kirbydee.splooshkaboom.model.tile.state.Bomb;
 import com.kirbydee.splooshkaboom.model.tile.state.Bombs;
 import com.kirbydee.splooshkaboom.model.tile.state.Squid;
 import com.kirbydee.splooshkaboom.model.tile.state.Squids;
-import com.kirbydee.splooshkaboom.utils.Storage;
 
 import java.util.Arrays;
 
@@ -21,9 +20,6 @@ import static com.kirbydee.splooshkaboom.utils.Consts.MAX_TURNS;
 public class GameController {
 
     private static final String TAG = GameController.class.getName();
-
-    // Storage
-    private final Storage storage;
 
     // Models
     private GameBoard gameBoard;
@@ -37,8 +33,6 @@ public class GameController {
     public interface Listener {
 
         void onCounterChange(Counter count);
-
-        void onRecordChange(Counter record);
 
         void onSploosh(GameTile gameTile);
 
@@ -54,7 +48,6 @@ public class GameController {
     }
 
     public GameController(Context context) {
-        this.storage = new Storage(context);
         if (context instanceof GameController.Listener) {
             this.listener = (GameController.Listener) context;
         }
@@ -66,7 +59,6 @@ public class GameController {
         initBombs();
         initSquids();
         initCounter();
-        initRecord();
     }
 
     private void initGameBoard() {
@@ -87,13 +79,6 @@ public class GameController {
     private void initCounter() {
         Log.i(TAG, "initCounter");
         this.counter = new Counter(0);
-        this.listener.onCounterChange(this.counter);
-    }
-
-    private void initRecord() {
-        Log.i(TAG, "initRecord");
-        Counter record = this.storage.getRecord();
-        this.listener.onRecordChange(record);
     }
 
     public void onShoot(int rowIndex, int columnIndex) {

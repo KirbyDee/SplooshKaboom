@@ -1,31 +1,30 @@
 package com.kirbydee.splooshkaboom.view.activities;
 
-import android.animation.Animator;
 import android.app.Activity;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
 import com.kirbydee.splooshkaboom.R;
 import com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation;
-import com.kirbydee.splooshkaboom.utils.sound.Sounds;
+import com.kirbydee.splooshkaboom.model.media.Sound;
+import com.kirbydee.splooshkaboom.view.layoutviews.buttons.GameOverButton;
 
 import static com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation.GAME_OVER;
+import static com.kirbydee.splooshkaboom.model.media.MonoVolume.MAX;
+import static com.kirbydee.splooshkaboom.model.media.Sound.GAME_OVER_BUTTON_CLICK;
 import static com.kirbydee.splooshkaboom.utils.Consts.GAME_OVER_ACTIVITY_BACKGROUND_SOUND_DELAY;
 import static com.kirbydee.splooshkaboom.utils.Consts.GAME_OVER_ACTIVITY_CHANGE_ACTIVITY_DELAY;
-import static com.kirbydee.splooshkaboom.utils.Consts.GAME_OVER_ACTIVITY_FADE_IN_BUTTONS_DELAY;
-import static com.kirbydee.splooshkaboom.utils.Consts.GAME_OVER_ACTIVITY_FADE_IN_BUTTONS_DURATION;
-import static com.kirbydee.splooshkaboom.utils.sound.MonoVolume.MAX;
-import static com.kirbydee.splooshkaboom.utils.sound.Sounds.GAME_OVER_BUTTON_CLICK;
 
-public class GameOverActivity extends BaseBackgroundSoundActivity {
+public class GameOverActivity extends BackgroundSoundBaseActivity
+        implements GameOverButton.Listener {
 
     private static final String TAG = GameOverActivity.class.getName();
 
-    private Button continueButton;
+    private GameOverButton continueButton;
 
-    private Button quitButton;
+    private GameOverButton quitButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,52 +33,15 @@ public class GameOverActivity extends BaseBackgroundSoundActivity {
         setContentView(R.layout.game_over);
     }
 
-    @Override
-    protected void onResume() {
-        Log.i(TAG, "onResume");
-        super.onResume();
-        runAfterDelay(this::fadeInButtons, GAME_OVER_ACTIVITY_FADE_IN_BUTTONS_DELAY);
-    }
-
     private void fadeInButtons() {
         Log.i(TAG, "fadeInButtons");
         fadeInButton(this.continueButton);
         fadeInButton(this.quitButton);
     }
 
-    private void fadeInButton(Button button) {
+    private void fadeInButton(GameOverButton button) {
         Log.i(TAG, "fadeInButton (" + button + ")");
-        button.animate()
-                .alpha(1.0f)
-                .setDuration(GAME_OVER_ACTIVITY_FADE_IN_BUTTONS_DURATION)
-                .setListener(getAnimatorListener(button))
-                .start();
-    }
-
-    private Animator.AnimatorListener getAnimatorListener(final Button button) {
-        Log.i(TAG, "getAnimatorListener (" + button + ")");
-        return new Animator.AnimatorListener() {
-
-            @Override
-            public void onAnimationStart(Animator animation) {
-                // do nothing
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                button.setClickable(true);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                // do nothing
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-                // do nothing
-            }
-        };
+        button.fadeIn();
     }
 
     @Override
@@ -109,25 +71,35 @@ public class GameOverActivity extends BaseBackgroundSoundActivity {
 
     private void onQuitClick(View v) {
         Log.i(TAG, "onQuitClick (" + v + ")");
-        onButtonClick(v, StartActivity.class);
+        onButtonClick(v, MenuActivity.class);
     }
 
     private <A extends Activity> void onButtonClick(View view, final Class<A> activity) {
         Log.i(TAG, "onButtonClick (" + view + ", " + activity + ")");
         view.setClickable(false);
-        this.sound.play(GAME_OVER_BUTTON_CLICK, MAX);
+        this.soundController.play(GAME_OVER_BUTTON_CLICK, MAX);
         changeActivityAfterDelay(activity, GAME_OVER_ACTIVITY_CHANGE_ACTIVITY_DELAY);
     }
 
     @Override
-    protected Sounds getBackgroundSound() {
+    protected Sound getBackgroundSound() {
         Log.i(TAG, "getBackgroundSound");
-        return Sounds.GAME_OVER;
+        return Sound.GAME_OVER;
     }
 
     @Override
     protected long getBackgroundSoundDelay() {
         Log.i(TAG, "getBackgroundSoundDelay");
         return GAME_OVER_ACTIVITY_BACKGROUND_SOUND_DELAY;
+    }
+
+    @Override
+    protected MediaPlayer.OnCompletionListener getOnCompletionListener() {
+        return mp -> fadeInButtons();
+    }
+
+    @Override
+    public void onAnimationEnd(GameOverButton button) {
+
     }
 }

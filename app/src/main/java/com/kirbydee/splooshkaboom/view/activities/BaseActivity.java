@@ -10,8 +10,10 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.kirbydee.splooshkaboom.controller.HandlerController;
+import com.kirbydee.splooshkaboom.controller.media.VideoController;
 import com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation;
-import com.kirbydee.splooshkaboom.utils.sound.Sound;
+import com.kirbydee.splooshkaboom.controller.media.SoundController;
+import com.kirbydee.splooshkaboom.utils.Storage;
 
 import static com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation.NORMAL_FADE;
 import static com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation.NO_SPECIAL;
@@ -22,7 +24,11 @@ public abstract class BaseActivity extends Activity {
 
     private HandlerController handlerController;
 
-    protected Sound sound;
+    protected SoundController soundController;
+
+    protected VideoController videoController;
+
+    protected Storage storage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +41,11 @@ public abstract class BaseActivity extends Activity {
         // Remove notification bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        // init
-        init();
-
         // override transitions
         overrideActivityTransition();
+
+        // init
+        init();
     }
 
     @Override
@@ -74,22 +80,28 @@ public abstract class BaseActivity extends Activity {
     @Override
     protected void onDestroy() {
         Log.i(TAG, "onDestroy");
-        this.handlerController.clear();
+        cleanUp();
         super.onDestroy();
     }
 
     @Override
     protected void onStop() {
         Log.i(TAG, "onStop");
-        this.handlerController.clear();
+        cleanUp();
         super.onStop();
     }
 
     @Override
     protected void onPause() {
         Log.i(TAG, "onPause");
-        this.handlerController.clear();
+        cleanUp();
         super.onPause();
+    }
+
+    protected void cleanUp() {
+        Log.i(TAG, "cleanUp");
+        this.handlerController.clear();
+        this.soundController.stopAll();
     }
 
     protected void runAfterDelay(Runnable r, long delay) {
@@ -117,7 +129,9 @@ public abstract class BaseActivity extends Activity {
     protected void init() {
         Handler handler = new Handler();
         this.handlerController = new HandlerController(handler);
-        this.sound = new Sound(this, this.handlerController);
+        this.soundController = new SoundController(this, this.handlerController);
+        this.videoController = new VideoController(this);
+        this.storage = new Storage(this);
     }
 
     protected void setUpViews() {

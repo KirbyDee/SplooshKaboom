@@ -6,11 +6,11 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.kirbydee.splooshkaboom.R;
-import com.kirbydee.splooshkaboom.utils.sound.Sounds;
+import com.kirbydee.splooshkaboom.model.media.Sound;
 
-import static com.kirbydee.splooshkaboom.utils.sound.Sounds.INTRO_BACKGROUND;
+import static com.kirbydee.splooshkaboom.model.media.Sound.INTRO_BACKGROUND;
 
-public class StartActivity extends BaseBackgroundSoundActivity {
+public class StartActivity extends BackgroundSoundBaseActivity {
 
     private static final String TAG = StartActivity.class.getName();
 
@@ -39,7 +39,7 @@ public class StartActivity extends BaseBackgroundSoundActivity {
         Log.i(TAG, "onTouch: " + event);
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                changeActivity(GameActivity.class);
+                changeActivity(MenuActivity.class);
                 break;
             case MotionEvent.ACTION_UP:
                 v.performClick();
@@ -51,7 +51,7 @@ public class StartActivity extends BaseBackgroundSoundActivity {
     }
 
     @Override
-    protected Sounds getBackgroundSound() {
+    protected Sound getBackgroundSound() {
         Log.i(TAG, "getBackgroundSound");
         return INTRO_BACKGROUND;
     }

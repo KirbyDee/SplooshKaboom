@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/menuScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <VideoView
+        android:id="@+id/menuVideoView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="100">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="65">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.kirbydee.splooshkaboom.view.layoutviews.gifs.GifView
+                    android:id="@+id/menuGreenRupee"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_width="20dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/rupee_green_anim"/>
+
+                <com.kirbydee.splooshkaboom.view.layoutviews.counter.RupeesView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_toEndOf="@id/menuGreenRupee"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:text="0"
+                    android:fontFamily="@font/comic_sans_ms"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="35"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="10">
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/text_box"
+                android:layout_weight="80">
+
+                <com.kirbydee.splooshkaboom.view.layoutviews.TextBox
+                    android:id="@+id/menuTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/comic_sans_ms"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:layout_margin="30dp"/>
+
+                <LinearLayout
+                    android:id="@+id/menuLayout"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="100"
+                    android:layout_margin="30dp">
+
+                    <TextView
+                        android:id="@+id/menuStart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/comic_sans_ms"
+                        android:textColor="@color/black"
+                        android:layout_weight="25"
+                        android:textSize="25sp"
+                        android:gravity="center"
+                        android:text="> Start"/>
+
+                    <TextView
+                        android:id="@+id/menuShop"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/comic_sans_ms"
+                        android:textColor="@color/black"
+                        android:layout_weight="25"
+                        android:textSize="25sp"
+                        android:gravity="center"
+                        android:text="> Shop"/>
+
+                    <TextView
+                        android:id="@+id/menuInventory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/comic_sans_ms"
+                        android:textColor="@color/black"
+                        android:layout_weight="25"
+                        android:textSize="25sp"
+                        android:gravity="center"
+                        android:text="> Inventory"/>
+
+                    <TextView
+                        android:id="@+id/menuQuit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/comic_sans_ms"
+                        android:textColor="@color/black"
+                        android:layout_weight="25"
+                        android:textSize="25sp"
+                        android:gravity="center"
+                        android:text="> Quit"/>
+
+                </LinearLayout>
+
+                <com.kirbydee.splooshkaboom.view.layoutviews.TextBoxNext
+                    android:id="@+id/textNext"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/text_next"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="10">
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
