@@ -13,6 +13,7 @@ public enum Sound {
     GAME_OVER(R.raw.game_over),
 
     // sfx
+    INTRO_START(R.raw.intro_start),
     GAME_START(R.raw.game_start),
     GAME_OVER_BUTTON_CLICK(R.raw.game_over_button_click),
     TEXT_BUTTON_SOUND(R.raw.text_button_sound),
@@ -22,7 +23,10 @@ public enum Sound {
     RUPEE(R.raw.rupee),
     ITEM(R.raw.item),
     HEART_CONTAINER(R.raw.heart_container),
-    TREASURE(R.raw.treasure);
+    CHEST_OPEN(R.raw.chest_open_sound),
+    BEEDLE_OHH(R.raw.beedle_ohh),
+    BEEDLE_THANKYOU(R.raw.beedle_thankyou),
+    BEEDLE_BYE(R.raw.beedle_bye);
 
     private final int res;
 

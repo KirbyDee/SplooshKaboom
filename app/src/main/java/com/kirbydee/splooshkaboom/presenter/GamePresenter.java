@@ -1,25 +1,23 @@
-package com.kirbydee.splooshkaboom.controller;
+package com.kirbydee.splooshkaboom.presenter;
 
-import android.content.Context;
 import android.util.Log;
 
+import com.kirbydee.splooshkaboom.contract.GameContract;
 import com.kirbydee.splooshkaboom.model.counter.Counter;
 import com.kirbydee.splooshkaboom.model.tile.game.GameBoard;
 import com.kirbydee.splooshkaboom.model.tile.game.GameTile;
 import com.kirbydee.splooshkaboom.model.tile.game.GameTileSquidType;
 import com.kirbydee.splooshkaboom.model.tile.game.GameTileState;
-import com.kirbydee.splooshkaboom.model.tile.state.Bomb;
 import com.kirbydee.splooshkaboom.model.tile.state.Bombs;
-import com.kirbydee.splooshkaboom.model.tile.state.Squid;
 import com.kirbydee.splooshkaboom.model.tile.state.Squids;
 
 import java.util.Arrays;
 
 import static com.kirbydee.splooshkaboom.utils.Consts.MAX_TURNS;
 
-public class GameController {
+public class GamePresenter implements GameContract.Presenter {
 
-    private static final String TAG = GameController.class.getName();
+    private static final String TAG = GamePresenter.class.getName();
 
     // Models
     private GameBoard gameBoard;
@@ -27,32 +25,14 @@ public class GameController {
     private Bombs bombs;
     private Counter counter;
 
-    // Listener
-    private Listener listener;
+    // view
+    private final GameContract.View view;
 
-    public interface Listener {
-
-        void onCounterChange(Counter count);
-
-        void onSploosh(GameTile gameTile);
-
-        void onKaboom(GameTile gameTile);
-
-        void onDetonateSquid(Squid squid);
-
-        void onDetonateBomb(Bomb bomb);
-
-        void onWin(Counter counter);
-
-        void onLoss();
+    public GamePresenter(GameContract.View view) {
+        this.view = view;
     }
 
-    public GameController(Context context) {
-        if (context instanceof GameController.Listener) {
-            this.listener = (GameController.Listener) context;
-        }
-    }
-
+    @Override
     public void reset() {
         Log.i(TAG, "reset");
         initGameBoard();
@@ -81,6 +61,7 @@ public class GameController {
         this.counter = new Counter(0);
     }
 
+    @Override
     public void onShoot(int rowIndex, int columnIndex) {
         Log.i(TAG, "onShoot (" + rowIndex + ", " + columnIndex + ")");
 
@@ -112,11 +93,11 @@ public class GameController {
         switch (state) {
             case SPLOOSH:
                 Log.i(TAG, "GameGridState: " + state);
-                this.listener.onSploosh(gameTile);
+                this.view.onSploosh(gameTile);
                 break;
             case KABOOM:
                 Log.i(TAG, "GameGridState: " + state);
-                this.listener.onKaboom(gameTile);
+                this.view.onKaboom(gameTile);
                 break;
             default:
                 Log.i(TAG, "unsupported GameGridState: " + state);
@@ -127,10 +108,10 @@ public class GameController {
     private void checkForWinLoss() {
         Log.i(TAG, "checkForWinLoss");
         if (this.gameBoard.isWin()) {
-            this.listener.onWin(this.counter);
+            this.view.onWin(this.counter);
         }
         else if (this.gameBoard.isLoss()) {
-            this.listener.onLoss();
+            this.view.onLoss();
         }
     }
 
@@ -146,16 +127,16 @@ public class GameController {
         int turnsLeft = this.gameBoard.decreaseTurns();
         this.bombs
                 .findBomb(MAX_TURNS - turnsLeft - 1)
-                .ifPresent(this.listener::onDetonateBomb);
+                .ifPresent(this.view::onDetonateBomb);
 
         this.counter.increase();
-        this.listener.onCounterChange(this.counter);
+        this.view.onCounterChange(this.counter);
     }
 
     private void detonateSquid(GameTileSquidType squidType) {
         Log.i(TAG, "detonateSquid (" + squidType + ")");
         this.squids
                 .findNotDetonatedSquidAndDetonate(squidType.length)
-                .ifPresent(this.listener::onDetonateSquid);
+                .ifPresent(this.view::onDetonateSquid);
     }
 }

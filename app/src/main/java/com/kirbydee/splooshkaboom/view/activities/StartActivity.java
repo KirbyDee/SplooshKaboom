@@ -39,7 +39,7 @@ public class StartActivity extends BackgroundSoundBaseActivity {
         Log.i(TAG, "onTouch: " + event);
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                changeActivity(MenuActivity.class);
+                onScreenTouch();
                 break;
             case MotionEvent.ACTION_UP:
                 v.performClick();
@@ -48,6 +48,11 @@ public class StartActivity extends BackgroundSoundBaseActivity {
                 break;
         }
         return true;
+    }
+
+    private void onScreenTouch() {
+        this.screenView.setClickable(false);
+        this.soundController.play(Sound.INTRO_START, mp -> changeActivity(MenuActivity.class));
     }
 
     @Override

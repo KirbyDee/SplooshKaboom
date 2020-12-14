@@ -9,7 +9,8 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.kirbydee.splooshkaboom.R;
-import com.kirbydee.splooshkaboom.controller.MenuController;
+import com.kirbydee.splooshkaboom.contract.MenuContract;
+import com.kirbydee.splooshkaboom.presenter.MenuPresenter;
 import com.kirbydee.splooshkaboom.model.counter.Rupees;
 import com.kirbydee.splooshkaboom.model.media.Sound;
 import com.kirbydee.splooshkaboom.model.media.Video;
@@ -25,12 +26,12 @@ import static com.kirbydee.splooshkaboom.model.media.Video.MENU_TALK;
 
 public class MenuActivity extends BackgroundSoundBaseActivity
         implements TextBoxNext.Listener, TextBox.Listener,
-        MenuController.Listener, RupeesView.Listener {
+        MenuContract.View, RupeesView.Listener {
 
     private static final String TAG = MenuActivity.class.getName();
 
     // controller
-    private MenuController menuController;
+    private MenuContract.Presenter menuPresenter;
 
     // screen view
     private View menuScreen;
@@ -76,7 +77,7 @@ public class MenuActivity extends BackgroundSoundBaseActivity
         // start background video
         this.videoController.play(this.videoView, MENU_INTRO, mp -> {
             playVideo(MENU_TALK);
-            this.menuController.onIntro();
+            this.menuPresenter.onIntro();
         });
     }
 
@@ -98,14 +99,14 @@ public class MenuActivity extends BackgroundSoundBaseActivity
 
     private boolean onTouchScreen(View v, MotionEvent event) {
         Log.i(TAG, "onTouchVideo: " + event);
-        return onTouch(v, event, this.menuController::onTouchScreen);
+        return onTouch(v, event, this.menuPresenter::onTouchScreen);
     }
 
     private boolean onTouchStart(View v, MotionEvent event) {
         Log.i(TAG, "onTouchStart: " + event);
         return onTouch(v, event, () -> {
             this.soundController.play(TEXT_BUTTON_SOUND);
-            this.menuController.onStart();
+            this.menuPresenter.onStart();
         });
     }
 
@@ -169,7 +170,7 @@ public class MenuActivity extends BackgroundSoundBaseActivity
         Log.i(TAG, "init");
         super.init();
 
-        this.menuController = new MenuController(this);
+        this.menuPresenter = new MenuPresenter(this);
     }
 
     @Override

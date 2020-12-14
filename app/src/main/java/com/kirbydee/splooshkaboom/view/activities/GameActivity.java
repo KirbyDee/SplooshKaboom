@@ -8,7 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.kirbydee.splooshkaboom.R;
-import com.kirbydee.splooshkaboom.controller.GameController;
+import com.kirbydee.splooshkaboom.contract.GameContract;
+import com.kirbydee.splooshkaboom.presenter.GamePresenter;
 import com.kirbydee.splooshkaboom.controller.ShakeDetector;
 import com.kirbydee.splooshkaboom.model.counter.Counter;
 import com.kirbydee.splooshkaboom.model.tile.game.GameTile;
@@ -38,7 +39,7 @@ import static com.kirbydee.splooshkaboom.model.media.Sound.SPLOOSH;
 
 public class GameActivity extends BackgroundSoundBaseActivity implements
         GameTileView.Listener, BombView.Listener, SquidView.Listener,
-        CounterView.Listener, RecordView.Listener, GameController.Listener,
+        CounterView.Listener, RecordView.Listener, GameContract.View,
         ShakeDetector.Listener, RestartDialog.Listener, ResetView.Listener {
 
     private static final String TAG = GameActivity.class.getName();
@@ -47,7 +48,7 @@ public class GameActivity extends BackgroundSoundBaseActivity implements
     private Storage storage;
 
     // Controller
-    private GameController gameController;
+    private GameContract.Presenter gamePresenter;
 
     // Views
     private CounterView counterView;
@@ -85,7 +86,7 @@ public class GameActivity extends BackgroundSoundBaseActivity implements
 
     private void resetGameController() {
         Log.i(TAG, "resetGameController");
-        this.gameController.reset();
+        this.gamePresenter.reset();
     }
 
     private void resetGridViews() {
@@ -120,7 +121,7 @@ public class GameActivity extends BackgroundSoundBaseActivity implements
         Log.i(TAG, "init");
         super.init();
         this.storage = new Storage(this);
-        this.gameController = new GameController(this);
+        this.gamePresenter = new GamePresenter(this);
         this.restartDialog = new RestartDialog(this);
         this.sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         this.accelerometer = this.sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -160,7 +161,7 @@ public class GameActivity extends BackgroundSoundBaseActivity implements
     @Override
     public void onClick(GameTileView view) {
         Log.i(TAG, "onClick (" + view + ")");
-        this.gameController.onShoot(view.getRowIndex(), view.getColumnIndex());
+        this.gamePresenter.onShoot(view.getRowIndex(), view.getColumnIndex());
     }
 
     @Override

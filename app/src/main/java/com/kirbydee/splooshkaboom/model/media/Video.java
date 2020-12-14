@@ -7,10 +7,12 @@ public enum Video {
     // loop videos
     MENU_IDLE(R.raw.menu_idle, true),
     MENU_TALK(R.raw.menu_talk, true),
-
+    SHOP_IDLE(R.raw.shop_idle, true),
 
     // non-loop videos
-    MENU_INTRO(R.raw.menu_intro);
+    SHOP_BYE(R.raw.shop_bye),
+    MENU_INTRO(R.raw.menu_intro),
+    CHEST_OPEN(R.raw.chest_open_scene);
 
     private final int res;
 

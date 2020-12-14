@@ -1,8 +1,8 @@
-package com.kirbydee.splooshkaboom.controller;
+package com.kirbydee.splooshkaboom.presenter;
 
-import android.content.Context;
 import android.util.Log;
 
+import com.kirbydee.splooshkaboom.contract.MenuContract;
 import com.kirbydee.splooshkaboom.model.MenuState;
 import com.kirbydee.splooshkaboom.model.media.Video;
 
@@ -17,71 +17,45 @@ import static com.kirbydee.splooshkaboom.model.MenuState.TEXT_START_4;
 import static com.kirbydee.splooshkaboom.model.MenuState.TEXT_START_5;
 import static com.kirbydee.splooshkaboom.model.MenuState.TEXT_START_6;
 
-public class MenuController {
+public class MenuPresenter implements MenuContract.Presenter {
 
-    private static final String TAG = MenuController.class.getName();
+    private static final String TAG = MenuPresenter.class.getName();
 
-    // Listener
-    private Listener listener;
+    // View
+    private final MenuContract.View view;
 
     // current menu state
     private MenuState menuState;
 
-    public interface Listener {
-
-        boolean isTextBoxFinished();
-
-        void playVideo(Video video);
-
-        void removeNextText();
-
-        void disableScreenTouch();
-
-        void enableScreenTouch();
-
-        void startGame();
-
-        void forceFinishText();
-
-        void showNextText(int resId);
-
-        void showMenu(boolean show);
-
-        void showMenuText(boolean show);
-    }
-
-    public MenuController(Context context) {
+    public MenuPresenter(MenuContract.View view) {
         this.menuState = INIT;
-        if (context instanceof MenuController.Listener) {
-            this.listener = (MenuController.Listener) context;
-        }
+        this.view = view;
     }
 
+    @Override
     public void onIntro() {
         Log.i(TAG, "onIntro");
         this.menuState = INTRO;
-        this.listener.showMenuText(true);
-        this.listener.showMenu(false);
-        this.listener.enableScreenTouch();
-        this.listener.showNextText(this.menuState.textId);
+        this.view.showMenuText(true);
+        this.view.showMenu(false);
+        this.view.enableScreenTouch();
+        this.view.showNextText(this.menuState.textId);
     }
 
+    @Override
     public void onStart() {
         Log.i(TAG, "onStart");
         this.menuState = TEXT_START_1;
-        this.listener.showMenuText(true);
-        this.listener.showMenu(false);
-        this.listener.enableScreenTouch();
-        this.listener.showNextText(this.menuState.textId);
-        this.listener.playVideo(Video.MENU_TALK);
+        this.view.showMenuText(true);
+        this.view.showMenu(false);
+        this.view.enableScreenTouch();
+        this.view.showNextText(this.menuState.textId);
+        this.view.playVideo(Video.MENU_TALK);
     }
 
+    @Override
     public void onTouchScreen() {
         Log.i(TAG, "onTouchScreen");
-        if (this.listener == null) {
-            return;
-        }
-
         switch (menuState) {
             case INTRO:
                 onIntroTouch();
@@ -112,32 +86,32 @@ public class MenuController {
 
     private void onIntroTouch() {
         Log.i(TAG, "onIntroTouch");
-        if (this.listener.isTextBoxFinished()) {
+        if (this.view.isTextBoxFinished()) {
             this.menuState = MENU;
-            this.listener.disableScreenTouch();
-            this.listener.showMenuText(false);
-            this.listener.removeNextText();
-            this.listener.showMenu(true);
-            this.listener.playVideo(Video.MENU_IDLE);
+            this.view.disableScreenTouch();
+            this.view.showMenuText(false);
+            this.view.removeNextText();
+            this.view.showMenu(true);
+            this.view.playVideo(Video.MENU_IDLE);
         }
         else {
-            this.listener.forceFinishText();
+            this.view.forceFinishText();
         }
     }
 
     private void onTextTouch(MenuState menuState) {
         Log.i(TAG, "onTextTouch");
-        if (this.listener.isTextBoxFinished()) {
-            this.listener.removeNextText();
+        if (this.view.isTextBoxFinished()) {
+            this.view.removeNextText();
             this.menuState = menuState;
             if (this.menuState == START) {
-                this.listener.startGame();
+                this.view.startGame();
             } else {
-                this.listener.showNextText(this.menuState.textId);
+                this.view.showNextText(this.menuState.textId);
             }
         }
         else {
-            this.listener.forceFinishText();
+            this.view.forceFinishText();
         }
     }
 }
