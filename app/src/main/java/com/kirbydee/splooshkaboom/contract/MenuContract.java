@@ -8,7 +8,7 @@ public class MenuContract {
 
         void onIntro();
 
-        void onTouchScreen();
+        void onClickScreen();
 
         void onStart();
     }
@@ -21,9 +21,9 @@ public class MenuContract {
 
         void removeNextText();
 
-        void disableScreenTouch();
+        void disableScreenClick();
 
-        void enableScreenTouch();
+        void enableScreenClick();
 
         void startGame();
 

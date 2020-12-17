@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 
 import com.kirbydee.splooshkaboom.R;
@@ -55,29 +54,18 @@ public class GameTileView extends TileView {
             typedArray.recycle();
         }
 
-        setOnTouchListener(this::onTouch);
+        setOnClickListener(this::onClick);
         if (context instanceof Listener) {
             this.listener = (Listener) context;
             this.listener.onCreate(this);
         }
     }
 
-    private boolean onTouch(View v, MotionEvent event) {
-        Log.i(TAG, "onTouch: " + event);
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                Log.i(TAG, "ACTION_DOWN: (" + rowIndex + ", " + columnIndex + ")");
-                if (this.listener != null) {
-                    this.listener.onClick(this);
-                }
-                break;
-            case MotionEvent.ACTION_UP:
-                v.performClick();
-                break;
-            default:
-                break;
+    private void onClick(View v) {
+        Log.i(TAG, "onClick: (" + rowIndex + ", " + columnIndex + ")");
+        if (this.listener != null) {
+            this.listener.onClick(this);
         }
-        return true;
     }
 
     public void sploosh() {

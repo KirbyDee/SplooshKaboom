@@ -17,7 +17,7 @@ import static com.kirbydee.splooshkaboom.model.media.Sound.GAME_OVER_BUTTON_CLIC
 import static com.kirbydee.splooshkaboom.utils.Consts.GAME_OVER_ACTIVITY_BACKGROUND_SOUND_DELAY;
 import static com.kirbydee.splooshkaboom.utils.Consts.GAME_OVER_ACTIVITY_CHANGE_ACTIVITY_DELAY;
 
-public class GameOverActivity extends BackgroundSoundBaseActivity
+public class GameOverActivity extends MediaBaseActivity
         implements GameOverButton.Listener {
 
     private static final String TAG = GameOverActivity.class.getName();
@@ -28,8 +28,9 @@ public class GameOverActivity extends BackgroundSoundBaseActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i(TAG, "onCreate");
         super.onCreate(savedInstanceState);
+        Log.i(TAG, "onCreate");
+
         setContentView(R.layout.game_over);
     }
 
@@ -53,13 +54,17 @@ public class GameOverActivity extends BackgroundSoundBaseActivity
     @Override
     protected void setUpViews() {
         Log.i(TAG, "setUpViews");
+        super.setUpViews();
+
         this.continueButton = findViewById(R.id.gameOverContinue);
         this.quitButton = findViewById(R.id.gameOverQuit);
     }
 
     @Override
     protected void setUpListeners() {
+        super.setUpListeners();
         Log.i(TAG, "setUpListeners");
+
         this.continueButton.setOnClickListener(this::onContinueClick);
         this.quitButton.setOnClickListener(this::onQuitClick);
     }
@@ -77,7 +82,7 @@ public class GameOverActivity extends BackgroundSoundBaseActivity
     private <A extends Activity> void onButtonClick(View view, final Class<A> activity) {
         Log.i(TAG, "onButtonClick (" + view + ", " + activity + ")");
         view.setClickable(false);
-        this.soundController.play(GAME_OVER_BUTTON_CLICK, MAX);
+        play(GAME_OVER_BUTTON_CLICK, MAX);
         changeActivityAfterDelay(activity, GAME_OVER_ACTIVITY_CHANGE_ACTIVITY_DELAY);
     }
 
@@ -100,6 +105,6 @@ public class GameOverActivity extends BackgroundSoundBaseActivity
 
     @Override
     public void onAnimationEnd(GameOverButton button) {
-
+        // do nothing
     }
 }

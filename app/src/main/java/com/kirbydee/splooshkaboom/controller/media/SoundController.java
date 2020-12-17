@@ -50,6 +50,11 @@ public class SoundController {
         return mediaPlayer;
     }
 
+    public void changeVolume(final Sound sound, Volume volume) {
+        MediaPlayer mediaPlayer = this.mediaPlayerMap.get(sound);
+        mediaPlayer.setVolume(volume.getLeft(), volume.getRight());
+    }
+
     public void play(final Sound sound) {
         play(sound, NORMAL);
     }

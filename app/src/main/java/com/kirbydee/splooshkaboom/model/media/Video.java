@@ -10,6 +10,7 @@ public enum Video {
     SHOP_IDLE(R.raw.shop_idle, true),
 
     // non-loop videos
+    SHOP_INTRO(R.raw.shop_intro),
     SHOP_BYE(R.raw.shop_bye),
     MENU_INTRO(R.raw.menu_intro),
     CHEST_OPEN(R.raw.chest_open_scene);

@@ -2,7 +2,6 @@ package com.kirbydee.splooshkaboom.view.layoutviews;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -34,26 +33,16 @@ public class ResetView extends AppCompatImageView {
     }
 
     protected void init(Context context, @Nullable AttributeSet attrs) {
-        setOnTouchListener(this::onTouch);
+        setOnClickListener(this::onClick);
         if (context instanceof Listener) {
             this.listener = (Listener) context;
             this.listener.onCreate(this);
         }
     }
 
-    private boolean onTouch(View v, MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                if (this.listener != null) {
-                    this.listener.onClick(this);
-                }
-                break;
-            case MotionEvent.ACTION_UP:
-                v.performClick();
-                break;
-            default:
-                break;
+    private void onClick(View v) {
+        if (this.listener != null) {
+            this.listener.onClick(this);
         }
-        return true;
     }
 }

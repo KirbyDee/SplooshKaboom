@@ -2,15 +2,16 @@ package com.kirbydee.splooshkaboom.view.activities;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 
 import com.kirbydee.splooshkaboom.R;
 import com.kirbydee.splooshkaboom.model.media.Sound;
 
+import static com.kirbydee.splooshkaboom.model.media.MonoVolume.LOUD;
 import static com.kirbydee.splooshkaboom.model.media.Sound.INTRO_BACKGROUND;
+import static com.kirbydee.splooshkaboom.model.media.Sound.INTRO_START;
 
-public class StartActivity extends BackgroundSoundBaseActivity {
+public class StartActivity extends MediaBaseActivity {
 
     private static final String TAG = StartActivity.class.getName();
 
@@ -18,41 +19,33 @@ public class StartActivity extends BackgroundSoundBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i(TAG, "onCreate");
         super.onCreate(savedInstanceState);
+        Log.i(TAG, "onCreate");
+
         setContentView(R.layout.start);
     }
 
     @Override
     protected void setUpViews() {
+        super.setUpViews();
         Log.i(TAG, "setUpViews");
+
         this.screenView = findViewById(R.id.screenView);
+        this.screenView.setClickable(true);
     }
 
     @Override
     protected void setUpListeners() {
+        super.setUpListeners();
         Log.i(TAG, "setUpListeners");
-        this.screenView.setOnTouchListener(this::onTouch);
+
+        this.screenView.setOnClickListener(this::onClick);
     }
 
-    private boolean onTouch(View v, MotionEvent event) {
-        Log.i(TAG, "onTouch: " + event);
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                onScreenTouch();
-                break;
-            case MotionEvent.ACTION_UP:
-                v.performClick();
-                break;
-            default:
-                break;
-        }
-        return true;
-    }
-
-    private void onScreenTouch() {
+    private void onClick(View v) {
+        Log.i(TAG, "onClick");
         this.screenView.setClickable(false);
-        this.soundController.play(Sound.INTRO_START, mp -> changeActivity(MenuActivity.class));
+        play(INTRO_START, LOUD, mp -> changeActivity(MenuActivity.class));
     }
 
     @Override

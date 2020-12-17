@@ -7,6 +7,8 @@ public class Consts {
     public static final long GAME_OVER_ACTIVITY_BACKGROUND_SOUND_DELAY = 500;
     public static final long GAME_OVER_ACTIVITY_FADE_IN_BUTTONS_DURATION = 1500;
     public static final long GAME_OVER_ACTIVITY_CHANGE_ACTIVITY_DELAY = 1000;
+    public static final long SHOP_ACTIVITY_MIN_BEEDLE_SOUND_DELAY = 5000;
+    public static final long SHOP_ACTIVITY_MAX_BEEDLE_SOUND_DELAY = 15000;
 
     // Views
     public static final long TEXT_BOX_NEXT_FADE_IN_DURATION = 100;

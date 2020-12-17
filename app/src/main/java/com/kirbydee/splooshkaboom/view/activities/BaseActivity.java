@@ -10,10 +10,11 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.kirbydee.splooshkaboom.controller.HandlerController;
-import com.kirbydee.splooshkaboom.controller.media.VideoController;
 import com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation;
-import com.kirbydee.splooshkaboom.controller.media.SoundController;
 import com.kirbydee.splooshkaboom.utils.Storage;
+
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 import static com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation.NORMAL_FADE;
 import static com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation.NO_SPECIAL;
@@ -24,11 +25,7 @@ public abstract class BaseActivity extends Activity {
 
     private HandlerController handlerController;
 
-    protected SoundController soundController;
-
-    protected VideoController videoController;
-
-    protected Storage storage;
+    private Storage storage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +47,12 @@ public abstract class BaseActivity extends Activity {
 
     @Override
     public void finish() {
-        super.finish();
+        Log.i(TAG, "finish");
 
         // override transitions
         overrideActivityTransition();
+
+        super.finish();
     }
 
     private void overrideActivityTransition() {
@@ -69,8 +68,8 @@ public abstract class BaseActivity extends Activity {
 
     @Override
     protected void onResume() {
-        Log.i(TAG, "onResume");
         super.onResume();
+        Log.i(TAG, "onResume");
 
         // setup
         setUpViews();
@@ -101,7 +100,6 @@ public abstract class BaseActivity extends Activity {
     protected void cleanUp() {
         Log.i(TAG, "cleanUp");
         this.handlerController.clear();
-        this.soundController.stopAll();
     }
 
     protected void runAfterDelay(Runnable r, long delay) {
@@ -127,18 +125,31 @@ public abstract class BaseActivity extends Activity {
     }
 
     protected void init() {
+        Log.i(TAG, "init");
         Handler handler = new Handler();
         this.handlerController = new HandlerController(handler);
-        this.soundController = new SoundController(this, this.handlerController);
-        this.videoController = new VideoController(this);
         this.storage = new Storage(this);
     }
 
+    protected void store(Consumer<Storage> storeConsumer) {
+        storeConsumer.accept(this.storage);
+    }
+
+    protected <C> C fetch(Function<Storage, C> fetchFunction) {
+        return fetchFunction.apply(this.storage);
+    }
+
+    protected <H> H initWithHandlerController(Function<HandlerController, H> function) {
+        return function.apply(this.handlerController);
+    }
+
     protected void setUpViews() {
+        Log.i(TAG, "setUpViews");
         // Override
     }
 
     protected void setUpListeners() {
+        Log.i(TAG, "setUpListeners");
         // Override
     }
 }

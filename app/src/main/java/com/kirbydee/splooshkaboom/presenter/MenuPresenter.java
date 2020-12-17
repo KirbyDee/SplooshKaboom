@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.kirbydee.splooshkaboom.contract.MenuContract;
 import com.kirbydee.splooshkaboom.model.MenuState;
-import com.kirbydee.splooshkaboom.model.media.Video;
 
 import static com.kirbydee.splooshkaboom.model.MenuState.INIT;
 import static com.kirbydee.splooshkaboom.model.MenuState.INTRO;
@@ -16,6 +15,8 @@ import static com.kirbydee.splooshkaboom.model.MenuState.TEXT_START_3;
 import static com.kirbydee.splooshkaboom.model.MenuState.TEXT_START_4;
 import static com.kirbydee.splooshkaboom.model.MenuState.TEXT_START_5;
 import static com.kirbydee.splooshkaboom.model.MenuState.TEXT_START_6;
+import static com.kirbydee.splooshkaboom.model.media.Video.MENU_IDLE;
+import static com.kirbydee.splooshkaboom.model.media.Video.MENU_TALK;
 
 public class MenuPresenter implements MenuContract.Presenter {
 
@@ -38,7 +39,7 @@ public class MenuPresenter implements MenuContract.Presenter {
         this.menuState = INTRO;
         this.view.showMenuText(true);
         this.view.showMenu(false);
-        this.view.enableScreenTouch();
+        this.view.enableScreenClick();
         this.view.showNextText(this.menuState.textId);
     }
 
@@ -48,35 +49,35 @@ public class MenuPresenter implements MenuContract.Presenter {
         this.menuState = TEXT_START_1;
         this.view.showMenuText(true);
         this.view.showMenu(false);
-        this.view.enableScreenTouch();
+        this.view.enableScreenClick();
         this.view.showNextText(this.menuState.textId);
-        this.view.playVideo(Video.MENU_TALK);
+        this.view.playVideo(MENU_TALK);
     }
 
     @Override
-    public void onTouchScreen() {
-        Log.i(TAG, "onTouchScreen");
+    public void onClickScreen() {
+        Log.i(TAG, "onClickScreen");
         switch (menuState) {
             case INTRO:
-                onIntroTouch();
+                onIntroClick();
                 break;
             case TEXT_START_1:
-                onTextTouch(TEXT_START_2);
+                onTextClick(TEXT_START_2);
                 break;
             case TEXT_START_2:
-                onTextTouch(TEXT_START_3);
+                onTextClick(TEXT_START_3);
                 break;
             case TEXT_START_3:
-                onTextTouch(TEXT_START_4);
+                onTextClick(TEXT_START_4);
                 break;
             case TEXT_START_4:
-                onTextTouch(TEXT_START_5);
+                onTextClick(TEXT_START_5);
                 break;
             case TEXT_START_5:
-                onTextTouch(TEXT_START_6);
+                onTextClick(TEXT_START_6);
                 break;
             case TEXT_START_6:
-                onTextTouch(START);
+                onTextClick(START);
                 break;
             default:
                 // do nothing
@@ -84,23 +85,23 @@ public class MenuPresenter implements MenuContract.Presenter {
         }
     }
 
-    private void onIntroTouch() {
-        Log.i(TAG, "onIntroTouch");
+    private void onIntroClick() {
+        Log.i(TAG, "onIntroClick");
         if (this.view.isTextBoxFinished()) {
             this.menuState = MENU;
-            this.view.disableScreenTouch();
+            this.view.disableScreenClick();
             this.view.showMenuText(false);
             this.view.removeNextText();
             this.view.showMenu(true);
-            this.view.playVideo(Video.MENU_IDLE);
+            this.view.playVideo(MENU_IDLE);
         }
         else {
             this.view.forceFinishText();
         }
     }
 
-    private void onTextTouch(MenuState menuState) {
-        Log.i(TAG, "onTextTouch");
+    private void onTextClick(MenuState menuState) {
+        Log.i(TAG, "onTextClick");
         if (this.view.isTextBoxFinished()) {
             this.view.removeNextText();
             this.menuState = menuState;
