@@ -2,12 +2,11 @@ package com.kirbydee.splooshkaboom.view.activities;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import com.kirbydee.splooshkaboom.R;
+import com.kirbydee.splooshkaboom.contract.ShopContract;
 import com.kirbydee.splooshkaboom.model.media.Sound;
-import com.kirbydee.splooshkaboom.view.layoutviews.TextBox;
-import com.kirbydee.splooshkaboom.view.layoutviews.TextBoxNext;
+import com.kirbydee.splooshkaboom.presenter.ShopPresenter;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -17,19 +16,9 @@ import static com.kirbydee.splooshkaboom.model.media.Video.SHOP_IDLE;
 import static com.kirbydee.splooshkaboom.utils.Consts.SHOP_ACTIVITY_MAX_BEEDLE_SOUND_DELAY;
 import static com.kirbydee.splooshkaboom.utils.Consts.SHOP_ACTIVITY_MIN_BEEDLE_SOUND_DELAY;
 
-public class ShopActivity extends MediaBaseActivity {
+public class ShopActivity extends TextBaseActivity<ShopContract.Presenter> implements ShopContract.View {
 
     private static final String TAG = ShopActivity.class.getName();
-
-    // controller
-    //private ShopContract.Presenter shopPresenter;
-
-    // screen view
-    private View shopScreen;
-
-    // menu text
-    private TextBox shopTextView;
-    private TextBoxNext shopTextNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,20 +33,28 @@ public class ShopActivity extends MediaBaseActivity {
         super.setUpViews();
         Log.i(TAG, "setUpViews");
 
-        // views
-        this.shopScreen = findViewById(R.id.shopScreen);
-        this.shopTextView = findViewById(R.id.shopTextView);
-        this.shopTextNext = findViewById(R.id.shopTextNext);
-
-        // view states
-        //shopMenuText(false);
-        //shopMenu(false);
-
         // start background video
         play(SHOP_IDLE);
-        //this.menuPresenter.onIntro();
-
+        this.presenter.onStart();
         playBeedleOhh(0);
+    }
+
+    @Override
+    protected int getScreenViewId() {
+        Log.i(TAG, "getScreenViewId");
+        return R.id.shopScreen;
+    }
+
+    @Override
+    protected int getTextBoxId() {
+        Log.i(TAG, "getTextBoxId");
+        return R.id.shopTextView;
+    }
+
+    @Override
+    protected int getTextBoxNextId() {
+        Log.i(TAG, "getTextBoxNextId");
+        return R.id.shopTextNext;
     }
 
     private void playBeedleOhh(long delay) {
@@ -79,6 +76,11 @@ public class ShopActivity extends MediaBaseActivity {
     protected void setUpListeners() {
         super.setUpListeners();
         Log.i(TAG, "setUpListeners");
+    }
+
+    @Override
+    protected ShopContract.Presenter getPresenter() {
+        return new ShopPresenter(this);
     }
 
     @Override

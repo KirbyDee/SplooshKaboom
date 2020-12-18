@@ -9,14 +9,8 @@ import android.widget.TextView;
 import com.kirbydee.splooshkaboom.R;
 import com.kirbydee.splooshkaboom.contract.MenuContract;
 import com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation;
-import com.kirbydee.splooshkaboom.model.counter.Rupees;
 import com.kirbydee.splooshkaboom.model.media.Sound;
-import com.kirbydee.splooshkaboom.model.media.Video;
 import com.kirbydee.splooshkaboom.presenter.MenuPresenter;
-import com.kirbydee.splooshkaboom.utils.Storage;
-import com.kirbydee.splooshkaboom.view.layoutviews.TextBox;
-import com.kirbydee.splooshkaboom.view.layoutviews.TextBoxNext;
-import com.kirbydee.splooshkaboom.view.layoutviews.counter.RupeesView;
 
 import static com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation.NORMAL_FADE;
 import static com.kirbydee.splooshkaboom.model.media.Sound.MENU_BACKGROUND;
@@ -24,21 +18,9 @@ import static com.kirbydee.splooshkaboom.model.media.Sound.TEXT_BUTTON_SOUND;
 import static com.kirbydee.splooshkaboom.model.media.Video.MENU_INTRO;
 import static com.kirbydee.splooshkaboom.model.media.Video.MENU_TALK;
 
-public class MenuActivity extends MediaBaseActivity
-        implements TextBoxNext.Listener, TextBox.Listener,
-        MenuContract.View, RupeesView.Listener {
+public class MenuActivity extends TextBaseActivity<MenuContract.Presenter> implements MenuContract.View {
 
     private static final String TAG = MenuActivity.class.getName();
-
-    // controller
-    private MenuContract.Presenter menuPresenter;
-
-    // screen view
-    private View menuScreen;
-
-    // menu text
-    private TextBox menuTextView;
-    private TextBoxNext menuTextNext;
 
     // menu items
     private TextView menuStart;
@@ -60,22 +42,18 @@ public class MenuActivity extends MediaBaseActivity
         Log.i(TAG, "setUpViews");
 
         // views
-        this.menuScreen = findViewById(R.id.menuScreen);
-        this.menuTextView = findViewById(R.id.menuTextView);
-        this.menuTextNext = findViewById(R.id.menuTextNext);
         this.menuStart = findViewById(R.id.menuStart);
         this.menuShop = findViewById(R.id.menuShop);
         this.menuInventory = findViewById(R.id.menuInventory);
         this.menuQuit = findViewById(R.id.menuQuit);
 
         // view states
-        showMenuText(false);
         showMenu(false);
 
         // start background video
         play(MENU_INTRO, mp -> {
             play(MENU_TALK);
-            this.menuPresenter.onIntro();
+            this.presenter.onIntro();
         });
     }
 
@@ -91,24 +69,34 @@ public class MenuActivity extends MediaBaseActivity
         Log.i(TAG, "setUpListeners");
         super.setUpListeners();
 
-        this.menuScreen.setOnClickListener(this::onClickScreen);
-        enableScreenClick();
-
         this.menuStart.setOnClickListener(this::onClickStart);
         this.menuShop.setOnClickListener(this::onClickShop);
         this.menuInventory.setOnClickListener(this::onClickInventory);
         this.menuQuit.setOnClickListener(this::onClickQuit);
     }
 
-    private void onClickScreen(View v) {
-        Log.i(TAG, "onClickScreen");
-        this.menuPresenter.onClickScreen();
+    @Override
+    protected int getScreenViewId() {
+        Log.i(TAG, "getScreenViewId");
+        return R.id.menuScreen;
+    }
+
+    @Override
+    protected int getTextBoxId() {
+        Log.i(TAG, "getTextBoxId");
+        return R.id.menuTextView;
+    }
+
+    @Override
+    protected int getTextBoxNextId() {
+        Log.i(TAG, "getTextBoxNextId");
+        return R.id.menuTextNext;
     }
 
     private void onClickStart(View v) {
         Log.i(TAG, "onClickStart");
         play(TEXT_BUTTON_SOUND);
-        this.menuPresenter.onStart();
+        this.presenter.onStart();
     }
 
     private void onClickShop(View v) {
@@ -129,30 +117,8 @@ public class MenuActivity extends MediaBaseActivity
     }
 
     @Override
-    public void onTextFinished(TextBox textBox) {
-        Log.i(TAG, "onTextFinished: " + textBox);
-        this.menuTextNext.show();
-    }
-
-    @Override
-    public void onAnimationFinished(TextBoxNext view) {
-        Log.i(TAG, "onAnimationFinished: " + view);
-        // do nothing
-    }
-
-    @Override
-    public void showMenuText(boolean show) {
-        Log.i(TAG, "showMenuText: " + show);
-        int visibility = show ? View.VISIBLE : View.GONE;
-        this.menuTextView.setVisibility(visibility);
-    }
-
-    @Override
-    protected void init() {
-        super.init();
-        Log.i(TAG, "init");
-
-        this.menuPresenter = new MenuPresenter(this);
+    protected MenuContract.Presenter getPresenter() {
+        return new MenuPresenter(this);
     }
 
     @Override
@@ -162,52 +128,9 @@ public class MenuActivity extends MediaBaseActivity
     }
 
     @Override
-    public boolean isTextBoxFinished() {
-        Log.i(TAG, "isTextBoxFinished");
-        return this.menuTextView.isFinished();
-    }
-
-    @Override
-    public void playVideo(Video video) {
-        play(video);
-    }
-
-    @Override
-    public void removeNextText() {
-        Log.i(TAG, "removeNextText");
-        this.menuTextNext.unShow();
-        play(TEXT_BUTTON_SOUND);
-    }
-
-    @Override
-    public void disableScreenClick() {
-        Log.i(TAG, "disableScreenClick");
-        this.menuScreen.setClickable(false);
-    }
-
-    @Override
-    public void enableScreenClick() {
-        Log.i(TAG, "enableScreenClick");
-        this.menuScreen.setClickable(true);
-    }
-
-    @Override
     public void startGame() {
         Log.i(TAG, "startGame");
         changeActivity(GameActivity.class);
-    }
-
-    @Override
-    public void forceFinishText() {
-        Log.i(TAG, "forceFinishText");
-        this.menuTextView.forceFinish();
-    }
-
-    @Override
-    public void showNextText(int resId) {
-        Log.i(TAG, "showNextText: (" + resId + ")");
-        this.menuTextView.reset();
-        this.menuTextView.animateText(getString(resId));
     }
 
     @Override
@@ -226,13 +149,6 @@ public class MenuActivity extends MediaBaseActivity
         this.menuShop.setClickable(show);
         this.menuInventory.setClickable(show);
         this.menuQuit.setClickable(show);
-    }
-
-    @Override
-    public void onCreate(RupeesView view) {
-        Log.i(TAG, "onCreate (" + view + ")");
-        Rupees rupees = fetch(Storage::getRupees);
-        view.update(rupees);
     }
 
     @Override

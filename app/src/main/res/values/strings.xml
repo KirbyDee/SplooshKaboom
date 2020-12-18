@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Sploosh Kaboom</string>
+
+    <!-- Menu Text -->
     <string name="menu_text_intro">Velcome to zee fleet! I am zee great Adminral WHISKY! Look Sharp, for vee are zee sole protectors of zis island</string>
     <string name="menu_text_start_1">Admiral! Red alert! All hands on deck!</string>
     <string name="menu_text_start_2">Sonar shows that schools of deadly giant squid are approaching! All ships prepare for battle!</string>
@@ -7,4 +9,17 @@
     <string name="menu_text_start_4">Sailor! Take command of our new radar system to seek out and sink all of zese fiendishly hidden enemies!</string>
     <string name="menu_text_start_5">But be varned… you haff only 24 cannonballs zat you can fire.</string>
     <string name="menu_text_start_6">To destroy zee marauding squid pods, you must score four direct hits on zee large, three on zee medium, und two on ze small!</string>
+
+    <!-- Shop Text -->
+    <string name="shop_text_intro_1">OHHHHH! A customer! Welcome to Beedle\'s Shop! I deal in pretty much anything and everything!</string>
+    <string name="shop_text_intro_2">Do you see anything you\'d like to buy? Just use your finger to browse.</string>
+    <string name="shop_text_idle">Oh, just use your finger to browse.</string>
+    <string name="shop_text_browse_item_1">[title]Heart Container 50 Rupees[title][newline]This is a very rare piece of heart! Obtaining it will surround you with a lot of love!</string>
+    <string name="shop_text_browse_item_2">[title]Treasure Map 15 Rupees[title][newline]A map to a hidden treasure! Oh, I found this playing Sploosh/Kaboom myself!</string>
+    <string name="shop_text_browse_item_3">[title]??? 999 Rupees[title][newline]??? ???</string>
+    <string name="shop_text_buy_item_1">You got a Heart Container![newline]You can look up your obtained items in the Inventory section</string>
+    <string name="shop_text_buy_item_2">You got a Treasure Map![newline]You can look up your obtained items in the Inventory section</string>
+    <string name="shop_text_buy_item_3">You got a ???![newline]You can look up your obtained items in the Inventory section</string>
+    <string name="shop_text_bye">Bye! Come again!</string>
+
 </resources>

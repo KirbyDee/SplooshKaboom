@@ -18,28 +18,25 @@ import static com.kirbydee.splooshkaboom.model.MenuState.TEXT_START_6;
 import static com.kirbydee.splooshkaboom.model.media.Video.MENU_IDLE;
 import static com.kirbydee.splooshkaboom.model.media.Video.MENU_TALK;
 
-public class MenuPresenter implements MenuContract.Presenter {
+public class MenuPresenter extends TextPresenter<MenuContract.View> implements MenuContract.Presenter {
 
     private static final String TAG = MenuPresenter.class.getName();
-
-    // View
-    private final MenuContract.View view;
 
     // current menu state
     private MenuState menuState;
 
     public MenuPresenter(MenuContract.View view) {
+        super(view);
         this.menuState = INIT;
-        this.view = view;
     }
 
     @Override
     public void onIntro() {
         Log.i(TAG, "onIntro");
         this.menuState = INTRO;
-        this.view.showMenuText(true);
+        this.view.showTextBox(true);
         this.view.showMenu(false);
-        this.view.enableScreenClick();
+        this.view.enableScreenClick(true);
         this.view.showNextText(this.menuState.textId);
     }
 
@@ -47,9 +44,9 @@ public class MenuPresenter implements MenuContract.Presenter {
     public void onStart() {
         Log.i(TAG, "onStart");
         this.menuState = TEXT_START_1;
-        this.view.showMenuText(true);
+        this.view.showTextBox(true);
         this.view.showMenu(false);
-        this.view.enableScreenClick();
+        this.view.enableScreenClick(true);
         this.view.showNextText(this.menuState.textId);
         this.view.playVideo(MENU_TALK);
     }
@@ -87,32 +84,24 @@ public class MenuPresenter implements MenuContract.Presenter {
 
     private void onIntroClick() {
         Log.i(TAG, "onIntroClick");
-        if (this.view.isTextBoxFinished()) {
+        onClickForceTextToFinish(() -> {
             this.menuState = MENU;
-            this.view.disableScreenClick();
-            this.view.showMenuText(false);
-            this.view.removeNextText();
+            this.view.enableScreenClick(false);
+            this.view.showTextBox(false);
             this.view.showMenu(true);
             this.view.playVideo(MENU_IDLE);
-        }
-        else {
-            this.view.forceFinishText();
-        }
+        });
     }
 
     private void onTextClick(MenuState menuState) {
         Log.i(TAG, "onTextClick");
-        if (this.view.isTextBoxFinished()) {
-            this.view.removeNextText();
+        onClickForceTextToFinish(() -> {
             this.menuState = menuState;
             if (this.menuState == START) {
                 this.view.startGame();
             } else {
                 this.view.showNextText(this.menuState.textId);
             }
-        }
-        else {
-            this.view.forceFinishText();
-        }
+        });
     }
 }
