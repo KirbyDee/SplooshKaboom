@@ -1,5 +1,9 @@
 <resources>
 
+    <declare-styleable name="ShopItemView">
+        <attr name="itemResource" format="string" />
+    </declare-styleable>
+
     <declare-styleable name="GridCellView">
         <attr name="rowIndex" format="integer" />
         <attr name="columnIndex" format="integer" />

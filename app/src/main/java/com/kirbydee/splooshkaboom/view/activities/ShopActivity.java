@@ -7,6 +7,7 @@ import com.kirbydee.splooshkaboom.R;
 import com.kirbydee.splooshkaboom.contract.ShopContract;
 import com.kirbydee.splooshkaboom.model.media.Sound;
 import com.kirbydee.splooshkaboom.presenter.ShopPresenter;
+import com.kirbydee.splooshkaboom.view.layoutviews.shopitem.ShopItemView;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -16,7 +17,8 @@ import static com.kirbydee.splooshkaboom.model.media.Video.SHOP_IDLE;
 import static com.kirbydee.splooshkaboom.utils.Consts.SHOP_ACTIVITY_MAX_BEEDLE_SOUND_DELAY;
 import static com.kirbydee.splooshkaboom.utils.Consts.SHOP_ACTIVITY_MIN_BEEDLE_SOUND_DELAY;
 
-public class ShopActivity extends TextBaseActivity<ShopContract.Presenter> implements ShopContract.View {
+public class ShopActivity extends TextBaseActivity<ShopContract.Presenter> implements ShopContract.View,
+        ShopItemView.Listener {
 
     private static final String TAG = ShopActivity.class.getName();
 
@@ -87,5 +89,16 @@ public class ShopActivity extends TextBaseActivity<ShopContract.Presenter> imple
     protected Sound getBackgroundSound() {
         Log.i(TAG, "getBackgroundSound");
         return SHOP_BACKGROUND;
+    }
+
+    @Override
+    public void onCreate(ShopItemView view) {
+        Log.i(TAG, "onCreate (" + view+ ")");
+    }
+
+    @Override
+    public void onClick(ShopItemView view) {
+        Log.i(TAG, "onClick (" + view+ ")");
+        view.selectItem();
     }
 }

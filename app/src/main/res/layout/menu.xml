@@ -27,34 +27,38 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="65">
+            android:layout_weight="5" />
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="5"
+            android:weightSum="100">
 
-                <com.kirbydee.splooshkaboom.view.layoutviews.gifs.GifView
-                    android:id="@+id/menuGreenRupee"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_width="20dp"
-                    android:layout_height="25dp"
-                    android:background="@drawable/rupee_green_anim"/>
+            <com.kirbydee.splooshkaboom.view.layoutviews.gifs.GifView
+                android:layout_marginStart="10dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@drawable/rupee_green_anim"/>
 
-                <com.kirbydee.splooshkaboom.view.layoutviews.counter.RupeesView
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_toEndOf="@id/menuGreenRupee"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:text="0"
-                    android:fontFamily="@font/comic_sans_ms"/>
+            <com.kirbydee.splooshkaboom.view.layoutviews.counter.RupeesView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="10"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:text="0"
+                android:fontFamily="@font/comic_sans_ms"/>
 
-            </RelativeLayout>
+        </LinearLayout>
 
-        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="55" />
 
         <LinearLayout
             android:layout_width="match_parent"

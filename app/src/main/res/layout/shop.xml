@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -19,6 +20,8 @@
         android:layout_alignParentStart="true" />
 
     <LinearLayout
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -27,42 +30,88 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="65">
+            android:layout_weight="5" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="5"
+            android:weightSum="100">
 
             <com.kirbydee.splooshkaboom.view.layoutviews.gifs.GifView
-                android:id="@+id/iv_animation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/heart_piece_anim"
-                android:contentDescription="Animation" />
+                android:layout_marginStart="10dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@drawable/rupee_green_anim"/>
+
+            <com.kirbydee.splooshkaboom.view.layoutviews.counter.RupeesView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="10"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:text="0"
+                android:fontFamily="@font/comic_sans_ms"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="30" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="13"
+            android:orientation="horizontal"
+            android:weightSum="100">
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="45" />
 
-                <com.kirbydee.splooshkaboom.view.layoutviews.gifs.GifView
-                    android:id="@+id/menuGreenRupee"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_width="20dp"
-                    android:layout_height="25dp"
-                    android:background="@drawable/rupee_green_anim"/>
+            <com.kirbydee.splooshkaboom.view.layoutviews.shopitem.GifShopItemView
+                android:id="@+id/heart_piece"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="6"
+                app:itemResource="heart_piece_anim" />
 
-                <com.kirbydee.splooshkaboom.view.layoutviews.counter.RupeesView
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_toEndOf="@id/menuGreenRupee"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:text="0"
-                    android:fontFamily="@font/comic_sans_ms"/>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7" />
 
-            </RelativeLayout>
+            <com.kirbydee.splooshkaboom.view.layoutviews.shopitem.StaticShopItemView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="6"
+                android:adjustViewBounds="true"
+                app:itemResource="treasure_map" />
 
-        </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="8" />
+
+            <com.kirbydee.splooshkaboom.view.layoutviews.shopitem.StaticShopItemView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="6"
+                app:itemResource="question_mark" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="12" />
 
         <LinearLayout
             android:layout_width="match_parent"
