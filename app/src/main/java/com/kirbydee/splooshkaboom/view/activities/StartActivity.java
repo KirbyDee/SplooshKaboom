@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.kirbydee.splooshkaboom.R;
+import com.kirbydee.splooshkaboom.model.counter.Rupees;
 import com.kirbydee.splooshkaboom.model.media.Sound;
 
 import static com.kirbydee.splooshkaboom.model.media.MonoVolume.LOUD;
@@ -32,6 +33,9 @@ public class StartActivity extends MediaBaseActivity {
 
         this.screenView = findViewById(R.id.screenView);
         this.screenView.setClickable(true);
+
+        // TODO
+        getStorage().storeRupees(Rupees.of(10));
     }
 
     @Override

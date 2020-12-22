@@ -1,10 +1,9 @@
-package com.kirbydee.splooshkaboom.model;
+package com.kirbydee.splooshkaboom.model.textstate;
 
 import com.kirbydee.splooshkaboom.R;
 
-public enum MenuState {
+public enum MenuState implements TextState {
 
-    INIT(-1),
     INTRO(R.string.menu_text_intro),
     MENU(-1),
     TEXT_START_1(R.string.menu_text_start_1),
@@ -15,9 +14,14 @@ public enum MenuState {
     TEXT_START_6(R.string.menu_text_start_6),
     START(-1);
 
-    public int textId;
+    private final int textId;
 
     MenuState(int textId) {
         this.textId = textId;
+    }
+
+    @Override
+    public int getTextId() {
+        return this.textId;
     }
 }

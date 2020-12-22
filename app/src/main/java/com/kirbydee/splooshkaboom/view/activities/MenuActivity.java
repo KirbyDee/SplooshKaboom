@@ -118,7 +118,7 @@ public class MenuActivity extends TextBaseActivity<MenuContract.Presenter> imple
 
     @Override
     protected MenuContract.Presenter getPresenter() {
-        return new MenuPresenter(this);
+        return new MenuPresenter(this, getStorage());
     }
 
     @Override
@@ -155,5 +155,13 @@ public class MenuActivity extends TextBaseActivity<MenuContract.Presenter> imple
     protected ActivityTransitionAnimation getActivityTransitionAnimation() {
         Log.i(TAG, "getActivityTransitionAnimation");
         return NORMAL_FADE;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Log.i(TAG, "onBackPressed");
+
+        finish();
     }
 }

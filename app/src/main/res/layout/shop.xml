@@ -81,7 +81,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="6"
-                app:itemResource="heart_piece_anim" />
+                app:itemResource="heart_piece_anim"
+                app:rupees="15"
+                app:itemIndex="1" />
 
             <RelativeLayout
                 android:layout_width="0dp"
@@ -93,7 +95,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="6"
                 android:adjustViewBounds="true"
-                app:itemResource="treasure_map" />
+                app:itemResource="treasure_map"
+                app:rupees="5"
+                app:itemIndex="2" />
 
             <RelativeLayout
                 android:layout_width="0dp"
@@ -104,14 +108,16 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="6"
-                app:itemResource="question_mark" />
+                app:itemResource="question_mark"
+                app:rupees="999"
+                app:itemIndex="3" />
 
         </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="12" />
+            android:layout_weight="12"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -127,12 +133,13 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/shop_text_holder"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/text_box"
                 android:layout_weight="80">
 
-                <com.kirbydee.splooshkaboom.view.layoutviews.TextBox
+                <com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextBox
                     android:id="@+id/shopTextView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -141,7 +148,7 @@
                     android:textColor="@color/black"
                     android:layout_margin="30dp"/>
 
-                <com.kirbydee.splooshkaboom.view.layoutviews.TextBoxNext
+                <com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextBoxNext
                     android:id="@+id/shopTextNext"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
@@ -160,5 +167,54 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <com.kirbydee.splooshkaboom.view.layoutviews.dialog.ShopDialogView
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="60dp"
+        android:alpha="0">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shop_button_dialog_background"
+            android:alpha="0.75"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shop_button_dialog_border"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:weightSum="100"
+            android:layout_marginBottom="10dp">
+
+            <Button
+                android:id="@+id/shop_item_buy"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="50"
+                android:layout_gravity="center"
+                android:background="@drawable/shop_buy_button"/>
+
+            <Button
+                android:id="@+id/shop_item_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="50"
+                android:layout_gravity="center"
+                android:background="@drawable/shop_cancel_button"/>
+
+        </LinearLayout>
+    </com.kirbydee.splooshkaboom.view.layoutviews.dialog.ShopDialogView>
 
 </RelativeLayout>

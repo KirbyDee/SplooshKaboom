@@ -1,4 +1,4 @@
-package com.kirbydee.splooshkaboom.view.layoutviews;
+package com.kirbydee.splooshkaboom.view.layoutviews.textbox;
 
 import android.animation.Animator;
 import android.content.Context;

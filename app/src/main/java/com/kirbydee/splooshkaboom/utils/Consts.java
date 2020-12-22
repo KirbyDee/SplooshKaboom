@@ -5,15 +5,17 @@ public class Consts {
     // Activities
     public static final long GAME_ACTIVITY_BACKGROUND_SOUND_DELAY = 1300;
     public static final long GAME_OVER_ACTIVITY_BACKGROUND_SOUND_DELAY = 500;
-    public static final long GAME_OVER_ACTIVITY_FADE_IN_BUTTONS_DURATION = 1500;
     public static final long GAME_OVER_ACTIVITY_CHANGE_ACTIVITY_DELAY = 1000;
     public static final long SHOP_ACTIVITY_MIN_BEEDLE_SOUND_DELAY = 5000;
     public static final long SHOP_ACTIVITY_MAX_BEEDLE_SOUND_DELAY = 15000;
+    public static final long SHOP_ACTIVITY_BUY_DIALOG_SHOW_DELAY = 2000;
 
     // Views
+    public static final long GAME_OVER_FADE_IN_BUTTONS_DURATION = 1500;
     public static final long TEXT_BOX_NEXT_FADE_IN_DURATION = 100;
     public static final long UI_DELAY = 35;
     public static final long RUPEE_COUNT_MAX_TIME = 2000;
+    public static final long SHOP_DIALOG_VIEW_FADE_DURATION = 500;
 
     // Game Controller
     public static final int MAX_TURNS = 24;
@@ -26,8 +28,7 @@ public class Consts {
     // Shared Preferences
     public static final String PREFERENCE = "SplooshKaboom";
     public static final String KEY_RECORD = "KEY_RECORD";
-    public static final String KEY_HAS_HEART_PIECE = "KEY_HAS_HEART_PIECE";
-    public static final String KEY_HAS_TREASURE_MAP = "KEY_HAS_TREASURE_MAP";
+    public static final String KEY_ITEMS_BOUGHT = "KEY_ITEMS_BOUGHT";
     public static final String KEY_RUPEES = "KEY_RUPEES";
 
     /*

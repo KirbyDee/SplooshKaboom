@@ -83,7 +83,7 @@ public class GameOverActivity extends MediaBaseActivity
         Log.i(TAG, "onButtonClick (" + view + ", " + activity + ")");
         view.setClickable(false);
         play(GAME_OVER_BUTTON_CLICK, MAX);
-        changeActivityAfterDelay(activity, GAME_OVER_ACTIVITY_CHANGE_ACTIVITY_DELAY);
+        changeActivity(activity, GAME_OVER_ACTIVITY_CHANGE_ACTIVITY_DELAY);
     }
 
     @Override

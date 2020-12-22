@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.kirbydee.splooshkaboom.R;
+import com.kirbydee.splooshkaboom.model.counter.Rupees;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -30,11 +31,21 @@ public abstract class ShopItemView extends AppCompatImageView {
 
     private AnimatorSet deselectAnimations;
 
+    private AnimatorSet soldAnimations;
+
     private Context context;
 
     private String itemResourceName;
 
+    private int itemIndex;
+
+    private Rupees rupees;
+
     private Listener listener;
+
+    private boolean isSelected = false;
+
+    private boolean isSold = false;
 
     public ShopItemView(Context context) {
         super(context);
@@ -56,6 +67,8 @@ public abstract class ShopItemView extends AppCompatImageView {
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ShopItemView, 0, 0);
         try {
             this.itemResourceName = typedArray.getString(R.styleable.ShopItemView_itemResource);
+            this.itemIndex = typedArray.getInt(R.styleable.ShopItemView_itemIndex, -1);
+            this.rupees = Rupees.of(typedArray.getInt(R.styleable.ShopItemView_rupees, -1));
         } finally {
             typedArray.recycle();
         }
@@ -105,26 +118,38 @@ public abstract class ShopItemView extends AppCompatImageView {
             this.deselectAnimations.playTogether(reverseScaleX, reverseScaleY, reverseTranslationX, reverseTranslationY);
             this.deselectAnimations.setDuration(500);
             this.deselectAnimations.setInterpolator(new AccelerateDecelerateInterpolator());
+
+            // sold
+            this.soldAnimations = new AnimatorSet();
+            this.soldAnimations.playTogether(reverseScaleX, reverseScaleY, reverseTranslationX, reverseTranslationY);
+            this.soldAnimations.setDuration(0);
+            this.soldAnimations.setInterpolator(new AccelerateDecelerateInterpolator());
         });
     }
 
     public void deselectItem() {
         Log.i(TAG, "deselectItem");
-        post(() -> this.deselectAnimations.start());
-        setClickable(true);
+        if (this.isSelected) {
+            this.isSelected = false;
+            post(() -> this.deselectAnimations.start());
+        }
     }
 
     public void selectItem() {
         Log.i(TAG, "selectItem");
-        post(() -> this.selectAnimations.start());
-        setClickable(false);
+        if (!this.isSelected) {
+            this.isSelected = true;
+            post(() -> this.selectAnimations.start());
+        }
     }
 
     public void itemSold() {
         Log.i(TAG, "itemSold");
+        this.isSold = false;
+        this.isSold = true;
         stopIdleAnimation();
         showSoldSign();
-        setClickable(false);
+        post(() -> this.soldAnimations.start());
     }
 
     protected abstract void startIdleAnimation();
@@ -150,5 +175,32 @@ public abstract class ShopItemView extends AppCompatImageView {
         if (this.listener != null && view instanceof ShopItemView) {
             this.listener.onClick((ShopItemView) view);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "ShopItemView{" +
+                "itemResourceName='" + itemResourceName + '\'' +
+                ", itemIndex=" + itemIndex +
+                ", rupees=" + rupees +
+                ", isSelected=" + isSelected +
+                ", isSold=" + isSold +
+                '}';
+    }
+
+    public boolean isItemSelected() {
+        return this.isSelected;
+    }
+
+    public boolean isSold() {
+        return isSold;
+    }
+
+    public int getItemIndex() {
+        return itemIndex;
+    }
+
+    public Rupees getRupees() {
+        return rupees;
     }
 }

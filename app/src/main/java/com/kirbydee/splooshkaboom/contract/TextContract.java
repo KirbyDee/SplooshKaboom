@@ -1,5 +1,7 @@
 package com.kirbydee.splooshkaboom.contract;
 
+import com.kirbydee.splooshkaboom.model.counter.Rupees;
+import com.kirbydee.splooshkaboom.model.media.Sound;
 import com.kirbydee.splooshkaboom.model.media.Video;
 
 public class TextContract {
@@ -7,11 +9,15 @@ public class TextContract {
     public interface Presenter {
 
         void onClickScreen();
+
+        void onTextFinished();
     }
 
     public interface View {
 
         boolean isTextBoxFinished();
+
+        void playSound(Sound sound);
 
         void playVideo(Video video);
 
@@ -23,6 +29,18 @@ public class TextContract {
 
         void showNextText(int resId);
 
+        default void showTextBox() {
+            showTextBox(true);
+        }
+
         void showTextBox(boolean show);
+
+        default void showTextBoxNext() {
+            showTextBoxNext(true);
+        }
+
+        void showTextBoxNext(boolean show);
+
+        void updateRupees(Rupees rupees);
     }
 }

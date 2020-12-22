@@ -3,58 +3,75 @@ package com.kirbydee.splooshkaboom.presenter;
 import android.util.Log;
 
 import com.kirbydee.splooshkaboom.contract.MenuContract;
-import com.kirbydee.splooshkaboom.model.MenuState;
+import com.kirbydee.splooshkaboom.model.textstate.MenuState;
+import com.kirbydee.splooshkaboom.utils.Storage;
 
-import static com.kirbydee.splooshkaboom.model.MenuState.INIT;
-import static com.kirbydee.splooshkaboom.model.MenuState.INTRO;
-import static com.kirbydee.splooshkaboom.model.MenuState.MENU;
-import static com.kirbydee.splooshkaboom.model.MenuState.START;
-import static com.kirbydee.splooshkaboom.model.MenuState.TEXT_START_1;
-import static com.kirbydee.splooshkaboom.model.MenuState.TEXT_START_2;
-import static com.kirbydee.splooshkaboom.model.MenuState.TEXT_START_3;
-import static com.kirbydee.splooshkaboom.model.MenuState.TEXT_START_4;
-import static com.kirbydee.splooshkaboom.model.MenuState.TEXT_START_5;
-import static com.kirbydee.splooshkaboom.model.MenuState.TEXT_START_6;
 import static com.kirbydee.splooshkaboom.model.media.Video.MENU_IDLE;
 import static com.kirbydee.splooshkaboom.model.media.Video.MENU_TALK;
+import static com.kirbydee.splooshkaboom.model.textstate.MenuState.INTRO;
+import static com.kirbydee.splooshkaboom.model.textstate.MenuState.MENU;
+import static com.kirbydee.splooshkaboom.model.textstate.MenuState.START;
+import static com.kirbydee.splooshkaboom.model.textstate.MenuState.TEXT_START_1;
+import static com.kirbydee.splooshkaboom.model.textstate.MenuState.TEXT_START_2;
+import static com.kirbydee.splooshkaboom.model.textstate.MenuState.TEXT_START_3;
+import static com.kirbydee.splooshkaboom.model.textstate.MenuState.TEXT_START_4;
+import static com.kirbydee.splooshkaboom.model.textstate.MenuState.TEXT_START_5;
+import static com.kirbydee.splooshkaboom.model.textstate.MenuState.TEXT_START_6;
 
-public class MenuPresenter extends TextPresenter<MenuContract.View> implements MenuContract.Presenter {
+public class MenuPresenter extends TextPresenter<MenuContract.View, MenuState> implements MenuContract.Presenter {
 
     private static final String TAG = MenuPresenter.class.getName();
 
-    // current menu state
-    private MenuState menuState;
+    public MenuPresenter(MenuContract.View view, Storage storage) {
+        super(view, storage);
+    }
 
-    public MenuPresenter(MenuContract.View view) {
-        super(view);
-        this.menuState = INIT;
+    @Override
+    protected void showText() {
+        Log.i(TAG, "showText");
+        this.view.showMenu(false);
+        super.showText();
+    }
+
+    private void showMenu() {
+        Log.i(TAG, "showMenu");
+        this.view.enableScreenClick(false);
+        this.view.showTextBox(false);
+        this.view.showMenu();
     }
 
     @Override
     public void onIntro() {
         Log.i(TAG, "onIntro");
-        this.menuState = INTRO;
-        this.view.showTextBox(true);
-        this.view.showMenu(false);
-        this.view.enableScreenClick(true);
-        this.view.showNextText(this.menuState.textId);
+
+        // set INTRO state
+        setState(INTRO);
+
+        // show INTRO text
+        showText();
     }
 
     @Override
     public void onStart() {
         Log.i(TAG, "onStart");
-        this.menuState = TEXT_START_1;
-        this.view.showTextBox(true);
-        this.view.showMenu(false);
-        this.view.enableScreenClick(true);
-        this.view.showNextText(this.menuState.textId);
+
+        // set START state
+        setState(TEXT_START_1);
+
+        // show START text
+        showText();
+
+        // play TALK video
         this.view.playVideo(MENU_TALK);
     }
 
     @Override
     public void onClickScreen() {
         Log.i(TAG, "onClickScreen");
-        switch (menuState) {
+        if (getState() == null) {
+            return;
+        }
+        switch (getState()) {
             case INTRO:
                 onIntroClick();
                 break;
@@ -85,10 +102,8 @@ public class MenuPresenter extends TextPresenter<MenuContract.View> implements M
     private void onIntroClick() {
         Log.i(TAG, "onIntroClick");
         onClickForceTextToFinish(() -> {
-            this.menuState = MENU;
-            this.view.enableScreenClick(false);
-            this.view.showTextBox(false);
-            this.view.showMenu(true);
+            setState(MENU);
+            showMenu();
             this.view.playVideo(MENU_IDLE);
         });
     }
@@ -96,11 +111,11 @@ public class MenuPresenter extends TextPresenter<MenuContract.View> implements M
     private void onTextClick(MenuState menuState) {
         Log.i(TAG, "onTextClick");
         onClickForceTextToFinish(() -> {
-            this.menuState = menuState;
-            if (this.menuState == START) {
+            setState(menuState);
+            if (getState() == START) {
                 this.view.startGame();
             } else {
-                this.view.showNextText(this.menuState.textId);
+                showText();
             }
         });
     }

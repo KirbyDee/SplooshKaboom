@@ -6,9 +6,16 @@ import android.content.SharedPreferences;
 import com.kirbydee.splooshkaboom.model.counter.Counter;
 import com.kirbydee.splooshkaboom.model.counter.Rupees;
 
+import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import static com.kirbydee.splooshkaboom.utils.Consts.*;
+import static com.kirbydee.splooshkaboom.utils.Consts.KEY_ITEMS_BOUGHT;
+import static com.kirbydee.splooshkaboom.utils.Consts.KEY_RECORD;
+import static com.kirbydee.splooshkaboom.utils.Consts.KEY_RUPEES;
+import static com.kirbydee.splooshkaboom.utils.Consts.PREFERENCE;
+import static com.kirbydee.splooshkaboom.utils.PredicateExt.not;
 
 public class Storage {
 
@@ -18,12 +25,12 @@ public class Storage {
         this.context = context;
     }
 
-    public void storeHasTreasureMap(boolean hasTreasureMap) {
-        storeBoolean(KEY_HAS_TREASURE_MAP, hasTreasureMap);
-    }
-
-    public void storeHasHeartPiece(boolean hasHeartPiece) {
-        storeBoolean(KEY_HAS_HEART_PIECE, hasHeartPiece);
+    public void storeBoughtItemIndexes(Set<Integer> itemSet) {
+        String indices = itemSet
+                .stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(","));
+        storeString(KEY_ITEMS_BOUGHT, indices);
     }
 
     public void storeRupees(Rupees rupees) {
@@ -42,6 +49,10 @@ public class Storage {
         store(e -> e.putBoolean(key, value));
     }
 
+    private void storeString(String key, String value) {
+        store(e -> e.putString(key, value));
+    }
+
     private void store(Function<SharedPreferences.Editor, SharedPreferences.Editor> function) {
         SharedPreferences pref = this.context.getSharedPreferences(PREFERENCE, 0);
         SharedPreferences.Editor editor = pref.edit();
@@ -49,12 +60,12 @@ public class Storage {
                 .apply();
     }
 
-    public boolean hasHeartPiece() {
-        return get(s -> s.getBoolean(KEY_HAS_HEART_PIECE, false));
-    }
-
-    public boolean hasTreasureMap() {
-        return get(s -> s.getBoolean(KEY_HAS_TREASURE_MAP, false));
+    public Set<Integer> getBoughtItemIndexes() {
+        String indices = get(s -> s.getString(KEY_ITEMS_BOUGHT, ""));
+        return Stream.of(indices.split(","))
+                .filter(not(String::isEmpty))
+                .map(Integer::parseInt)
+                .collect(Collectors.toSet());
     }
 
     public Rupees getRupees() {

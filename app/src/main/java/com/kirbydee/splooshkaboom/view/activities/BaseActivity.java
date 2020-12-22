@@ -13,7 +13,6 @@ import com.kirbydee.splooshkaboom.controller.HandlerController;
 import com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation;
 import com.kirbydee.splooshkaboom.utils.Storage;
 
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 import static com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation.NORMAL_FADE;
@@ -113,7 +112,7 @@ public abstract class BaseActivity extends Activity {
         finish();
     }
 
-    protected <A extends Activity> void changeActivityAfterDelay(final Class<A> activity, long delay) {
+    protected <A extends Activity> void changeActivity(final Class<A> activity, long delay) {
         runAfterDelay(() -> changeActivity(activity), delay);
     }
 
@@ -131,12 +130,8 @@ public abstract class BaseActivity extends Activity {
         this.storage = new Storage(this);
     }
 
-    protected void store(Consumer<Storage> storeConsumer) {
-        storeConsumer.accept(this.storage);
-    }
-
-    protected <C> C fetch(Function<Storage, C> fetchFunction) {
-        return fetchFunction.apply(this.storage);
+    protected Storage getStorage() {
+        return this.storage;
     }
 
     protected <H> H initWithHandlerController(Function<HandlerController, H> function) {

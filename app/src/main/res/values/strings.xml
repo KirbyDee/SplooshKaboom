@@ -14,12 +14,12 @@
     <string name="shop_text_intro_1">OHHHHH! A customer! Welcome to Beedle\'s Shop! I deal in pretty much anything and everything!</string>
     <string name="shop_text_intro_2">Do you see anything you\'d like to buy? Just use your finger to browse.</string>
     <string name="shop_text_idle">Oh, just use your finger to browse.</string>
-    <string name="shop_text_browse_item_1">[title]Heart Container 50 Rupees[title][newline]This is a very rare piece of heart! Obtaining it will surround you with a lot of love!</string>
-    <string name="shop_text_browse_item_2">[title]Treasure Map 15 Rupees[title][newline]A map to a hidden treasure! Oh, I found this playing Sploosh/Kaboom myself!</string>
-    <string name="shop_text_browse_item_3">[title]??? 999 Rupees[title][newline]??? ???</string>
-    <string name="shop_text_buy_item_1">You got a Heart Container![newline]You can look up your obtained items in the Inventory section</string>
-    <string name="shop_text_buy_item_2">You got a Treasure Map![newline]You can look up your obtained items in the Inventory section</string>
-    <string name="shop_text_buy_item_3">You got a ???![newline]You can look up your obtained items in the Inventory section</string>
+    <string name="shop_text_browse_item_1">Heart Container [rupees_1] Rupees\nThis is a very rare piece of heart! Obtaining it will surround you with a lot of love!</string>
+    <string name="shop_text_browse_item_2">Treasure Map [rupees_2] Rupees\nA map to a hidden treasure! Oh, I found this playing Sploosh/Kaboom myself!</string>
+    <string name="shop_text_browse_item_3">Something?? [rupees_3] Rupees\n??? ???</string>
+    <string name="shop_text_buy_item_1">You got a Heart Container!\nYou can look up your obtained items in the Inventory section</string>
+    <string name="shop_text_buy_item_2">You got a Treasure Map!\nYou can look up your obtained items in the Inventory section</string>
+    <string name="shop_text_buy_item_3">You got a ???!\nYou can look up your obtained items in the Inventory section</string>
     <string name="shop_text_bye">Bye! Come again!</string>
 
 </resources>

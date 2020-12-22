@@ -12,8 +12,16 @@ public class Rupees {
         this.count = startCount;
     }
 
+    public boolean isLessThan(Rupees rupees) {
+        return this.count < rupees.count;
+    }
+
     public void increase() {
         increase(1);
+    }
+
+    public void increase(Rupees rupees) {
+        increase(rupees.count);
     }
 
     public void increase(int amount) {
@@ -22,6 +30,10 @@ public class Rupees {
 
     public void decrease() {
         decrease(1);
+    }
+
+    public void decrease(Rupees rupees) {
+        decrease(rupees.count);
     }
 
     public void decrease(int amount) {

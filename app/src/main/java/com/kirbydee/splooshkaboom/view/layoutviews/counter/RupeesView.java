@@ -2,7 +2,6 @@ package com.kirbydee.splooshkaboom.view.layoutviews.counter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
 
@@ -17,8 +16,6 @@ import static com.kirbydee.splooshkaboom.utils.Consts.UI_DELAY;
 public class RupeesView extends AppCompatTextView {
 
     private static final String TAG = RupeesView.class.getName();
-
-    private Handler handler;
 
     private int desiredRupees;
 
@@ -46,7 +43,6 @@ public class RupeesView extends AppCompatTextView {
 
     protected void init(Context context) {
         Log.i(TAG, "init");
-        this.handler = new Handler();
         if (context instanceof Listener) {
             Listener listener = (Listener) context;
             listener.onCreate(this);
@@ -77,7 +73,7 @@ public class RupeesView extends AppCompatTextView {
         setText("" + newRupees);
 
         // post delayed, so it looks fluent
-        RupeesView.this.handler.postDelayed(RupeesView.this.rupeeChanger, UI_DELAY);
+        postDelayed(RupeesView.this.rupeeChanger, UI_DELAY);
     };
 
     private int getCurrentRupees() {
@@ -100,7 +96,12 @@ public class RupeesView extends AppCompatTextView {
                 1;
 
         // animate
-        this.handler.removeCallbacks(this.rupeeChanger);
-        this.handler.postDelayed(this.rupeeChanger, UI_DELAY);
+        removeCallbacks(this.rupeeChanger);
+        postDelayed(this.rupeeChanger, UI_DELAY);
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void set(Rupees rupees) {
+        setText("" + rupees.get());
     }
 }

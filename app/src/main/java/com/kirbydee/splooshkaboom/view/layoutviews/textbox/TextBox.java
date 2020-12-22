@@ -1,13 +1,12 @@
-package com.kirbydee.splooshkaboom.view.layoutviews;
+package com.kirbydee.splooshkaboom.view.layoutviews.textbox;
 
 import android.content.Context;
-import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
 
 import androidx.appcompat.widget.AppCompatTextView;
 
-import static com.kirbydee.splooshkaboom.utils.Consts.UI_DELAY;
+import static com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextSpeed.DEFAULT;
 
 public class TextBox extends AppCompatTextView {
 
@@ -18,7 +17,9 @@ public class TextBox extends AppCompatTextView {
         void onTextFinished(TextBox textBox);
     }
 
-    private Handler handler;
+    private TextSpeed textSpeed = DEFAULT;
+
+    private TextFormatter formatter;
 
     private Listener listener;
 
@@ -40,7 +41,6 @@ public class TextBox extends AppCompatTextView {
 
     private void init(Context context) {
         Log.i(TAG, "init");
-        this.handler = new Handler();
         reset();
         if (context instanceof Listener) {
             this.listener = (Listener) context;
@@ -52,7 +52,7 @@ public class TextBox extends AppCompatTextView {
         setText(TextBox.this.text.subSequence(0, TextBox.this.index++));
 
         if (TextBox.this.index <= TextBox.this.text.length()) {
-            TextBox.this.handler.postDelayed(TextBox.this.characterAdder, UI_DELAY);
+            postDelayed(TextBox.this.characterAdder, this.textSpeed.time);
         }
         else {
             this.isFinished = true;
@@ -63,6 +63,7 @@ public class TextBox extends AppCompatTextView {
     };
 
     public void reset() {
+        Log.i(TAG, "reset");
         this.isFinished = false;
         this.index = 0;
         setText("");
@@ -73,22 +74,31 @@ public class TextBox extends AppCompatTextView {
 
         // reset
         reset();
-        this.text = text;
+        this.text = format(text);
 
         // animate
-        this.handler.removeCallbacks(this.characterAdder);
-        this.handler.postDelayed(this.characterAdder, UI_DELAY);
+        removeCallbacks(this.characterAdder);
+        post(this.characterAdder);
+    }
+
+    private CharSequence format(CharSequence text) {
+        Log.i(TAG, "format (" + text + ")");
+        if (this.formatter != null) {
+            return this.formatter.format(text.toString());
+        }
+        return text;
     }
 
     public void forceFinish() {
         Log.i(TAG, "forceFinish");
 
-        this.handler.removeCallbacks(this.characterAdder);
+        removeCallbacks(this.characterAdder);
         setText(this.text);
         finish();
     }
 
     private void finish() {
+        Log.i(TAG, "finish");
         this.isFinished = true;
         if (this.listener != null) {
             this.listener.onTextFinished(this);
@@ -99,10 +109,27 @@ public class TextBox extends AppCompatTextView {
         return isFinished;
     }
 
+    public TextFormatter getFormatter() {
+        return formatter;
+    }
+
+    public void setFormatter(TextFormatter formatter) {
+        this.formatter = formatter;
+    }
+
+    public TextSpeed getTextSpeed() {
+        return textSpeed;
+    }
+
+    public void setTextSpeed(TextSpeed textSpeed) {
+        this.textSpeed = textSpeed;
+    }
+
     @Override
     public String toString() {
         return "TextBox{" +
-                "isFinished=" + isFinished +
+                "textSpeed=" + textSpeed +
+                ", isFinished=" + isFinished +
                 ", text=" + text +
                 ", index=" + index +
                 '}';

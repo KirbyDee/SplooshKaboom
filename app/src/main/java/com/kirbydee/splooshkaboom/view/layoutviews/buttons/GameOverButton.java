@@ -8,7 +8,7 @@ import android.util.Log;
 
 import androidx.appcompat.widget.AppCompatButton;
 
-import static com.kirbydee.splooshkaboom.utils.Consts.GAME_OVER_ACTIVITY_FADE_IN_BUTTONS_DURATION;
+import static com.kirbydee.splooshkaboom.utils.Consts.GAME_OVER_FADE_IN_BUTTONS_DURATION;
 
 public class GameOverButton extends AppCompatButton {
 
@@ -41,10 +41,10 @@ public class GameOverButton extends AppCompatButton {
     }
 
     public void fadeIn() {
-        Log.i(TAG, "show");
+        Log.i(TAG, "fadeIn");
         animate()
                 .alpha(1.0f)
-                .setDuration(GAME_OVER_ACTIVITY_FADE_IN_BUTTONS_DURATION)
+                .setDuration(GAME_OVER_FADE_IN_BUTTONS_DURATION)
                 .setListener(getAnimatorListener())
                 .start();
     }

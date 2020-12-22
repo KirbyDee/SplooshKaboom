@@ -7,11 +7,13 @@ import android.view.View;
 import com.kirbydee.splooshkaboom.contract.TextContract;
 import com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation;
 import com.kirbydee.splooshkaboom.model.counter.Rupees;
+import com.kirbydee.splooshkaboom.model.media.Sound;
 import com.kirbydee.splooshkaboom.model.media.Video;
-import com.kirbydee.splooshkaboom.utils.Storage;
-import com.kirbydee.splooshkaboom.view.layoutviews.TextBox;
-import com.kirbydee.splooshkaboom.view.layoutviews.TextBoxNext;
 import com.kirbydee.splooshkaboom.view.layoutviews.counter.RupeesView;
+import com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextBox;
+import com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextBoxNext;
+import com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextFormatter;
+import com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextSpeed;
 
 import static com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation.NORMAL_FADE;
 import static com.kirbydee.splooshkaboom.model.media.Sound.TEXT_BUTTON_SOUND;
@@ -31,6 +33,9 @@ public abstract class TextBaseActivity<P extends TextContract.Presenter> extends
     // menu text
     private TextBox textBox;
     private TextBoxNext textBoxNext;
+
+    // rupee view
+    private RupeesView rupeeView;
 
     @Override
     protected void setUpViews() {
@@ -65,7 +70,17 @@ public abstract class TextBaseActivity<P extends TextContract.Presenter> extends
     @Override
     public void onTextFinished(TextBox textBox) {
         Log.i(TAG, "onTextFinished: " + textBox);
-        this.textBoxNext.show();
+        this.presenter.onTextFinished();
+    }
+
+    @Override
+    public void showTextBoxNext(boolean show) {
+        if (show) {
+            this.textBoxNext.show();
+        }
+        else {
+            this.textBoxNext.unShow();
+        }
     }
 
     protected void onClickScreen(View v) {
@@ -93,6 +108,12 @@ public abstract class TextBaseActivity<P extends TextContract.Presenter> extends
     }
 
     @Override
+    public void playSound(Sound sound) {
+        Log.i(TAG, "playSound (" + sound + ")");
+        play(sound);
+    }
+
+    @Override
     public void playVideo(Video video) {
         Log.i(TAG, "playVideo (" + video + ")");
         play(video);
@@ -108,7 +129,7 @@ public abstract class TextBaseActivity<P extends TextContract.Presenter> extends
     @Override
     public void enableScreenClick(boolean enable) {
         Log.i(TAG, "enableScreenClick (" + enable + ")");
-        this.textBox.setClickable(enable);
+        this.screenView.setClickable(enable);
     }
 
     @Override
@@ -127,8 +148,30 @@ public abstract class TextBaseActivity<P extends TextContract.Presenter> extends
     @Override
     public void onCreate(RupeesView view) {
         Log.i(TAG, "onCreate (" + view + ")");
-        Rupees rupees = fetch(Storage::getRupees);
-        view.update(rupees);
+        this.rupeeView = view;
+        Rupees rupees = getStorage().getRupees();
+        this.rupeeView.set(rupees);
+    }
+
+    @Override
+    public void updateRupees(Rupees rupees) {
+        Log.i(TAG, "updateRupees (" + rupees + ")");
+        this.rupeeView.update(rupees);
+    }
+
+    protected void setTextBoxFormatter(TextFormatter formatter) {
+        Log.i(TAG, "setTextBoxFormatter (" + formatter + ")");
+        this.textBox.setFormatter(formatter);
+    }
+
+    protected void setTextSpeed(TextSpeed textSpeed) {
+        Log.i(TAG, "setTextSpeed (" + textSpeed + ")");
+        this.textBox.setTextSpeed(textSpeed);
+    }
+
+    protected TextFormatter getTextBoxFormatter() {
+        Log.i(TAG, "getTextBoxFormatter");
+        return this.textBox.getFormatter();
     }
 
     @Override

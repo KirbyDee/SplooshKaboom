@@ -13,6 +13,10 @@ public class MenuContract {
 
         void startGame();
 
+        default void showMenu() {
+            showMenu(true);
+        }
+
         void showMenu(boolean show);
     }
 }

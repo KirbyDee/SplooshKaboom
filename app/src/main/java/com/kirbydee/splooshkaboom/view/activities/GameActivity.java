@@ -9,15 +9,14 @@ import android.util.Log;
 
 import com.kirbydee.splooshkaboom.R;
 import com.kirbydee.splooshkaboom.contract.GameContract;
-import com.kirbydee.splooshkaboom.presenter.GamePresenter;
 import com.kirbydee.splooshkaboom.controller.ShakeDetector;
 import com.kirbydee.splooshkaboom.model.counter.Counter;
+import com.kirbydee.splooshkaboom.model.media.Sound;
 import com.kirbydee.splooshkaboom.model.tile.game.GameTile;
 import com.kirbydee.splooshkaboom.model.tile.state.Bomb;
 import com.kirbydee.splooshkaboom.model.tile.state.Squid;
-import com.kirbydee.splooshkaboom.utils.Storage;
+import com.kirbydee.splooshkaboom.presenter.GamePresenter;
 import com.kirbydee.splooshkaboom.utils.Vibrator;
-import com.kirbydee.splooshkaboom.model.media.Sound;
 import com.kirbydee.splooshkaboom.view.dialog.RestartDialog;
 import com.kirbydee.splooshkaboom.view.layoutviews.ResetView;
 import com.kirbydee.splooshkaboom.view.layoutviews.counter.CounterView;
@@ -30,12 +29,12 @@ import com.kirbydee.splooshkaboom.view.layoutviews.tile.state.SquidView;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.kirbydee.splooshkaboom.utils.Consts.GAME_ACTIVITY_BACKGROUND_SOUND_DELAY;
 import static com.kirbydee.splooshkaboom.model.media.Sound.GAME_BACKGROUND;
 import static com.kirbydee.splooshkaboom.model.media.Sound.GAME_START;
 import static com.kirbydee.splooshkaboom.model.media.Sound.HURRAY;
 import static com.kirbydee.splooshkaboom.model.media.Sound.KABOOM;
 import static com.kirbydee.splooshkaboom.model.media.Sound.SPLOOSH;
+import static com.kirbydee.splooshkaboom.utils.Consts.GAME_ACTIVITY_BACKGROUND_SOUND_DELAY;
 
 public class GameActivity extends MediaBaseActivity implements
         GameTileView.Listener, BombView.Listener, SquidView.Listener,
@@ -193,7 +192,7 @@ public class GameActivity extends MediaBaseActivity implements
     public void onCreate(RecordView view) {
         Log.i(TAG, "onCreate (" + view + ")");
         this.recordView = view;
-        Counter record = fetch(Storage::getRecord);
+        Counter record = getStorage().getRecord();
         this.recordView.update(record);
     }
 
@@ -246,7 +245,7 @@ public class GameActivity extends MediaBaseActivity implements
     @Override
     public void onWin(Counter counter) {
         Log.i(TAG, "onWin (" + counter + ")");
-        store(s -> s.storeRecord(counter));
+        getStorage().storeRecord(counter);
         play(HURRAY, 200);
         resetGame();
     }

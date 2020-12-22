@@ -2,6 +2,8 @@
 
     <declare-styleable name="ShopItemView">
         <attr name="itemResource" format="string" />
+        <attr name="itemIndex" format="integer" />
+        <attr name="rupees" format="integer" />
     </declare-styleable>
 
     <declare-styleable name="GridCellView">
