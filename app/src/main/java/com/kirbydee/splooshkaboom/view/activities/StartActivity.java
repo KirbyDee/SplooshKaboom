@@ -33,9 +33,6 @@ public class StartActivity extends MediaBaseActivity {
 
         this.screenView = findViewById(R.id.screenView);
         this.screenView.setClickable(true);
-
-        // TODO
-        getStorage().storeRupees(Rupees.of(10));
     }
 
     @Override
