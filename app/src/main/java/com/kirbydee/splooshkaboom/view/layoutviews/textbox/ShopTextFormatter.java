@@ -2,6 +2,7 @@ package com.kirbydee.splooshkaboom.view.layoutviews.textbox;
 
 import android.util.Log;
 
+import com.kirbydee.splooshkaboom.model.counter.Rupees;
 import com.kirbydee.splooshkaboom.view.layoutviews.shopitem.ShopItemView;
 
 import java.util.HashMap;
@@ -26,7 +27,7 @@ public class ShopTextFormatter implements TextFormatter {
     public ShopTextFormatter(Set<ShopItemView> itemViews) {
         this.idRupeesMap = new HashMap<>();
         itemViews.forEach(v ->
-                addView(v.getItemIndex(), v.getRupees().get())
+                addView(v.getItemIndex(), Rupees.of(v.getRupees()).get())
         );
     }
 

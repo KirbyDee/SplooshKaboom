@@ -11,12 +11,13 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.kirbydee.splooshkaboom.R;
-import com.kirbydee.splooshkaboom.model.counter.Rupees;
+
+import java.util.Objects;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 
-public abstract class ShopItemView extends AppCompatImageView {
+public abstract class ShopItemView extends AppCompatImageView implements Comparable<ShopItemView> {
 
     private static final String TAG = ShopItemView.class.getName();
 
@@ -39,7 +40,7 @@ public abstract class ShopItemView extends AppCompatImageView {
 
     private int itemIndex;
 
-    private Rupees rupees;
+    private int rupees;
 
     private Listener listener;
 
@@ -68,7 +69,7 @@ public abstract class ShopItemView extends AppCompatImageView {
         try {
             this.itemResourceName = typedArray.getString(R.styleable.ShopItemView_itemResource);
             this.itemIndex = typedArray.getInt(R.styleable.ShopItemView_itemIndex, -1);
-            this.rupees = Rupees.of(typedArray.getInt(R.styleable.ShopItemView_rupees, -1));
+            this.rupees = typedArray.getInt(R.styleable.ShopItemView_rupees, -1);
         } finally {
             typedArray.recycle();
         }
@@ -188,6 +189,30 @@ public abstract class ShopItemView extends AppCompatImageView {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ShopItemView that = (ShopItemView) o;
+        return this.itemIndex == that.itemIndex;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.itemIndex);
+    }
+
+    @Override
+    public int compareTo(ShopItemView view) {
+        if (this.itemIndex < view.itemIndex) {
+            return -1;
+        }
+        else if (this.itemIndex > view.itemIndex) {
+            return 1;
+        }
+        return 0;
+    }
+
     public boolean isItemSelected() {
         return this.isSelected;
     }
@@ -200,7 +225,7 @@ public abstract class ShopItemView extends AppCompatImageView {
         return itemIndex;
     }
 
-    public Rupees getRupees() {
+    public int getRupees() {
         return rupees;
     }
 }

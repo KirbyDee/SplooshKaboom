@@ -125,7 +125,9 @@ public class ShopPresenter extends TextPresenter<ShopContract.View, ShopState> i
         }
 
         // exchange for rupees
-        decreaseRupees(this.selectedItem.getRupees());
+        decreaseRupees(
+                Rupees.of(this.selectedItem.getRupees())
+        );
 
         // store what has been bought
         Set<Integer> boughtItems = this.storage.getBoughtItemIndexes();
@@ -210,7 +212,11 @@ public class ShopPresenter extends TextPresenter<ShopContract.View, ShopState> i
 
             // check if buy-able
             Rupees rupees = this.storage.getRupees();
-            this.view.enableBuyButton(!rupees.isLessThan(this.selectedItem.getRupees()));
+            this.view.enableBuyButton(
+                    !rupees.isLessThan(
+                            Rupees.of(this.selectedItem.getRupees())
+                    )
+            );
         });
     }
 
