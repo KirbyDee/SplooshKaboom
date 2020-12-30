@@ -1,6 +1,6 @@
 package com.kirbydee.splooshkaboom.contract;
 
-import com.kirbydee.splooshkaboom.view.layoutviews.shopitem.ShopItemView;
+import com.kirbydee.splooshkaboom.view.layoutviews.shop.ShopItemView;
 
 public class ShopContract {
 

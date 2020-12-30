@@ -10,7 +10,7 @@ import com.kirbydee.splooshkaboom.contract.ShopContract;
 import com.kirbydee.splooshkaboom.model.media.Sound;
 import com.kirbydee.splooshkaboom.presenter.ShopPresenter;
 import com.kirbydee.splooshkaboom.view.layoutviews.dialog.ShopDialogView;
-import com.kirbydee.splooshkaboom.view.layoutviews.shopitem.ShopItemView;
+import com.kirbydee.splooshkaboom.view.layoutviews.shop.ShopItemView;
 import com.kirbydee.splooshkaboom.view.layoutviews.textbox.ShopTextFormatter;
 
 import java.util.HashSet;

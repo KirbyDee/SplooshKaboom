@@ -29,11 +29,15 @@
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
             android:screenOrientation="landscape">
         </activity>
+        <activity android:name=".view.activities.GameActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
+            android:screenOrientation="landscape">
+        </activity>
         <activity android:name=".view.activities.ShopActivity"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
             android:screenOrientation="landscape">
         </activity>
-        <activity android:name=".view.activities.GameActivity"
+        <activity android:name=".view.activities.InventoryActivity"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
             android:screenOrientation="landscape">
         </activity>

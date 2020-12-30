@@ -17,6 +17,7 @@ import static com.kirbydee.splooshkaboom.model.media.Sound.GAME_OVER_BUTTON_CLIC
 import static com.kirbydee.splooshkaboom.utils.Consts.GAME_OVER_ACTIVITY_BACKGROUND_SOUND_DELAY;
 import static com.kirbydee.splooshkaboom.utils.Consts.GAME_OVER_ACTIVITY_CHANGE_ACTIVITY_DELAY;
 
+// TODO: Activity if winning! -> get rupees
 public class GameOverActivity extends MediaBaseActivity
         implements GameOverButton.Listener {
 

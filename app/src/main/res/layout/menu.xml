@@ -48,11 +48,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="10"
                 android:layout_marginStart="10dp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="18sp"
+                android:fontFamily="@font/comic_sans_ms"
                 android:text="0"
-                android:fontFamily="@font/comic_sans_ms"/>
+                style="@style/RupeeCount"/>
 
         </LinearLayout>
 
@@ -84,10 +82,9 @@
                     android:id="@+id/menuTextView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/comic_sans_ms"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"
-                    android:layout_margin="30dp"/>
+                android:fontFamily="@font/comic_sans_ms"
+                    android:layout_margin="30dp"
+                    style="@style/TextBoxText" />
 
                 <LinearLayout
                     android:id="@+id/menuLayout"
@@ -102,45 +99,41 @@
                         android:id="@+id/menuStart"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/comic_sans_ms"
-                        android:textColor="@color/black"
+                android:fontFamily="@font/comic_sans_ms"
                         android:layout_weight="25"
-                        android:textSize="25sp"
                         android:gravity="center"
-                        android:text="> Start"/>
+                        android:text="> Start"
+                        style="@style/MenuText" />
 
                     <TextView
                         android:id="@+id/menuShop"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/comic_sans_ms"
-                        android:textColor="@color/black"
+                android:fontFamily="@font/comic_sans_ms"
                         android:layout_weight="25"
-                        android:textSize="25sp"
                         android:gravity="center"
-                        android:text="> Shop"/>
+                        android:text="> Shop"
+                        style="@style/MenuText" />
 
                     <TextView
                         android:id="@+id/menuInventory"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/comic_sans_ms"
-                        android:textColor="@color/black"
+                android:fontFamily="@font/comic_sans_ms"
                         android:layout_weight="25"
-                        android:textSize="25sp"
                         android:gravity="center"
-                        android:text="> Inventory"/>
+                        android:text="> Inventory"
+                        style="@style/MenuText" />
 
                     <TextView
                         android:id="@+id/menuQuit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/comic_sans_ms"
-                        android:textColor="@color/black"
+                android:fontFamily="@font/comic_sans_ms"
                         android:layout_weight="25"
-                        android:textSize="25sp"
                         android:gravity="center"
-                        android:text="> Quit"/>
+                        android:text="> Quit"
+                        style="@style/MenuText" />
 
                 </LinearLayout>
 

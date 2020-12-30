@@ -1,4 +1,4 @@
-package com.kirbydee.splooshkaboom.view.layoutviews.shopitem;
+package com.kirbydee.splooshkaboom.view.layoutviews.shop;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;

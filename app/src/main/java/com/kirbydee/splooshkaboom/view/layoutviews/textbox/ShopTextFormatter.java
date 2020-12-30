@@ -3,7 +3,7 @@ package com.kirbydee.splooshkaboom.view.layoutviews.textbox;
 import android.util.Log;
 
 import com.kirbydee.splooshkaboom.model.counter.Rupees;
-import com.kirbydee.splooshkaboom.view.layoutviews.shopitem.ShopItemView;
+import com.kirbydee.splooshkaboom.view.layoutviews.shop.ShopItemView;
 
 import java.util.HashMap;
 import java.util.HashSet;

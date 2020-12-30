@@ -16,10 +16,14 @@
     <string name="shop_text_idle">Oh, just use your finger to browse.</string>
     <string name="shop_text_browse_item_1">Heart Container [rupees_1] Rupees\nThis is a very rare piece of heart! Obtaining it will surround you with a lot of love!</string>
     <string name="shop_text_browse_item_2">Treasure Map [rupees_2] Rupees\nA map to a hidden treasure! Oh, I found this playing Sploosh/Kaboom myself!</string>
-    <string name="shop_text_browse_item_3">Something?? [rupees_3] Rupees\n??? ???</string>
+    <string name="shop_text_browse_item_3">Triforce [rupees_3] Rupees\nThis is an object from the Goddesses! It is said to have mysterious powers reaching through time!</string>
     <string name="shop_text_buy_item_1">You got a Heart Container!\nYou can look up your obtained items in the Inventory section</string>
     <string name="shop_text_buy_item_2">You got a Treasure Map!\nYou can look up your obtained items in the Inventory section</string>
-    <string name="shop_text_buy_item_3">You got a ???!\nYou can look up your obtained items in the Inventory section</string>
+    <string name="shop_text_buy_item_3">You got a Triforce!\nYou can look up your obtained items in the Inventory section</string>
     <string name="shop_text_bye">Bye! Come again!</string>
+
+    <!-- Inventory Text -->
+    <string name="inventory_text_triforce">Behind every picture rests a deeper meaning, especially take ages ago!</string>
+    <string name="inventory_text_heart_piece">TODO</string>
 
 </resources>

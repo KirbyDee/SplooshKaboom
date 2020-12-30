@@ -1,4 +1,4 @@
-package com.kirbydee.splooshkaboom.view.layoutviews.shopitem;
+package com.kirbydee.splooshkaboom.view.layoutviews.shop;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -158,7 +158,7 @@ public abstract class ShopItemView extends AppCompatImageView implements Compara
     protected abstract void stopIdleAnimation();
 
     protected int getItemResourceId() {
-        return this.context.getResources().getIdentifier(this.itemResourceName, "drawable", context.getPackageName());
+        return this.context.getResources().getIdentifier(this.itemResourceName, "drawable", this.context.getPackageName());
     }
 
     private void showItem() {
@@ -173,8 +173,8 @@ public abstract class ShopItemView extends AppCompatImageView implements Compara
 
     private void onClick(View view) {
         Log.i(TAG, "onClick");
-        if (this.listener != null && view instanceof ShopItemView) {
-            this.listener.onClick((ShopItemView) view);
+        if (this.listener != null) {
+            this.listener.onClick(this);
         }
     }
 

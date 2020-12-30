@@ -51,11 +51,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="10"
                 android:layout_marginStart="10dp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="18sp"
+                android:fontFamily="@font/comic_sans_ms"
                 android:text="0"
-                android:fontFamily="@font/comic_sans_ms"/>
+                style="@style/RupeeCount"/>
 
         </LinearLayout>
 
@@ -76,8 +74,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="45" />
 
-            <com.kirbydee.splooshkaboom.view.layoutviews.shopitem.GifShopItemView
-                android:id="@+id/heart_piece"
+            <com.kirbydee.splooshkaboom.view.layoutviews.shop.GifShopItemView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="6"
@@ -90,7 +87,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="7" />
 
-            <com.kirbydee.splooshkaboom.view.layoutviews.shopitem.StaticShopItemView
+            <com.kirbydee.splooshkaboom.view.layoutviews.shop.StaticShopItemView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="6"
@@ -104,11 +101,11 @@
                 android:layout_height="match_parent"
                 android:layout_weight="8" />
 
-            <com.kirbydee.splooshkaboom.view.layoutviews.shopitem.StaticShopItemView
+            <com.kirbydee.splooshkaboom.view.layoutviews.shop.GifShopItemView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="6"
-                app:itemResource="question_mark"
+                app:itemResource="triforce_anim"
                 app:rupees="999"
                 app:itemIndex="3" />
 
@@ -143,10 +140,9 @@
                     android:id="@+id/shopTextView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/comic_sans_ms"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"
-                    android:layout_margin="30dp"/>
+                android:fontFamily="@font/comic_sans_ms"
+                    android:layout_margin="30dp"
+                    style="@style/TextBoxText" />
 
                 <com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextBoxNext
                     android:id="@+id/shopTextNext"

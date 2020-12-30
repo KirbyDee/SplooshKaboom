@@ -6,7 +6,7 @@ import com.kirbydee.splooshkaboom.contract.ShopContract;
 import com.kirbydee.splooshkaboom.model.counter.Rupees;
 import com.kirbydee.splooshkaboom.model.textstate.ShopState;
 import com.kirbydee.splooshkaboom.utils.Storage;
-import com.kirbydee.splooshkaboom.view.layoutviews.shopitem.ShopItemView;
+import com.kirbydee.splooshkaboom.view.layoutviews.shop.ShopItemView;
 
 import java.util.Set;
 

@@ -108,7 +108,7 @@ public class MenuActivity extends TextBaseActivity<MenuContract.Presenter> imple
     private void onClickInventory(View v) {
         Log.i(TAG, "onClickInventory");
         play(TEXT_BUTTON_SOUND);
-        changeActivity(StartActivity.class); // TODO
+        changeActivity(InventoryActivity.class);
     }
 
     private void onClickQuit(View v) {
@@ -145,6 +145,7 @@ public class MenuActivity extends TextBaseActivity<MenuContract.Presenter> imple
         this.menuQuit.setVisibility(visibility);
 
         // enable click
+        // TODO: better visuals for those buttons
         this.menuStart.setClickable(show);
         this.menuShop.setClickable(show);
         this.menuInventory.setClickable(show);
