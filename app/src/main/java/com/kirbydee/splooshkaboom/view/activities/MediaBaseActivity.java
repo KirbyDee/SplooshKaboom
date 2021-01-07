@@ -27,17 +27,17 @@ public abstract class MediaBaseActivity extends BaseActivity {
     protected void onResume() {
         Log.i(TAG, "onResume");
         super.onResume();
-        startMusic();
+        startBackgroundMusic();
     }
 
-    protected void restartMusic() {
-        Log.i(TAG, "restartMusic");
-        startMusic();
+    protected void restartBackgroundMusic() {
+        Log.i(TAG, "restartBackgroundMusic");
+        startBackgroundMusic();
     }
 
-    private void startMusic() {
-        Log.i(TAG, "startMusic");
-        stopMusic();
+    private void startBackgroundMusic() {
+        Log.i(TAG, "startBackgroundMusic");
+        stopBackgroundMusic();
         Sound sound = getBackgroundSound();
         Volume volume = getBackgroundVolume();
         long delay = getBackgroundSoundDelay();
@@ -50,15 +50,15 @@ public abstract class MediaBaseActivity extends BaseActivity {
         }
     }
 
-    private void stopMusic() {
-        Log.i(TAG, "stopMusic");
+    protected void stopBackgroundMusic() {
+        Log.i(TAG, "stopBackgroundMusic");
         this.soundController.stop(getBackgroundSound());
     }
 
     @Override
     protected void onPause() {
         Log.i(TAG, "onPause");
-        stopMusic();
+        stopBackgroundMusic();
 
         super.onPause();
     }
@@ -66,7 +66,7 @@ public abstract class MediaBaseActivity extends BaseActivity {
     @Override
     protected void onStop() {
         Log.i(TAG, "onStop");
-        stopMusic();
+        stopBackgroundMusic();
 
         super.onStop();
     }
@@ -74,7 +74,7 @@ public abstract class MediaBaseActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         Log.i(TAG, "onDestroy");
-        stopMusic();
+        stopBackgroundMusic();
 
         super.onDestroy();
     }
@@ -147,7 +147,7 @@ public abstract class MediaBaseActivity extends BaseActivity {
         this.soundController.play(sound, volume, listener, delay);
     }
 
-    protected void stop() {
+    protected void stopBackgroundVideo() {
         Log.i(TAG, "stop video");
         this.videoView.stopPlayback();
     }

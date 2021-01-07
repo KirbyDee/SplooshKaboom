@@ -6,6 +6,7 @@ import android.util.Log;
 import com.kirbydee.splooshkaboom.R;
 import com.kirbydee.splooshkaboom.contract.InventoryContract;
 import com.kirbydee.splooshkaboom.model.media.Sound;
+import com.kirbydee.splooshkaboom.model.media.Volume;
 import com.kirbydee.splooshkaboom.presenter.InventoryPresenter;
 import com.kirbydee.splooshkaboom.view.layoutviews.inventory.InventoryItemView;
 import com.kirbydee.splooshkaboom.view.layoutviews.inventory.InventoryView;
@@ -16,7 +17,10 @@ import com.kirbydee.splooshkaboom.view.layoutviews.inventory.display.TriforceVie
 
 import java.util.Set;
 
+import static com.kirbydee.splooshkaboom.model.media.MonoVolume.LOW;
+import static com.kirbydee.splooshkaboom.model.media.Sound.HEART_PIECE_SELECT;
 import static com.kirbydee.splooshkaboom.model.media.Sound.INVENTORY_BACKGROUND;
+import static com.kirbydee.splooshkaboom.model.media.Sound.RIDDLE_SELECT;
 
 public class InventoryActivity extends MediaBaseActivity implements InventoryContract.View,
         InventoryView.Listener, InventoryItemView.Listener, InventoryDisplayBackgroundView.Listener,
@@ -84,18 +88,35 @@ public class InventoryActivity extends MediaBaseActivity implements InventoryCon
     public void showTreasureMap(boolean show) {
         Log.i(TAG, "showTreasureMap");
         this.treasureView.show(show);
+        playRiddleSound(show);
     }
 
     @Override
     public void showHeartPiece(boolean show) {
         Log.i(TAG, "showHeartPiece");
         this.heartPieceView.show(show);
+        if (show) {
+            play(HEART_PIECE_SELECT);
+        }
     }
 
     @Override
     public void showTriforce(boolean show) {
         Log.i(TAG, "showTriforce");
         this.triforceView.show(show);
+        playRiddleSound(show);
+    }
+
+    private void playRiddleSound(boolean play) {
+        Log.i(TAG, "playRiddleSound (" + play + ")");
+        if (play) {
+            stopBackgroundMusic();
+            play(RIDDLE_SELECT);
+        }
+        else {
+            stop(RIDDLE_SELECT);
+            restartBackgroundMusic();
+        }
     }
 
     @Override
@@ -150,5 +171,10 @@ public class InventoryActivity extends MediaBaseActivity implements InventoryCon
         Log.i(TAG, "onCreate (" + view + ")");
         this.inventoryDisplayBackgroundView = view;
         this.inventoryDisplayBackgroundView.show();
+    }
+
+    @Override
+    protected Volume getBackgroundVolume() {
+        return LOW;
     }
 }

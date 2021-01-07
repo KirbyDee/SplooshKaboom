@@ -22,42 +22,46 @@ public class InventoryPresenter implements InventoryContract.Presenter {
 
     @Override
     public void select(InventoryView view) {
-        Log.i(TAG, "onSelected (" + view + ")");
+        Log.i(TAG, "select (" + view + ")");
         if (this.selectedView != null) {
+            boolean isSame = this.selectedView.getItemIndex() == view.getItemIndex();
             deselect();
+            if (isSame) {
+                return;
+            }
         }
-        this.selectedView = view;
 
-        // show inventory item
-        InventoryItem item = InventoryItem.of(view.getItemIndex());
+        this.selectedView = view;
+        showView(true);
         this.view.select(this.selectedView);
-        switch(item) {
-            case HEART_PIECE:
-                this.view.showHeartPiece(true);
-                this.view.showTreasureMap(false);
-                this.view.showTriforce(false);
-                break;
-            case TREASURE_MAP:
-                this.view.showHeartPiece(false);
-                this.view.showTreasureMap(true);
-                this.view.showTriforce(false);
-                break;
-            case TRIFORCE:
-                this.view.showHeartPiece(false);
-                this.view.showTreasureMap(false);
-                this.view.showTriforce(true);
-                break;
-        }
     }
 
     @Override
     public void deselect() {
         Log.i(TAG, "deselect");
+        if (this.selectedView == null) {
+            return;
+        }
+
         this.view.deselect(this.selectedView);
+        showView(false);
         this.selectedView = null;
-        this.view.showHeartPiece(false);
-        this.view.showTreasureMap(false);
-        this.view.showTriforce(false);
+    }
+
+    private void showView(boolean show) {
+        Log.i(TAG, "showView (" + show + ")");
+        InventoryItem item = InventoryItem.of(this.selectedView.getItemIndex());
+        switch(item) {
+            case HEART_PIECE:
+                this.view.showHeartPiece(show);
+                break;
+            case TREASURE_MAP:
+                this.view.showTreasureMap(show);
+                break;
+            case TRIFORCE:
+                this.view.showTriforce(show);
+                break;
+        }
     }
 
     @Override

@@ -49,9 +49,9 @@ public class InventoryDisplayBackgroundView extends ConstraintLayout {
         }
 
         this.isShown = true;
-        setAlpha(0.6f);
+        setAlpha(0.4f);
         animate()
-                .alpha(1.0f)
+                .alpha(0.6f)
                 .setDuration(INVENTORY_DISPLAY_FADE_IN_DURATION)
                 .start();
     }
@@ -63,9 +63,9 @@ public class InventoryDisplayBackgroundView extends ConstraintLayout {
         }
 
         this.isShown = false;
-        setAlpha(1.0f);
+        setAlpha(0.6f);
         animate()
-                .alpha(0.6f)
+                .alpha(0.4f)
                 .setDuration(INVENTORY_DISPLAY_FADE_IN_DURATION)
                 .start();
     }

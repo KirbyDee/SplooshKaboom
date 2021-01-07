@@ -21,8 +21,9 @@ public enum Sound {
     KABOOM(R.raw.kaboom),
     HURRAY(R.raw.hurray),
     RUPEE(R.raw.rupee),
-    ITEM_OBTAINED(R.raw.item_obtained), // TODO: use in shop for items
-    HEART_CONTAINER_OBTAINED(R.raw.heart_container_obtained), // TODO: use in shop for heart container
+    ITEM_OBTAINED(R.raw.item_obtained),
+    HEART_PIECE_SELECT(R.raw.heart_piece_select),
+    RIDDLE_SELECT(R.raw.riddle_select, true),
     CHEST_OPEN(R.raw.chest_open_sound),
     BEEDLE_OHH(R.raw.beedle_ohh),
     BEEDLE_THANKYOU(R.raw.beedle_thankyou),
