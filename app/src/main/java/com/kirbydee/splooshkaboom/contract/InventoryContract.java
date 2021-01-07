@@ -1,6 +1,5 @@
 package com.kirbydee.splooshkaboom.contract;
 
-import com.kirbydee.splooshkaboom.model.inventory.InventoryItem;
 import com.kirbydee.splooshkaboom.view.layoutviews.inventory.InventoryView;
 
 public class InventoryContract {
@@ -16,7 +15,13 @@ public class InventoryContract {
 
     public interface View {
 
-        void showInventoryItem(InventoryItem item);
+        void showTreasureMap(boolean show);
+
+        void showHeartPiece(boolean show);
+
+        void showTriforce(boolean show);
+
+        void select(InventoryView view);
 
         void deselect(InventoryView view);
 

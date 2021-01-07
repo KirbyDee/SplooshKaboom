@@ -12,6 +12,9 @@ import com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation;
 import com.kirbydee.splooshkaboom.model.media.Sound;
 import com.kirbydee.splooshkaboom.presenter.MenuPresenter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation.NORMAL_FADE;
 import static com.kirbydee.splooshkaboom.model.media.Sound.MENU_BACKGROUND;
 import static com.kirbydee.splooshkaboom.model.media.Sound.TEXT_BUTTON_SOUND;
@@ -150,6 +153,12 @@ public class MenuActivity extends TextBaseActivity<MenuContract.Presenter> imple
         this.menuShop.setClickable(show);
         this.menuInventory.setClickable(show);
         this.menuQuit.setClickable(show);
+
+        Set<Integer> items = new HashSet<>();
+        items.add(1);
+        items.add(2);
+        items.add(3);
+        getStorage().storeBoughtItemIndexes(items);
     }
 
     @Override

@@ -20,8 +20,6 @@ public class InventoryView extends ConstraintLayout {
         void onCreate(InventoryView view);
 
         void onSelected(InventoryView view);
-
-        void onDeselected(InventoryView view);
     }
 
     private Listener listener;
@@ -61,23 +59,19 @@ public class InventoryView extends ConstraintLayout {
 
     private void onClick(View view) {
         Log.i(TAG, "onClick");
-        select();
-    }
-
-    public void select() {
-        Log.i(TAG, "select");
-        setBackgroundResource(R.drawable.inventory_item_selected);
         if (this.listener != null) {
             this.listener.onSelected(this);
         }
     }
 
+    public void select() {
+        Log.i(TAG, "select");
+        setBackgroundResource(R.drawable.inventory_item_selected);
+    }
+
     public void deselect() {
         Log.i(TAG, "deselect");
         setBackgroundResource(R.drawable.inventory_item_deselected);
-        if (this.listener != null) {
-            this.listener.onDeselected(this);
-        }
     }
 
     @Override

@@ -101,15 +101,47 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/inventory_divider"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_weight="80"
-        android:background="#22361d">
+        app:layout_constraintHorizontal_weight="80">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.kirbydee.splooshkaboom.view.layoutviews.inventory.display.InventoryDisplayBackgroundView
             android:layout_width="match_parent"
-            android:layout_margin="30dp"
             android:layout_height="match_parent"
-            app:layout_constraintHorizontal_weight="80"
-            android:background="#22361d"/>
+            android:background="@drawable/background"
+            android:alpha="0.6"/>
+
+        <com.kirbydee.splooshkaboom.view.layoutviews.inventory.display.TreasureView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:visibility="gone"
+            android:background="@drawable/treasure_map_open" />
+
+        <com.kirbydee.splooshkaboom.view.layoutviews.inventory.display.HeartPieceView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginBottom="60dp"
+            android:gravity="center"
+            android:fontFamily="@font/comic_sans_ms"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:visibility="gone"
+            android:textSize="24sp"
+            android:text="@string/inventory_text_heart_piece" />
+
+        <com.kirbydee.splooshkaboom.view.layoutviews.inventory.display.TriforceView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginBottom="60dp"
+            android:gravity="center"
+            android:fontFamily="@font/comic_sans_ms"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:text="@string/inventory_text_triforce" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

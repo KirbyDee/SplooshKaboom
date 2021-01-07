@@ -23,7 +23,7 @@
     <string name="shop_text_bye">Bye! Come again!</string>
 
     <!-- Inventory Text -->
-    <string name="inventory_text_triforce">Behind every picture rests a deeper meaning, especially take ages ago!</string>
-    <string name="inventory_text_heart_piece">TODO</string>
+    <string name="inventory_text_heart_piece">A voucher for a massage with happy ending!\n😙 mau mau 😙</string>
+    <string name="inventory_text_triforce">Behind every picture rests a deeper meaning, especially taken ages ago!</string>
 
 </resources>

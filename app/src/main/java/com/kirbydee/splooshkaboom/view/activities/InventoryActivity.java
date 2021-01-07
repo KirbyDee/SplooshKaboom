@@ -5,25 +5,35 @@ import android.util.Log;
 
 import com.kirbydee.splooshkaboom.R;
 import com.kirbydee.splooshkaboom.contract.InventoryContract;
-import com.kirbydee.splooshkaboom.model.inventory.InventoryItem;
 import com.kirbydee.splooshkaboom.model.media.Sound;
 import com.kirbydee.splooshkaboom.presenter.InventoryPresenter;
-import com.kirbydee.splooshkaboom.view.layoutviews.inventory.InventoryDisplayView;
 import com.kirbydee.splooshkaboom.view.layoutviews.inventory.InventoryItemView;
 import com.kirbydee.splooshkaboom.view.layoutviews.inventory.InventoryView;
+import com.kirbydee.splooshkaboom.view.layoutviews.inventory.display.HeartPieceView;
+import com.kirbydee.splooshkaboom.view.layoutviews.inventory.display.InventoryDisplayBackgroundView;
+import com.kirbydee.splooshkaboom.view.layoutviews.inventory.display.TreasureView;
+import com.kirbydee.splooshkaboom.view.layoutviews.inventory.display.TriforceView;
 
 import java.util.Set;
 
 import static com.kirbydee.splooshkaboom.model.media.Sound.INVENTORY_BACKGROUND;
 
 public class InventoryActivity extends MediaBaseActivity implements InventoryContract.View,
-        InventoryView.Listener, InventoryItemView.Listener, InventoryDisplayView.Listener {
+        InventoryView.Listener, InventoryItemView.Listener, InventoryDisplayBackgroundView.Listener,
+        HeartPieceView.Listener, TreasureView.Listener, TriforceView.Listener {
 
     private static final String TAG = InventoryActivity.class.getName();
 
-    private InventoryPresenter presenter;
+    // presenter
+    private InventoryContract.Presenter presenter;
 
-    private InventoryDisplayView displayView;
+    // inventory display background view
+    private InventoryDisplayBackgroundView inventoryDisplayBackgroundView;
+
+    // item views
+    private HeartPieceView heartPieceView;
+    private TreasureView treasureView;
+    private TriforceView triforceView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,34 +75,41 @@ public class InventoryActivity extends MediaBaseActivity implements InventoryCon
     }
 
     @Override
-    public void onCreate(InventoryDisplayView view) {
-        Log.i(TAG, "onCreate (" + view + ")");
-        this.displayView = view;
-    }
-
-    @Override
     public void onSelected(InventoryView view) {
         Log.i(TAG, "onSelected (" + view + ")");
         this.presenter.select(view);
     }
 
     @Override
-    public void onDeselected(InventoryView view) {
-        Log.i(TAG, "onDeselected (" + view + ")");
-        this.presenter.deselect();
+    public void showTreasureMap(boolean show) {
+        Log.i(TAG, "showTreasureMap");
+        this.treasureView.show(show);
     }
 
     @Override
-    public void showInventoryItem(InventoryItem item) {
-        Log.i(TAG, "showInventoryItem (" + item + ")");
-        this.displayView.setInventoryItem(item);
+    public void showHeartPiece(boolean show) {
+        Log.i(TAG, "showHeartPiece");
+        this.heartPieceView.show(show);
+    }
+
+    @Override
+    public void showTriforce(boolean show) {
+        Log.i(TAG, "showTriforce");
+        this.triforceView.show(show);
+    }
+
+    @Override
+    public void select(InventoryView view) {
+        Log.i(TAG, "select (" + view + ")");
+        view.select();
+        this.inventoryDisplayBackgroundView.unShow();
     }
 
     @Override
     public void deselect(InventoryView view) {
         Log.i(TAG, "deselect (" + view + ")");
         view.deselect();
-        this.displayView.resetInventoryItem();
+        this.inventoryDisplayBackgroundView.show();
     }
 
     @Override
@@ -105,5 +122,33 @@ public class InventoryActivity extends MediaBaseActivity implements InventoryCon
     public void backToMenu() {
         Log.i(TAG, "backToMenu");
         changeActivity(MenuActivity.class);
+    }
+
+    @Override
+    public void onCreate(TreasureView view) {
+        Log.i(TAG, "onCreate (" + view + ")");
+        this.treasureView = view;
+        this.treasureView.unShow();
+    }
+
+    @Override
+    public void onCreate(HeartPieceView view) {
+        Log.i(TAG, "onCreate (" + view + ")");
+        this.heartPieceView = view;
+        this.heartPieceView.unShow();
+    }
+
+    @Override
+    public void onCreate(TriforceView view) {
+        Log.i(TAG, "onCreate (" + view + ")");
+        this.triforceView = view;
+        this.triforceView.unShow();
+    }
+
+    @Override
+    public void onCreate(InventoryDisplayBackgroundView view) {
+        Log.i(TAG, "onCreate (" + view + ")");
+        this.inventoryDisplayBackgroundView = view;
+        this.inventoryDisplayBackgroundView.show();
     }
 }

@@ -4,13 +4,11 @@ import java.util.Arrays;
 
 public enum InventoryItem {
 
-    HEART_PIECE(0, ""),
-    TREASURE_MAP(1, "treasure_map_open"),
-    TRIFORCE(2, "");
+    HEART_PIECE(1),
+    TREASURE_MAP(2),
+    TRIFORCE(3);
 
     public final int id;
-
-    public final String res;
 
     public static InventoryItem of(int id) {
         return Arrays.stream(InventoryItem.values())
@@ -19,8 +17,7 @@ public enum InventoryItem {
                 .orElse(null);
     }
 
-    InventoryItem(int id, String res) {
+    InventoryItem(int id) {
         this.id = id;
-        this.res = res;
     }
 }

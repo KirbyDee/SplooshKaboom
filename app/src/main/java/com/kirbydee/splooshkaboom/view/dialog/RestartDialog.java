@@ -25,6 +25,7 @@ public class RestartDialog {
         void onNegative(DialogInterface dialog);
     }
 
+    // TODO
     public void show() {
         new AlertDialog.Builder(this.context)
                 .setTitle("RestARRRRt")

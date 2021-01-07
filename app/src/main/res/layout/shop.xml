@@ -106,7 +106,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="6"
                 app:itemResource="triforce_anim"
-                app:rupees="999"
+                app:rupees="10"
                 app:itemIndex="3" />
 
         </LinearLayout>
@@ -170,7 +170,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="40dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="80dp"
         android:alpha="0">
 
         <ImageView
