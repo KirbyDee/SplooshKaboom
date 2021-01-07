@@ -11,6 +11,8 @@ public class TextContract {
         void onClickScreen();
 
         void onTextFinished();
+
+        void onBackPressed();
     }
 
     public interface View {
@@ -42,5 +44,7 @@ public class TextContract {
         void showTextBoxNext(boolean show);
 
         void updateRupees(Rupees rupees);
+
+        void finish();
     }
 }

@@ -123,6 +123,7 @@ public class ShopActivity extends TextBaseActivity<ShopContract.Presenter> imple
 
     @Override
     protected ShopContract.Presenter getPresenter() {
+        Log.i(TAG, "getPresenter");
         return new ShopPresenter(this, getStorage());
     }
 

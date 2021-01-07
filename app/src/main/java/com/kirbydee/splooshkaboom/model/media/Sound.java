@@ -11,6 +11,7 @@ public enum Sound {
     SHOP_BACKGROUND(R.raw.shop_background, true),
     INVENTORY_BACKGROUND(R.raw.inventory_background, true),
     GAME_OVER(R.raw.game_over),
+    HURRAY(R.raw.hurray),
 
     // sfx
     INTRO_START(R.raw.intro_start),
@@ -19,7 +20,6 @@ public enum Sound {
     TEXT_BUTTON_SOUND(R.raw.text_button_sound),
     SPLOOSH(R.raw.sploosh),
     KABOOM(R.raw.kaboom),
-    HURRAY(R.raw.hurray),
     RUPEE(R.raw.rupee),
     ITEM_OBTAINED(R.raw.item_obtained),
     HEART_PIECE_SELECT(R.raw.heart_piece_select),

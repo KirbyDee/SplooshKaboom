@@ -83,4 +83,10 @@ public abstract class TextPresenter<V extends TextContract.View, S extends TextS
         this.view.updateRupees(currentRupees);
         this.view.playSound(RUPEE);
     }
+
+    @Override
+    public void onBackPressed() {
+        Log.i(TAG, "onBackPressed");
+        this.view.finish();
+    }
 }

@@ -5,12 +5,12 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/menuScreen"
+        android:id="@+id/winScreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
     <VideoView
-        android:id="@+id/menuVideoView"
+        android:id="@+id/winVideoView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
@@ -79,66 +79,15 @@
                 android:layout_weight="80">
 
                 <com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextBox
-                    android:id="@+id/menuTextView"
+                    android:id="@+id/winTextView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                android:fontFamily="@font/comic_sans_ms"
+                    android:fontFamily="@font/comic_sans_ms"
                     android:layout_margin="30dp"
                     style="@style/TextBoxText" />
 
-                <LinearLayout
-                    android:id="@+id/menuLayout"
-                    android:layout_centerVertical="true"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="100"
-                    android:layout_margin="30dp">
-
-                    <TextView
-                        android:id="@+id/menuStart"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/comic_sans_ms"
-                        android:layout_weight="25"
-                        android:gravity="center"
-                        android:text="> Start"
-                        style="@style/MenuText" />
-
-                    <TextView
-                        android:id="@+id/menuShop"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/comic_sans_ms"
-                        android:layout_weight="25"
-                        android:gravity="center"
-                        android:text="> Shop"
-                        style="@style/MenuText" />
-
-                    <TextView
-                        android:id="@+id/menuInventory"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/comic_sans_ms"
-                        android:layout_weight="25"
-                        android:gravity="center"
-                        android:text="> Inventory"
-                        style="@style/MenuText" />
-
-                    <TextView
-                        android:id="@+id/menuQuit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/comic_sans_ms"
-                        android:layout_weight="25"
-                        android:gravity="center"
-                        android:text="> Quit"
-                        style="@style/MenuText" />
-
-                </LinearLayout>
-
                 <com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextBoxNext
-                    android:id="@+id/menuTextNext"
+                    android:id="@+id/winTextNext"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:background="@drawable/text_next"

@@ -11,13 +11,12 @@ import com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation;
 import com.kirbydee.splooshkaboom.model.media.Sound;
 import com.kirbydee.splooshkaboom.view.layoutviews.buttons.GameOverButton;
 
-import static com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation.GAME_OVER;
+import static com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation.LONG_FADE;
 import static com.kirbydee.splooshkaboom.model.media.MonoVolume.MAX;
 import static com.kirbydee.splooshkaboom.model.media.Sound.GAME_OVER_BUTTON_CLICK;
 import static com.kirbydee.splooshkaboom.utils.Consts.GAME_OVER_ACTIVITY_BACKGROUND_SOUND_DELAY;
 import static com.kirbydee.splooshkaboom.utils.Consts.GAME_OVER_ACTIVITY_CHANGE_ACTIVITY_DELAY;
 
-// TODO: Activity if winning! -> get rupees
 public class GameOverActivity extends MediaBaseActivity
         implements GameOverButton.Listener {
 
@@ -49,7 +48,7 @@ public class GameOverActivity extends MediaBaseActivity
     @Override
     protected ActivityTransitionAnimation getActivityTransitionAnimation() {
         Log.i(TAG, "getActivityTransitionAnimation");
-        return GAME_OVER;
+        return LONG_FADE;
     }
 
     @Override
@@ -100,8 +99,8 @@ public class GameOverActivity extends MediaBaseActivity
     }
 
     @Override
-    protected MediaPlayer.OnCompletionListener getOnCompletionListener() {
-        return mp -> fadeInButtons();
+    protected void onBackgroundSoundFinished(MediaPlayer mp) {
+        fadeInButtons();
     }
 
     @Override

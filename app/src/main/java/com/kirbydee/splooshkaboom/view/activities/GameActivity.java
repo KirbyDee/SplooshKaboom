@@ -31,11 +31,11 @@ import java.util.List;
 
 import static com.kirbydee.splooshkaboom.model.media.Sound.GAME_BACKGROUND;
 import static com.kirbydee.splooshkaboom.model.media.Sound.GAME_START;
-import static com.kirbydee.splooshkaboom.model.media.Sound.HURRAY;
 import static com.kirbydee.splooshkaboom.model.media.Sound.KABOOM;
 import static com.kirbydee.splooshkaboom.model.media.Sound.SPLOOSH;
 import static com.kirbydee.splooshkaboom.utils.Consts.GAME_ACTIVITY_BACKGROUND_SOUND_DELAY;
 
+// TODO: initial sound is twice??
 public class GameActivity extends MediaBaseActivity implements
         GameTileView.Listener, BombView.Listener, SquidView.Listener,
         CounterView.Listener, RecordView.Listener, GameContract.View,
@@ -48,7 +48,6 @@ public class GameActivity extends MediaBaseActivity implements
 
     // Views
     private CounterView counterView;
-    private RecordView recordView;
     private List<GameTileView> gameTileViews;
     private List<SquidView> squidViews;
     private List<BombView> bombViews;
@@ -191,9 +190,8 @@ public class GameActivity extends MediaBaseActivity implements
     @Override
     public void onCreate(RecordView view) {
         Log.i(TAG, "onCreate (" + view + ")");
-        this.recordView = view;
         Counter record = getStorage().getRecord();
-        this.recordView.update(record);
+        view.update(record);
     }
 
     @Override
@@ -246,14 +244,13 @@ public class GameActivity extends MediaBaseActivity implements
     public void onWin(Counter counter) {
         Log.i(TAG, "onWin (" + counter + ")");
         getStorage().storeRecord(counter);
-        play(HURRAY, 200);
-        resetGame();
+        changeActivity(WinActivity.class);
     }
 
     @Override
     public void onLoss() {
         Log.i(TAG, "onLoss");
-        changeActivity(GameOverActivity.class);
+        changeActivity(WinActivity.class); // TODO
     }
 
     @Override

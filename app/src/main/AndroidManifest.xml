@@ -45,6 +45,10 @@
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
             android:screenOrientation="landscape">
         </activity>
+        <activity android:name=".view.activities.WinActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
+            android:screenOrientation="landscape">
+        </activity>
     </application>
 
 </manifest>

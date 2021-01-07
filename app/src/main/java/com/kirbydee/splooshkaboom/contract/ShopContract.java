@@ -8,8 +8,6 @@ public class ShopContract {
 
         void onIntro();
 
-        void onBackPressed();
-
         void onSelect(ShopItemView view);
 
         void onDeselect();

@@ -42,11 +42,12 @@ public abstract class MediaBaseActivity extends BaseActivity {
         Volume volume = getBackgroundVolume();
         long delay = getBackgroundSoundDelay();
 
+        MediaPlayer.OnCompletionListener listener = this::onBackgroundSoundFinished;
         if (delay <= 0) {
-            this.soundController.play(sound, volume, getOnCompletionListener());
+            this.soundController.play(sound, volume, listener);
         }
         else {
-            this.soundController.play(sound, volume, getOnCompletionListener(), delay);
+            this.soundController.play(sound, volume, listener, delay);
         }
     }
 
@@ -178,8 +179,8 @@ public abstract class MediaBaseActivity extends BaseActivity {
         return 0;
     }
 
-    protected MediaPlayer.OnCompletionListener getOnCompletionListener() {
-        return null;
+    protected void onBackgroundSoundFinished(MediaPlayer mediaPlayer) {
+        // Override
     }
 
     protected int getVideoViewId() {

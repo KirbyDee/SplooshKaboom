@@ -9,6 +9,7 @@ public class Consts {
     public static final long SHOP_ACTIVITY_MIN_BEEDLE_SOUND_DELAY = 5000;
     public static final long SHOP_ACTIVITY_MAX_BEEDLE_SOUND_DELAY = 15000;
     public static final long SHOP_ACTIVITY_BUY_DIALOG_SHOW_DELAY = 2000;
+    public static final long WIN_ACTIVITY_BACKGROUND_SOUND_DELAY = 500;
 
     // Views
     public static final long GAME_OVER_FADE_IN_BUTTONS_DURATION = 1500;

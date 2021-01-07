@@ -140,7 +140,7 @@
                     android:id="@+id/shopTextView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                android:fontFamily="@font/comic_sans_ms"
+                    android:fontFamily="@font/comic_sans_ms"
                     android:layout_margin="30dp"
                     style="@style/TextBoxText" />
 
