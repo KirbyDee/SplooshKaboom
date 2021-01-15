@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false">
+
+    <item android:drawable="@drawable/rupee_red_0" android:duration="80" />
+    <item android:drawable="@drawable/rupee_red_1" android:duration="80" />
+    <item android:drawable="@drawable/rupee_red_2" android:duration="80" />
+    <item android:drawable="@drawable/rupee_red_3" android:duration="80" />
+    <item android:drawable="@drawable/rupee_red_4" android:duration="80" />
+    <item android:drawable="@drawable/rupee_red_5" android:duration="80" />
+    <item android:drawable="@drawable/rupee_red_6" android:duration="80" />
+    <item android:drawable="@drawable/rupee_red_7" android:duration="80" />
+    <item android:drawable="@drawable/rupee_red_8" android:duration="80" />
+    <item android:drawable="@drawable/rupee_red_9" android:duration="80" />
+
+</animation-list>

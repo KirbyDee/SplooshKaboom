@@ -23,7 +23,7 @@ public class GifView extends AppCompatImageView {
         init(context);
     }
 
-    private void init(Context context) {
+    protected void init(Context context) {
         post(() -> {
             AnimationDrawable frameAnimation = (AnimationDrawable) getBackground();
             frameAnimation.start();

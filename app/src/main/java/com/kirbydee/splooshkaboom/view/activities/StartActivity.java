@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.kirbydee.splooshkaboom.R;
+import com.kirbydee.splooshkaboom.model.counter.Counter;
 import com.kirbydee.splooshkaboom.model.media.Sound;
 
 import static com.kirbydee.splooshkaboom.model.media.MonoVolume.LOUD;
@@ -45,7 +46,11 @@ public class StartActivity extends MediaBaseActivity {
     private void onClick(View v) {
         Log.i(TAG, "onClick");
         this.screenView.setClickable(false);
-        play(INTRO_START, LOUD, mp -> changeActivity(MenuActivity.class));
+        play(INTRO_START, LOUD, mp -> changeActivity(WinActivity.class, () -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("counter", Counter.of(15));
+            return bundle;
+        })); // TODO
     }
 
     @Override

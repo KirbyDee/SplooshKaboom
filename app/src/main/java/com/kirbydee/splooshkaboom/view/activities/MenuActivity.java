@@ -81,18 +81,6 @@ public class MenuActivity extends TextBaseActivity<MenuContract.Presenter> imple
         return R.id.menuScreen;
     }
 
-    @Override
-    protected int getTextBoxId() {
-        Log.i(TAG, "getTextBoxId");
-        return R.id.menuTextView;
-    }
-
-    @Override
-    protected int getTextBoxNextId() {
-        Log.i(TAG, "getTextBoxNextId");
-        return R.id.menuTextNext;
-    }
-
     private void onClickStart(View v) {
         Log.i(TAG, "onClickStart");
         play(TEXT_BUTTON_SOUND);

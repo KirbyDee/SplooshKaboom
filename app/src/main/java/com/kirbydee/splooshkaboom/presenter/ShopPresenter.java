@@ -36,6 +36,7 @@ public class ShopPresenter extends TextPresenter<ShopContract.View, ShopState> i
 
     @Override
     public void onIntro() {
+        Log.i(TAG, "onIntro");
         setState(INTRO_1);
         showText();
     }

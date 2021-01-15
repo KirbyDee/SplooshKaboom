@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".view.activities.WinActivity">
 
     <RelativeLayout
         android:id="@+id/winScreen"
@@ -57,7 +59,16 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="55" />
+            android:layout_weight="55">
+
+            <com.kirbydee.splooshkaboom.view.layoutviews.gifs.TreasureRupeeView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/rupee_green_anim"
+                android:visibility="gone" />
+
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -72,14 +83,13 @@
                 android:layout_weight="10">
             </RelativeLayout>
 
-            <RelativeLayout
+            <com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextBoxView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/text_box"
                 android:layout_weight="80">
 
-                <com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextBox
-                    android:id="@+id/winTextView"
+                <com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextBoxText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/comic_sans_ms"
@@ -87,14 +97,13 @@
                     style="@style/TextBoxText" />
 
                 <com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextBoxNext
-                    android:id="@+id/winTextNext"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:background="@drawable/text_next"
                     android:layout_centerHorizontal="true"
                     android:layout_alignParentBottom="true"/>
 
-            </RelativeLayout>
+            </com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextBoxView>
 
             <RelativeLayout
                 android:layout_width="0dp"

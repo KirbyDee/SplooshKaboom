@@ -8,13 +8,15 @@ import androidx.appcompat.widget.AppCompatTextView;
 
 import static com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextSpeed.DEFAULT;
 
-public class TextBox extends AppCompatTextView {
+public class TextBoxText extends AppCompatTextView {
 
-    private static final String TAG = TextBox.class.getName();
+    private static final String TAG = TextBoxText.class.getName();
 
     public interface Listener {
 
-        void onTextFinished(TextBox textBox);
+        void onCreate(TextBoxText textBoxText);
+
+        void onTextFinished(TextBoxText textBoxText);
     }
 
     private TextSpeed textSpeed = DEFAULT;
@@ -29,12 +31,12 @@ public class TextBox extends AppCompatTextView {
 
     private int index;
 
-    public TextBox(Context context) {
+    public TextBoxText(Context context) {
         super(context);
         init(context);
     }
 
-    public TextBox(Context context, AttributeSet attrs) {
+    public TextBoxText(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
@@ -44,15 +46,16 @@ public class TextBox extends AppCompatTextView {
         reset();
         if (context instanceof Listener) {
             this.listener = (Listener) context;
+            this.listener.onCreate(this);
         }
     }
 
     private final Runnable characterAdder = () -> {
         Log.i(TAG, "characterAdder");
-        setText(TextBox.this.text.subSequence(0, TextBox.this.index++));
+        setText(TextBoxText.this.text.subSequence(0, TextBoxText.this.index++));
 
-        if (TextBox.this.index <= TextBox.this.text.length()) {
-            postDelayed(TextBox.this.characterAdder, this.textSpeed.time);
+        if (TextBoxText.this.index <= TextBoxText.this.text.length()) {
+            postDelayed(TextBoxText.this.characterAdder, this.textSpeed.time);
         }
         else {
             this.isFinished = true;

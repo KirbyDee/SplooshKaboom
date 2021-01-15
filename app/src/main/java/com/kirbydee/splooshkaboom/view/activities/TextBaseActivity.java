@@ -10,8 +10,9 @@ import com.kirbydee.splooshkaboom.model.counter.Rupees;
 import com.kirbydee.splooshkaboom.model.media.Sound;
 import com.kirbydee.splooshkaboom.model.media.Video;
 import com.kirbydee.splooshkaboom.view.layoutviews.counter.RupeesView;
-import com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextBox;
 import com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextBoxNext;
+import com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextBoxText;
+import com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextBoxView;
 import com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextFormatter;
 import com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextSpeed;
 
@@ -19,8 +20,8 @@ import static com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation.
 import static com.kirbydee.splooshkaboom.model.media.Sound.TEXT_BUTTON_SOUND;
 
 public abstract class TextBaseActivity<P extends TextContract.Presenter> extends MediaBaseActivity
-        implements TextBoxNext.Listener, TextBox.Listener, RupeesView.Listener,
-        TextContract.View {
+        implements TextBoxNext.Listener, TextBoxText.Listener, RupeesView.Listener,
+        TextContract.View, TextBoxView.Listener {
 
     private static final String TAG = TextBaseActivity.class.getName();
 
@@ -31,7 +32,8 @@ public abstract class TextBaseActivity<P extends TextContract.Presenter> extends
     private View screenView;
 
     // menu text
-    private TextBox textBox;
+    private TextBoxView textBoxView;
+    private TextBoxText textBoxText;
     private TextBoxNext textBoxNext;
 
     // rupee view
@@ -44,18 +46,12 @@ public abstract class TextBaseActivity<P extends TextContract.Presenter> extends
 
         // views
         this.screenView = findViewById(getScreenViewId());
-        this.textBox = findViewById(getTextBoxId());
-        this.textBoxNext = findViewById(getTextBoxNextId());
 
         // view states
-        showTextBox(false);
+        showTextBoxText(false);
     }
 
     protected abstract int getScreenViewId();
-
-    protected abstract int getTextBoxId();
-
-    protected abstract int getTextBoxNextId();
 
     @Override
     @SuppressLint("ClickableViewAccessibility")
@@ -68,19 +64,21 @@ public abstract class TextBaseActivity<P extends TextContract.Presenter> extends
     }
 
     @Override
-    public void onTextFinished(TextBox textBox) {
-        Log.i(TAG, "onTextFinished: " + textBox);
+    public void onTextFinished(TextBoxText textBoxText) {
+        Log.i(TAG, "onTextFinished (" + textBoxText + ")");
         this.presenter.onTextFinished();
     }
 
     @Override
+    public void showTextBox(boolean show) {
+        Log.i(TAG, "showTextBox (" + show + ")");
+        this.textBoxView.show(show);
+    }
+
+    @Override
     public void showTextBoxNext(boolean show) {
-        if (show) {
-            this.textBoxNext.show();
-        }
-        else {
-            this.textBoxNext.unShow();
-        }
+        Log.i(TAG, "showTextBoxNext (" + show + ")");
+        this.textBoxNext.show(show);
     }
 
     protected void onClickScreen(View v) {
@@ -89,22 +87,16 @@ public abstract class TextBaseActivity<P extends TextContract.Presenter> extends
     }
 
     @Override
-    public void onAnimationFinished(TextBoxNext textBoxNext) {
-        Log.i(TAG, "onAnimationFinished: " + textBoxNext);
-        // do nothing
-    }
-
-    @Override
-    public void showTextBox(boolean show) {
+    public void showTextBoxText(boolean show) {
         Log.i(TAG, "showTextBox: " + show);
         int visibility = show ? View.VISIBLE : View.GONE;
-        this.textBox.setVisibility(visibility);
+        this.textBoxText.setVisibility(visibility);
     }
 
     @Override
     public boolean isTextBoxFinished() {
         Log.i(TAG, "isTextBoxFinished");
-        return this.textBox.isFinished();
+        return this.textBoxText.isFinished();
     }
 
     @Override
@@ -135,14 +127,14 @@ public abstract class TextBaseActivity<P extends TextContract.Presenter> extends
     @Override
     public void forceFinishText() {
         Log.i(TAG, "forceFinishText");
-        this.textBox.forceFinish();
+        this.textBoxText.forceFinish();
     }
 
     @Override
     public void showNextText(int resId) {
         Log.i(TAG, "showNextText: (" + resId + ")");
-        this.textBox.reset();
-        this.textBox.animateText(getString(resId));
+        this.textBoxText.reset();
+        this.textBoxText.animateText(getString(resId));
     }
 
     @Override
@@ -161,17 +153,17 @@ public abstract class TextBaseActivity<P extends TextContract.Presenter> extends
 
     protected void setTextBoxFormatter(TextFormatter formatter) {
         Log.i(TAG, "setTextBoxFormatter (" + formatter + ")");
-        this.textBox.setFormatter(formatter);
+        this.textBoxText.setFormatter(formatter);
     }
 
     protected void setTextSpeed(TextSpeed textSpeed) {
         Log.i(TAG, "setTextSpeed (" + textSpeed + ")");
-        this.textBox.setTextSpeed(textSpeed);
+        this.textBoxText.setTextSpeed(textSpeed);
     }
 
     protected TextFormatter getTextBoxFormatter() {
         Log.i(TAG, "getTextBoxFormatter");
-        return this.textBox.getFormatter();
+        return this.textBoxText.getFormatter();
     }
 
     @Override
@@ -188,5 +180,35 @@ public abstract class TextBaseActivity<P extends TextContract.Presenter> extends
     protected ActivityTransitionAnimation getActivityTransitionAnimation() {
         Log.i(TAG, "getActivityTransitionAnimation");
         return NORMAL_FADE;
+    }
+
+    @Override
+    public void onCreate(TextBoxText textBoxText) {
+        Log.i(TAG, "onCreate (" + textBoxText + ")");
+        this.textBoxText = textBoxText;
+    }
+
+    @Override
+    public void onCreate(TextBoxNext textBoxNext) {
+        Log.i(TAG, "onCreate (" + textBoxNext + ")");
+        this.textBoxNext = textBoxNext;
+    }
+
+    @Override
+    public void onCreate(TextBoxView textBoxView) {
+        Log.i(TAG, "onCreate (" + textBoxView + ")");
+        this.textBoxView = textBoxView;
+    }
+
+    @Override
+    public void onAppear(TextBoxView textBoxView) {
+        Log.i(TAG, "onAppear: " + textBoxView);
+        // override
+    }
+
+    @Override
+    public void onAppear(TextBoxNext textBoxNext) {
+        Log.i(TAG, "onAppear: " + textBoxNext);
+        // override
     }
 }

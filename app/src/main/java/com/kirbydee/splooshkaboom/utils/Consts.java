@@ -14,6 +14,7 @@ public class Consts {
     // Views
     public static final long GAME_OVER_FADE_IN_BUTTONS_DURATION = 1500;
     public static final long TEXT_BOX_NEXT_FADE_IN_DURATION = 100;
+    public static final long TEXT_BOX_FADE_IN_DURATION = 100;
     public static final long UI_DELAY = 35;
     public static final long RUPEE_COUNT_MAX_TIME = 2000;
     public static final long SHOP_DIALOG_VIEW_FADE_DURATION = 500;

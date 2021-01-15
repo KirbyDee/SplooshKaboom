@@ -41,8 +41,9 @@ public abstract class TextPresenter<V extends TextContract.View, S extends TextS
     protected void showText() {
         Log.i(TAG, "showText");
         this.view.showTextBox(true);
+        this.view.showTextBoxText(true);
         this.view.enableScreenClick(true);
-        this.view.showNextText(state.getTextId());
+        this.view.showNextText(this.state.getTextId());
     }
 
     @Override

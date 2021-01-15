@@ -72,17 +72,16 @@
                 android:layout_weight="10">
             </RelativeLayout>
 
-            <RelativeLayout
+            <com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextBoxView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/text_box"
                 android:layout_weight="80">
 
-                <com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextBox
-                    android:id="@+id/menuTextView"
+                <com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextBoxText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                android:fontFamily="@font/comic_sans_ms"
+                    android:fontFamily="@font/comic_sans_ms"
                     android:layout_margin="30dp"
                     style="@style/TextBoxText" />
 
@@ -138,14 +137,13 @@
                 </LinearLayout>
 
                 <com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextBoxNext
-                    android:id="@+id/menuTextNext"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:background="@drawable/text_next"
                     android:layout_centerHorizontal="true"
                     android:layout_alignParentBottom="true"/>
 
-            </RelativeLayout>
+            </com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextBoxView>
 
             <RelativeLayout
                 android:layout_width="0dp"

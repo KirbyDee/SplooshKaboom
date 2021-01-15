@@ -72,18 +72,6 @@ public class ShopActivity extends TextBaseActivity<ShopContract.Presenter> imple
         return R.id.shopScreen;
     }
 
-    @Override
-    protected int getTextBoxId() {
-        Log.i(TAG, "getTextBoxId");
-        return R.id.shopTextView;
-    }
-
-    @Override
-    protected int getTextBoxNextId() {
-        Log.i(TAG, "getTextBoxNextId");
-        return R.id.shopTextNext;
-    }
-
     private void playBeedleOhh(long delay) {
         Log.i(TAG, "playBeedleOhh (" + delay + ")");
         play(BEEDLE_OHH, mp -> playBeedleOhh(

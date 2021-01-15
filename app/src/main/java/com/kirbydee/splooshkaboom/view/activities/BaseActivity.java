@@ -14,6 +14,7 @@ import com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation;
 import com.kirbydee.splooshkaboom.utils.Storage;
 
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import static com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation.NORMAL_FADE;
 import static com.kirbydee.splooshkaboom.model.anim.ActivityTransitionAnimation.NO_SPECIAL;
@@ -107,7 +108,15 @@ public abstract class BaseActivity extends Activity {
 
     protected <A extends Activity> void changeActivity(final Class<A> activity) {
         Log.i(TAG, "changeActivity");
+        changeActivity(activity, null);
+    }
+
+    protected <A extends Activity> void changeActivity(final Class<A> activity, Supplier<Bundle> bundleSupplier) {
+        Log.i(TAG, "changeActivity");
         Intent intent = new Intent(this, activity);
+        if (bundleSupplier != null) {
+            intent.putExtras(bundleSupplier.get());
+        }
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         finish();
     }

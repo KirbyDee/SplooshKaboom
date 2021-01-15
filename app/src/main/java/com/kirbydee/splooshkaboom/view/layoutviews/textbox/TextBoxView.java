@@ -4,41 +4,38 @@ import android.animation.Animator;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.widget.RelativeLayout;
 
-import androidx.appcompat.widget.AppCompatImageView;
+import static com.kirbydee.splooshkaboom.utils.Consts.TEXT_BOX_FADE_IN_DURATION;
 
-import static com.kirbydee.splooshkaboom.utils.Consts.TEXT_BOX_NEXT_FADE_IN_DURATION;
+public class TextBoxView extends RelativeLayout {
 
-public class TextBoxNext extends AppCompatImageView {
-
-    private static final String TAG = TextBoxNext.class.getName();
+    private static final String TAG = TextBoxView.class.getName();
 
     public interface Listener {
 
-        void onCreate(TextBoxNext view);
+        void onCreate(TextBoxView textBoxView);
 
-        void onAppear(TextBoxNext view);
+        void onAppear(TextBoxView textBoxView);
     }
 
     private Listener listener;
 
-    public TextBoxNext(Context context) {
+    public TextBoxView(Context context) {
         super(context);
         init(context);
     }
 
-    public TextBoxNext(Context context, AttributeSet attrs) {
+    public TextBoxView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
     private void init(Context context) {
         Log.i(TAG, "init");
-        unShow();
-
         if (context instanceof Listener) {
             this.listener = (Listener) context;
-            this.listener.onCreate(this);
+            listener.onCreate(this);
         }
     }
 
@@ -57,7 +54,7 @@ public class TextBoxNext extends AppCompatImageView {
         setVisibility(VISIBLE);
         animate()
                 .alpha(1.0f)
-                .setDuration(TEXT_BOX_NEXT_FADE_IN_DURATION)
+                .setDuration(TEXT_BOX_FADE_IN_DURATION)
                 .setListener(getAnimatorListener())
                 .start();
     }
@@ -79,8 +76,8 @@ public class TextBoxNext extends AppCompatImageView {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                if (TextBoxNext.this.listener != null) {
-                    listener.onAppear(TextBoxNext.this);
+                if (TextBoxView.this.listener != null) {
+                    TextBoxView.this.listener.onAppear(TextBoxView.this);
                 }
             }
 

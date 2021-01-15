@@ -31,9 +31,11 @@ public class TextContract {
 
         void showNextText(int resId);
 
-        default void showTextBox() {
-            showTextBox(true);
+        default void showTextBoxText() {
+            showTextBoxText(true);
         }
+
+        void showTextBoxText(boolean show);
 
         void showTextBox(boolean show);
 

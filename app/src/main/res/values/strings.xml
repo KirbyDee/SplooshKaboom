@@ -26,4 +26,7 @@
     <string name="inventory_text_heart_piece">A voucher for a massage with happy ending!\n😙 mau mau 😙</string>
     <string name="inventory_text_triforce">Behind every picture rests a deeper meaning, especially taken ages ago!</string>
 
+    <!-- Win Text -->
+    <string name="win_text">Congratulations! You won [rupees]!</string>
+
 </resources>

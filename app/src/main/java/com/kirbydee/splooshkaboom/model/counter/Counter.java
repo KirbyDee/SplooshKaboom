@@ -2,9 +2,11 @@ package com.kirbydee.splooshkaboom.model.counter;
 
 import android.util.Log;
 
+import java.io.Serializable;
+
 import static com.kirbydee.splooshkaboom.utils.Consts.MAX_TURNS;
 
-public class Counter {
+public class Counter implements Serializable {
 
     private static final String TAG = Counter.class.getName();
 

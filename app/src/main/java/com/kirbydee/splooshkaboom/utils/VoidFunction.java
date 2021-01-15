@@ -4,4 +4,10 @@ package com.kirbydee.splooshkaboom.utils;
 public interface VoidFunction {
 
     void run();
+
+    static VoidFunction nothing() {
+        return () -> {
+            // do nothing
+        };
+    }
 }

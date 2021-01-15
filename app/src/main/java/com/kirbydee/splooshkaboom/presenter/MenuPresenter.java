@@ -36,7 +36,7 @@ public class MenuPresenter extends TextPresenter<MenuContract.View, MenuState> i
     private void showMenu() {
         Log.i(TAG, "showMenu");
         this.view.enableScreenClick(false);
-        this.view.showTextBox(false);
+        this.view.showTextBoxText(false);
         this.view.showMenu();
     }
 

@@ -16,6 +16,7 @@ import com.kirbydee.splooshkaboom.model.tile.game.GameTile;
 import com.kirbydee.splooshkaboom.model.tile.state.Bomb;
 import com.kirbydee.splooshkaboom.model.tile.state.Squid;
 import com.kirbydee.splooshkaboom.presenter.GamePresenter;
+import com.kirbydee.splooshkaboom.utils.Storage;
 import com.kirbydee.splooshkaboom.utils.Vibrator;
 import com.kirbydee.splooshkaboom.view.dialog.RestartDialog;
 import com.kirbydee.splooshkaboom.view.layoutviews.ResetView;
@@ -243,14 +244,25 @@ public class GameActivity extends MediaBaseActivity implements
     @Override
     public void onWin(Counter counter) {
         Log.i(TAG, "onWin (" + counter + ")");
-        getStorage().storeRecord(counter);
-        changeActivity(WinActivity.class);
+        Storage storage = getStorage();
+        Counter record = storage.getRecord();
+        if (record.get() > counter.get()) {
+            storage.storeRecord(counter);
+        }
+        changeActivity(WinActivity.class, () -> getWinBundleSupplier(counter));
+    }
+
+    private Bundle getWinBundleSupplier(Counter counter) {
+        Log.i(TAG, "getWinBundleSupplier (" + counter + ")");
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("counter", counter);
+        return bundle;
     }
 
     @Override
     public void onLoss() {
         Log.i(TAG, "onLoss");
-        changeActivity(WinActivity.class); // TODO
+        changeActivity(GameOverActivity.class);
     }
 
     @Override
