@@ -2,6 +2,7 @@ package com.kirbydee.splooshkaboom.view.layoutviews.inventory;
 
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
 
@@ -29,17 +30,25 @@ public class GifInventoryItemView extends InventoryItemView {
     protected void init(Context context, @Nullable AttributeSet attrs) {
         super.init(context, attrs);
         Log.i(TAG, "init");
-
-        this.selectedAnimation = (AnimationDrawable) getBackground();
+        Drawable drawable = getBackground();
+        if (drawable instanceof AnimationDrawable) {
+            this.selectedAnimation = (AnimationDrawable) drawable;
+        }
     }
 
     @Override
     protected void startSelectedAnimation() {
-        post(() -> this.selectedAnimation.start());
+        Log.i(TAG, "startSelectedAnimation");
+        if (this.selectedAnimation != null) {
+            post(() -> this.selectedAnimation.start());
+        }
     }
 
     @Override
     protected void stopSelectedAnimation() {
-        post(() -> this.selectedAnimation.stop());
+        Log.i(TAG, "stopSelectedAnimation");
+        if (this.selectedAnimation != null) {
+            post(() -> this.selectedAnimation.stop());
+        }
     }
 }

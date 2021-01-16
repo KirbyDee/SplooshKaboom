@@ -2,10 +2,9 @@ package com.kirbydee.splooshkaboom.view.layoutviews.shop;
 
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
-
-import androidx.annotation.Nullable;
 
 public class GifShopItemView extends ShopItemView {
 
@@ -25,21 +24,27 @@ public class GifShopItemView extends ShopItemView {
         super(context, attrs, defStyleAttr);
     }
 
-    @Override
-    protected void init(Context context, @Nullable AttributeSet attrs) {
-        super.init(context, attrs);
-        Log.i(TAG, "init");
-
-        this.idleAnimation = (AnimationDrawable) getBackground();
-    }
-
+    // TODO: that's ugly ..
+    // TODO: also check inventory
     @Override
     protected void startIdleAnimation() {
-        post(() -> this.idleAnimation.start());
+        Log.i(TAG, "startIdleAnimation");
+        if (this.idleAnimation == null) {
+            Drawable drawable = getBackground();
+            if (drawable instanceof AnimationDrawable) {
+                this.idleAnimation = (AnimationDrawable) drawable;
+            }
+        }
+        if (this.idleAnimation != null) {
+            post(() -> this.idleAnimation.start());
+        }
     }
 
     @Override
     protected void stopIdleAnimation() {
-        post(() -> this.idleAnimation.stop());
+        Log.i(TAG, "stopIdleAnimation");
+        if (this.idleAnimation != null) {
+            post(() -> this.idleAnimation.stop());
+        }
     }
 }

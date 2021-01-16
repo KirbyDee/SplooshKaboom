@@ -134,7 +134,6 @@ public class MenuActivity extends TextBaseActivity<MenuContract.Presenter> imple
         this.menuQuit.setVisibility(visibility);
 
         // enable click
-        // TODO: better visuals for those buttons
         this.menuStart.setClickable(show);
         this.menuShop.setClickable(show);
         this.menuInventory.setClickable(show);

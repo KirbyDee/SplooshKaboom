@@ -30,7 +30,6 @@ public class StaticInventoryItemView extends InventoryItemView {
     protected void init(Context context, @Nullable AttributeSet attrs) {
         super.init(context, attrs);
         Log.i(TAG, "init");
-
         initIdleAnimation();
     }
 
@@ -45,11 +44,13 @@ public class StaticInventoryItemView extends InventoryItemView {
 
     @Override
     protected void startSelectedAnimation() {
+        Log.i(TAG, "startSelectedAnimation");
         post(() -> this.selectedAnimation.start());
     }
 
     @Override
     protected void stopSelectedAnimation() {
+        Log.i(TAG, "stopSelectedAnimation");
         post(() -> this.selectedAnimation.cancel());
     }
 }

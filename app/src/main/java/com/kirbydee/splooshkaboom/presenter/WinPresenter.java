@@ -27,13 +27,13 @@ public class WinPresenter extends TextPresenter<WinContract.View, WinState> impl
     public WinPresenter(WinContract.View view, Storage storage, Counter counter) {
         super(view, storage);
 
-        if (counter.get() <= 9) {
+        if (counter.get() <= 12) {
             this.wonRupee = YELLOW;
         }
-        else if (counter.get() <= 15) {
+        else if (counter.get() <= 18) {
             this.wonRupee = RED;
         }
-        else if (counter.get() <= 20) {
+        else if (counter.get() <= 24) {
             this.wonRupee = BLUE;
         }
         else {

@@ -51,7 +51,7 @@
                     android:layout_centerVertical="true"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:fontFamily="@font/comic_sans_ms"/>
+                    android:fontFamily="@font/windwaker"/>
 
             </RelativeLayout>
 
@@ -140,7 +140,7 @@
                 android:layout_centerVertical="true"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:fontFamily="@font/comic_sans_ms" />
+                android:fontFamily="@font/windwaker" />
 
         </RelativeLayout>
 

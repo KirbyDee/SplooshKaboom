@@ -36,7 +36,6 @@ import static com.kirbydee.splooshkaboom.model.media.Sound.KABOOM;
 import static com.kirbydee.splooshkaboom.model.media.Sound.SPLOOSH;
 import static com.kirbydee.splooshkaboom.utils.Consts.GAME_ACTIVITY_BACKGROUND_SOUND_DELAY;
 
-// TODO: initial sound is twice??
 public class GameActivity extends MediaBaseActivity implements
         GameTileView.Listener, BombView.Listener, SquidView.Listener,
         CounterView.Listener, RecordView.Listener, GameContract.View,
@@ -97,14 +96,6 @@ public class GameActivity extends MediaBaseActivity implements
     public void onShake(int count) {
         Log.i(TAG, "onShake (" + count + ")");
         this.restartDialog.show();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.i(TAG, "onResume");
-
-        play(GAME_START);
     }
 
     @Override
@@ -246,7 +237,7 @@ public class GameActivity extends MediaBaseActivity implements
         Log.i(TAG, "onWin (" + counter + ")");
         Storage storage = getStorage();
         Counter record = storage.getRecord();
-        if (record.get() > counter.get()) {
+        if (record.get() < 0 || record.get() > counter.get()) {
             storage.storeRecord(counter);
         }
         changeActivity(WinActivity.class, () -> getWinBundleSupplier(counter));

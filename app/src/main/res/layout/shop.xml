@@ -51,7 +51,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="10"
                 android:layout_marginStart="10dp"
-                android:fontFamily="@font/comic_sans_ms"
+                android:fontFamily="@font/windwaker"
                 android:text="0"
                 style="@style/RupeeCount"/>
 
@@ -138,7 +138,7 @@
                 <com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextBoxText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/comic_sans_ms"
+                    android:fontFamily="@font/windwaker"
                     android:layout_margin="30dp"
                     style="@style/TextBoxText" />
 

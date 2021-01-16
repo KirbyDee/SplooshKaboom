@@ -76,12 +76,12 @@ public abstract class ShopItemView extends AppCompatImageView implements Compara
         initSelectAnimation();
 
         showItem();
-        startIdleAnimation();
         setOnClickListener(this::onClick);
         if (context instanceof Listener) {
             this.listener = (Listener) context;
             this.listener.onCreate(this);
         }
+        startIdleAnimation();
     }
 
     private void initSelectAnimation() {

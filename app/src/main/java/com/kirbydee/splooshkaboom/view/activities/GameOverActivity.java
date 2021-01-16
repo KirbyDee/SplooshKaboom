@@ -66,7 +66,9 @@ public class GameOverActivity extends MediaBaseActivity
         Log.i(TAG, "setUpListeners");
 
         this.continueButton.setOnClickListener(this::onContinueClick);
+        this.continueButton.setClickable(false);
         this.quitButton.setOnClickListener(this::onQuitClick);
+        this.quitButton.setClickable(false);
     }
 
     private void onContinueClick(View v) {
@@ -105,6 +107,7 @@ public class GameOverActivity extends MediaBaseActivity
 
     @Override
     public void onAnimationEnd(GameOverButton button) {
-        // do nothing
+        Log.i(TAG, "onAnimationEnd (" + button + ")");
+        button.setClickable(true);
     }
 }

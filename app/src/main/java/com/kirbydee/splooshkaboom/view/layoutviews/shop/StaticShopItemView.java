@@ -30,7 +30,6 @@ public class StaticShopItemView extends ShopItemView {
     protected void init(Context context, @Nullable AttributeSet attrs) {
         super.init(context, attrs);
         Log.i(TAG, "init");
-
         initIdleAnimation();
     }
 
@@ -45,11 +44,13 @@ public class StaticShopItemView extends ShopItemView {
 
     @Override
     protected void startIdleAnimation() {
+        Log.i(TAG, "startIdleAnimation");
         post(() -> this.idleAnimation.start());
     }
 
     @Override
     protected void stopIdleAnimation() {
+        Log.i(TAG, "stopIdleAnimation");
         post(() -> this.idleAnimation.cancel());
     }
 
