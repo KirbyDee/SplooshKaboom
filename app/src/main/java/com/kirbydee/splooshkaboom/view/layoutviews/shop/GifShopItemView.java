@@ -6,6 +6,8 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 public class GifShopItemView extends ShopItemView {
 
     private static final String TAG = GifShopItemView.class.getName();
@@ -24,27 +26,32 @@ public class GifShopItemView extends ShopItemView {
         super(context, attrs, defStyleAttr);
     }
 
-    // TODO: that's ugly ..
-    // TODO: also check inventory
     @Override
-    protected void startIdleAnimation() {
-        Log.i(TAG, "startIdleAnimation");
+    protected void init(Context context, @Nullable AttributeSet attrs) {
+        super.init(context, attrs);
+        Log.i(TAG, "init");
+
         if (this.idleAnimation == null) {
             Drawable drawable = getBackground();
             if (drawable instanceof AnimationDrawable) {
                 this.idleAnimation = (AnimationDrawable) drawable;
             }
         }
+    }
+
+    @Override
+    protected void postStartIdleAnimation() {
+        Log.i(TAG, "postStartIdleAnimation");
         if (this.idleAnimation != null) {
-            post(() -> this.idleAnimation.start());
+            this.idleAnimation.start();
         }
     }
 
     @Override
-    protected void stopIdleAnimation() {
-        Log.i(TAG, "stopIdleAnimation");
+    protected void postStopIdleAnimation() {
+        Log.i(TAG, "postStopIdleAnimation");
         if (this.idleAnimation != null) {
-            post(() -> this.idleAnimation.stop());
+            this.idleAnimation.stop();
         }
     }
 }

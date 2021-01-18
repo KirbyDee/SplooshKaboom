@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import com.kirbydee.splooshkaboom.R;
 import com.kirbydee.splooshkaboom.contract.ShopContract;
+import com.kirbydee.splooshkaboom.controller.HandlerController;
 import com.kirbydee.splooshkaboom.model.media.Sound;
 import com.kirbydee.splooshkaboom.presenter.ShopPresenter;
 import com.kirbydee.splooshkaboom.view.layoutviews.dialog.ShopDialogView;
@@ -34,6 +35,8 @@ public class ShopActivity extends TextBaseActivity<ShopContract.Presenter> imple
     private Set<ShopItemView> shopItems;
 
     private ShopDialogView shopDialogView;
+
+    private HandlerController.CallbackHandler buyDialogCallback;
 
     private Button buyButton;
 
@@ -173,6 +176,9 @@ public class ShopActivity extends TextBaseActivity<ShopContract.Presenter> imple
     @Override
     public void onBackPressed() {
         Log.i(TAG, "onBackPressed");
+        if (this.buyDialogCallback != null) {
+            this.buyDialogCallback.cancel();
+        }
         this.presenter.onBackPressed();
     }
 
@@ -193,7 +199,7 @@ public class ShopActivity extends TextBaseActivity<ShopContract.Presenter> imple
         Log.i(TAG, "showBuyDialog (" + view + ")");
 
         // show dialog after some delay
-        runAfterDelay(
+        this.buyDialogCallback = runAfterDelay(
                 () -> this.shopDialogView.fadeIn(),
                 SHOP_ACTIVITY_BUY_DIALOG_SHOW_DELAY
         );

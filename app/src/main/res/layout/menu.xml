@@ -48,7 +48,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="10"
                 android:layout_marginStart="10dp"
-                android:fontFamily="@font/windwaker"
+                android:fontFamily="@font/windwaker_font"
                 android:text="0"
                 style="@style/RupeeCount"/>
 
@@ -81,7 +81,7 @@
                 <com.kirbydee.splooshkaboom.view.layoutviews.textbox.TextBoxText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/windwaker"
+                    android:fontFamily="@font/windwaker_font"
                     android:layout_margin="30dp"
                     style="@style/TextBoxText" />
 
@@ -95,41 +95,41 @@
                     android:layout_margin="30dp">
 
                     <!-- TODO For some reason the font is not taken? -->
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/menuStart"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/windwaker"
+                        android:fontFamily="@font/windwaker_font"
                         android:layout_weight="25"
                         android:gravity="center"
                         android:text="Start"
                         style="@style/MenuText" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/menuShop"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/windwaker"
+                        android:fontFamily="@font/windwaker_font"
                         android:layout_weight="25"
                         android:gravity="center"
                         android:text="Shop"
                         style="@style/MenuText" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/menuInventory"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/windwaker"
+                        android:fontFamily="@font/windwaker_font"
                         android:layout_weight="25"
                         android:gravity="center"
                         android:text="Inventory"
                         style="@style/MenuText" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/menuQuit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/windwaker"
+                        android:fontFamily="@font/windwaker_font"
                         android:layout_weight="25"
                         android:gravity="center"
                         android:text="Quit"

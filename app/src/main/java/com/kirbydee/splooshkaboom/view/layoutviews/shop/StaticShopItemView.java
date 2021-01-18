@@ -43,15 +43,15 @@ public class StaticShopItemView extends ShopItemView {
     }
 
     @Override
-    protected void startIdleAnimation() {
-        Log.i(TAG, "startIdleAnimation");
-        post(() -> this.idleAnimation.start());
+    protected void postStartIdleAnimation() {
+        Log.i(TAG, "postStartIdleAnimation");
+        this.idleAnimation.start();
     }
 
     @Override
-    protected void stopIdleAnimation() {
-        Log.i(TAG, "stopIdleAnimation");
-        post(() -> this.idleAnimation.cancel());
+    protected void postStopIdleAnimation() {
+        Log.i(TAG, "postStopIdleAnimation");
+        this.idleAnimation.cancel();
     }
 
     @Override

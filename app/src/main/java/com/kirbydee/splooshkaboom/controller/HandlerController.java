@@ -13,13 +13,35 @@ public class HandlerController {
         this.handler = handler;
     }
 
-    public void postDelayed(final Runnable runnable, long delay) {
+    public CallbackHandler postDelayed(final Runnable runnable, long delay) {
         Log.i(TAG, "postDelay (" + runnable + ", " + delay + "ms)");
         this.handler.postDelayed(runnable, delay);
+        return new CallbackHandler(this, runnable);
+    }
+
+    public void remove(final Runnable runnable) {
+        Log.i(TAG, "remove (" + runnable + ")");
+        this.handler.removeCallbacks(runnable);
     }
 
     public void clear() {
         Log.i(TAG, "clear");
         this.handler.removeCallbacksAndMessages(null);
+    }
+
+    public static class CallbackHandler {
+
+        private final HandlerController handler;
+
+        private final Runnable runnable;
+
+        public CallbackHandler(HandlerController handler, Runnable runnable) {
+            this.handler = handler;
+            this.runnable = runnable;
+        }
+
+        public void cancel() {
+            this.handler.remove(this.runnable);
+        }
     }
 }

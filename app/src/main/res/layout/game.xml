@@ -51,7 +51,7 @@
                     android:layout_centerVertical="true"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:fontFamily="@font/windwaker"/>
+                    android:fontFamily="@font/windwaker_font"/>
 
             </RelativeLayout>
 
@@ -140,7 +140,7 @@
                 android:layout_centerVertical="true"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:fontFamily="@font/windwaker" />
+                android:fontFamily="@font/windwaker_font" />
 
         </RelativeLayout>
 

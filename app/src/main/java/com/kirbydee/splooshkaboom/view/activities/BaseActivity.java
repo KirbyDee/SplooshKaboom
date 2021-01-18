@@ -102,8 +102,8 @@ public abstract class BaseActivity extends Activity {
         this.handlerController.clear();
     }
 
-    protected void runAfterDelay(Runnable r, long delay) {
-        this.handlerController.postDelayed(r, delay);
+    protected HandlerController.CallbackHandler runAfterDelay(Runnable r, long delay) {
+        return this.handlerController.postDelayed(r, delay);
     }
 
     protected <A extends Activity> void changeActivity(final Class<A> activity) {

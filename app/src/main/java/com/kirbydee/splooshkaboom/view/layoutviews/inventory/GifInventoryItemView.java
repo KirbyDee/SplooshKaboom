@@ -39,16 +39,12 @@ public class GifInventoryItemView extends InventoryItemView {
     @Override
     protected void startSelectedAnimation() {
         Log.i(TAG, "startSelectedAnimation");
-        if (this.selectedAnimation != null) {
-            post(() -> this.selectedAnimation.start());
-        }
+        post(() -> this.selectedAnimation.start());
     }
 
     @Override
     protected void stopSelectedAnimation() {
         Log.i(TAG, "stopSelectedAnimation");
-        if (this.selectedAnimation != null) {
-            post(() -> this.selectedAnimation.stop());
-        }
+        post(() -> this.selectedAnimation.stop());
     }
 }

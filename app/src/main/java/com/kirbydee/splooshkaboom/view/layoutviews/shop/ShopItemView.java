@@ -153,9 +153,19 @@ public abstract class ShopItemView extends AppCompatImageView implements Compara
         post(() -> this.soldAnimations.start());
     }
 
-    protected abstract void startIdleAnimation();
+    protected void startIdleAnimation() {
+        Log.i(TAG, "startIdleAnimation");
+        post(this::postStartIdleAnimation);
+    }
 
-    protected abstract void stopIdleAnimation();
+    protected abstract void postStartIdleAnimation();
+
+    protected void stopIdleAnimation() {
+        Log.i(TAG, "stopIdleAnimation");
+        post(this::postStopIdleAnimation);
+    }
+
+    protected abstract void postStopIdleAnimation();
 
     protected int getItemResourceId() {
         return this.context.getResources().getIdentifier(this.itemResourceName, "drawable", this.context.getPackageName());
